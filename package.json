@@ -1,0 +1,16 @@
+{
+  "name": "devola2",
+  "version": "0.1.0",
+  "description": "Real time audio visualizer",
+  "main": "index.js",
+  "repository": "https://github.com/creative41/devola2.git",
+  "author": "vonqo",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^24.1.0"
+  }
+}

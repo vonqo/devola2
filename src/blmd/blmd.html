@@ -5,8 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/index.css">
+    <script language="javascript" type="text/javascript" src="/transition.js"></script>
+    <script language="javascript" type="text/javascript" src="/libs/p5js/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/libs/p5js/addons/p5.sound.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/libs/p5js/addons/p5.glitch.js"></script>
+
+    <script language="javascript" type="text/javascript" src="balmad_glitch.js"></script>
+    <script language="javascript" type="text/javascript" src="red_screen_of_death.js"></script>
+    <script language="javascript" type="text/javascript" src="carpet_mirror.js"></script>
+    <script language="javascript" type="text/javascript" src="carpet_pixelsort.js"></script>
+    <script language="javascript" type="text/javascript" src="balmad_gobi.js"></script>
+  
   </head>
-  <body style="background-color: red;">
-    HELLO ELECTRON
+  <body>
+    <div id="transition"></div>
+    <div id="filter"></div>
+    <div id="container"></div>
+
+    <script language="javascript" type="text/javascript">
+
+      const SCENE = {
+        BALMAD_GLITCH:        '1',
+        RED_SCREEN_OF_DEATH:  '2',
+        CARPET_MIRROR:        '3',
+        CARPET_PIXELSORT:     '4',
+        BALMAD_GOBI:          '5',
+      }
+
+      // ============================================================== //
+      let buffer;
+      let filterOpacity = 0;
+      const filterDelta = 0.025;
+
+      // ============================================================== //
+      window.addEventListener("keydown", function (event) {
+        switch(event.key) {
+          case SCENE.BALMAD_GLITCH:
+            transitionEffect(balmadGlitch);
+            break;
+          case SCENE.RED_SCREEN_OF_DEATH:
+            transitionEffect(redScreenDeath);
+            break;
+          case SCENE.CARPET_MIRROR:
+            transitionEffect(carpetMirror);
+            break;
+          case SCENE.CARPET_PIXELSORT:
+            transitionEffect(carpetPixelsort);
+            break;
+          case SCENE.BALMAD_GOBI:
+            transitionEffect(balmadGobi);
+            break;
+        }
+
+        event.preventDefault();
+      }, true);
+
+    </script>
   </body>
 </html>

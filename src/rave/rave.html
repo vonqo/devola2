@@ -4,9 +4,38 @@
     <title>Devola2 - 0422 Rave</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="../../styles/index.css">
+    <script language="javascript" type="text/javascript" src="../../transition.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/aurora/aurora.js"></script>
   </head>
   <body>
-    HELLO ELECTRON
+    <div id="transition"></div>
+    <div id="filter"></div>
+    <div id="container"></div>
+
+    <script language="javascript" type="text/javascript">
+      const SCENE = {
+        AURORA:       '1',
+      }
+
+      // ============================================================== //
+      let buffer;
+      let filterOpacity = 0;
+      const filterDelta = 0.025;
+
+      // ============================================================== //
+      window.addEventListener("keydown", function (event) {
+        switch(event.key) {
+          case SCENE.AURORA:
+            transitionEffect(aurora);
+            break;
+        }
+
+        event.preventDefault();
+      }, true);
+    </script>
   </body>
 </html>

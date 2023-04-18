@@ -1,4 +1,10 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const debug = require('electron-debug');
+try {
+	require('electron-reloader')(module);
+} catch {}
+
+debug();
 
 const createWindow = () => {
   const win = new BrowserWindow({

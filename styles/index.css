@@ -1,24 +1,25 @@
 @font-face {
   font-family: JetBrainsMono;
-  src: url('/assets/font/JetBrainsMono/JetBrainsMono-Regular.ttf');
+  src: url('../assets/font/JetBrainsMono/JetBrainsMono-Regular.ttf');
 }
 
 @font-face {
   font-family: ChivoMono;
-  src: url('/assets/font/ChivoMono/ChivoMono-Regular.ttf');
+  src: url('../assets/font/ChivoMono/ChivoMono-Regular.ttf');
 }
 
 @font-face {
   font-family: RobotoMono;
-  src: url('/assets/font/RobotoMono/RobotoMono-Regular.ttf';
+  src: url('../assets/font/RobotoMono/RobotoMono-Regular.ttf');
 }
 
 body { 
   font-family: 'JetBrainsMono';
   background-color: black;
+  color: white;
   font-size: 0px;
-  padding: 0; 
-  margin: 0; 
+  padding: 0px; 
+  margin: 0px; 
   overflow: hidden; 
   cursor: none;
 } 
@@ -40,15 +41,15 @@ body {
 }
 
 .fadeIn {
-  -webkit-animation: fadein 0.2s linear forwards;
-  animation: fadein 0.2s linear forwards;
+  -webkit-animation: fadein 0.5s linear forwards;
+  animation: fadein 0.5s linear forwards;
   background: black;
   opacity: 1;
 }
 
 .fadeOut {
-  -webkit-animation: fadeout 0.2s linear forwards;
-  animation: fadeout 0.2s linear forwards;
+  -webkit-animation: fadeout 0.5s linear forwards;
+  animation: fadeout 0.5s linear forwards;
   background: black;
   opacity: 0;
 }

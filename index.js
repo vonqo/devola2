@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, systemPreferences } = require('electron');
 const debug = require('electron-debug');
 try {
 	require('electron-reloader')(module);
@@ -9,10 +9,12 @@ debug();
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    fullscreen: true
   })
 
-  win.loadFile('index.html')
+  win.loadFile('index.html');
+  // systemPreferences.askForMediaAccess("microphone");
 }
 
 app.whenReady().then(() => {

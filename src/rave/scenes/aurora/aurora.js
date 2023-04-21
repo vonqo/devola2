@@ -1,7 +1,7 @@
 const aurora = function(sketch) {
 
   const bassEnergyRange = {
-    low: 125,
+    low: 130,
     high: 255
   };
 
@@ -12,18 +12,20 @@ const aurora = function(sketch) {
 
   let img0;
   let img1;
+  let logo;
 
   // ============================================================== //
   sketch.preload = function() {
     aurora = sketch.loadShader('scenes/aurora/aurora.vert', 'scenes/aurora/aurora.frag')
     img0 = sketch.loadImage('scenes/aurora/texture.png');
     img1 = sketch.loadImage('scenes/aurora/texture.png');
+    logo = sketch.loadImage('scenes/aurora/logo.png');
   }
 
   // ============================================================== //
   sketch.setup = function() {
-    sketch.createCanvas(1920, 1080, sketch.WEBGL);
-    pg = sketch.createGraphics(1920, 1080, sketch.WEBGL);
+    sketch.createCanvas(1920, 730, sketch.WEBGL);
+    pg = sketch.createGraphics(1920, 730, sketch.WEBGL);
 
     input = new p5.AudioIn();
     input.start();
@@ -31,7 +33,8 @@ const aurora = function(sketch) {
     gl = this.canvas.getContext('webgl');
     gl.disable(gl.DEPTH_TEST);
 
-    sketch.shader(aurora);
+    pg.shader(aurora);
+    sketch.imageMode(sketch.CENTER);
 
     fft = new p5.FFT(0.8, 256);
     fft.setInput(input);
@@ -39,8 +42,12 @@ const aurora = function(sketch) {
 
   // ============================================================== //
   sketch.draw = function() {
+    let spectrum = fft.analyze();
     let bass = fft.getEnergy("bass");
     let mid = fft.getEnergy("highMid");
+    
+    console.log(spectrum);
+
     let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, sketch.width, true);
     // let energyMid = sketch.map(mid),
 
@@ -50,13 +57,17 @@ const aurora = function(sketch) {
     aurora.setUniform("iChannel1", img1);
     aurora.setUniform("energyBass", energyBass);
 
-    sketch.shader(aurora);
-    sketch.box(sketch.width, sketch.height);
+    pg.box(sketch.width, sketch.height);
+
+    sketch.image(pg, 0 ,0, sketch.width, sketch.height);
+
+    ratio = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.4, 0.8, true);
+    sketch.image(logo, 0, 0, 750 * ratio, 321 * ratio);
   }
 
   // ============================================================== //
   sketch.keyTyped = function() {
-
+    
   }
   
 }

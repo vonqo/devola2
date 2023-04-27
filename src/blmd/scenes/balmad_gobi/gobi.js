@@ -1,4 +1,4 @@
-const redScreenOfDeath = function(sketch) {
+const gobi = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {

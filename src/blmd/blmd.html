@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Devola2 - B.L.M.D</title>
+    <title>Devola22 - B.L.M.D</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/index.css">
@@ -10,11 +10,13 @@
     <script language="javascript" type="text/javascript" src="/libs/p5js/addons/p5.sound.min.js"></script>
     <script language="javascript" type="text/javascript" src="/libs/p5js/addons/p5.glitch.js"></script>
 
-    <script language="javascript" type="text/javascript" src="balmad_glitch.js"></script>
-    <script language="javascript" type="text/javascript" src="red_screen_of_death.js"></script>
-    <script language="javascript" type="text/javascript" src="carpet_mirror.js"></script>
-    <script language="javascript" type="text/javascript" src="carpet_pixelsort.js"></script>
-    <script language="javascript" type="text/javascript" src="balmad_gobi.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/exception/exception.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_pixelsort/pixelsort.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/nogoo_duug/nogoo_duug.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/balmad_gobi/gobi.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/belcheer/belcheer.js"></script>
   
   </head>
   <body>
@@ -25,11 +27,13 @@
     <script language="javascript" type="text/javascript">
 
       const SCENE = {
-        BALMAD_GLITCH:        '1',
-        RED_SCREEN_OF_DEATH:  '2',
-        CARPET_MIRROR:        '3',
-        CARPET_PIXELSORT:     '4',
+        EXCEPTION:            '1', // 
+        CARPET_GLITCH:        '2', // DONE
+        CARPET_MIRROR:        '3', // DONE
+        CARPET_PIXELSORT:     '4', // 
+        NOGOO_DUUG:           '5',
         BALMAD_GOBI:          '5',
+        BELCHEER:             '6',
       }
 
       // ============================================================== //
@@ -40,23 +44,28 @@
       // ============================================================== //
       window.addEventListener("keydown", function (event) {
         switch(event.key) {
-          case SCENE.BALMAD_GLITCH:
-            transitionEffect(balmadGlitch);
+          case SCENE.EXCEPTION:
+            transitionEffect(exception);
             break;
-          case SCENE.RED_SCREEN_OF_DEATH:
-            transitionEffect(redScreenDeath);
+          case SCENE.CARPET_GLITCH:
+            transitionEffect(glitch);
             break;
           case SCENE.CARPET_MIRROR:
-            transitionEffect(carpetMirror);
+            transitionEffect(mirror);
             break;
           case SCENE.CARPET_PIXELSORT:
-            transitionEffect(carpetPixelsort);
+            transitionEffect(pixelsort);
+            break;
+          case SCENE.NOGOO_DUUG:
+            transitionEffect(nogooDuug);
             break;
           case SCENE.BALMAD_GOBI:
-            transitionEffect(balmadGobi);
+            transitionEffect(gobi);
+            break;
+          case SCENE.BELCHEER:
+            transitionEffect(belcheer);
             break;
         }
-
         event.preventDefault();
       }, true);
     </script>

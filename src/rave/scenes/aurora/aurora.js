@@ -1,7 +1,7 @@
 const aurora = function(sketch) {
 
   const bassEnergyRange = {
-    low: 130,
+    low: 100,
     high: 255
   };
 
@@ -19,7 +19,7 @@ const aurora = function(sketch) {
     aurora = sketch.loadShader('scenes/aurora/aurora.vert', 'scenes/aurora/aurora.frag')
     img0 = sketch.loadImage('scenes/aurora/texture.png');
     img1 = sketch.loadImage('scenes/aurora/texture.png');
-    logo = sketch.loadImage('scenes/aurora/logo.png');
+    logo = sketch.loadImage('scenes/aurora/hyper.png');
   }
 
   // ============================================================== //
@@ -43,12 +43,11 @@ const aurora = function(sketch) {
   // ============================================================== //
   sketch.draw = function() {
     let spectrum = fft.analyze();
-    let bass = fft.getEnergy("bass");
-    let mid = fft.getEnergy("highMid");
-    
+    let bass = fft.getEnergy("mid");
+
     console.log(spectrum);
 
-    let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, sketch.width, true);
+    let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.2, 0.7, true);
     // let energyMid = sketch.map(mid),
 
     aurora.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
@@ -61,8 +60,8 @@ const aurora = function(sketch) {
 
     sketch.image(pg, 0 ,0, sketch.width, sketch.height);
 
-    ratio = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.4, 0.8, true);
-    sketch.image(logo, 0, 0, 750 * ratio, 321 * ratio);
+    ratio = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.2, 0.45, true);
+    sketch.image(logo, -200, -250, 750 * ratio, 686 * ratio);
   }
 
   // ============================================================== //

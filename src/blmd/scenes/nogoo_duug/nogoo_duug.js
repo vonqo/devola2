@@ -1,4 +1,4 @@
-const balmadGlitch = function(sketch) {
+const nogooDuug = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {

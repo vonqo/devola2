@@ -9,7 +9,7 @@ uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
 uniform float energyBass;
 
-#define TAU 6.2831853071
+#define TAU 5.2831853071
 
 void main()
 {
@@ -24,13 +24,14 @@ void main()
     float v = uv.y + d * 0.1;
     v = 1.0 - abs(v * 2.0 - 1.0);
     // v = pow(v, 2.0 + sin((iTime * 0.2 + d * 0.25) * TAU) * 0.5);
-    v = pow(v, 2.0 + sin((iTime * 0.2 + d * 0.25) * TAU) * 1.5);
+    v = pow(v, 2.0 + sin((iTime * energyBass + d * 0.25) * TAU) * 1.5);
     
     vec3 color = vec3(0.0);
     
     float x = (1.0 - uv.x * 0.75);
     float y = 1.0 - abs(uv.y * 2.0 - 1.0);
-    color += vec3(x * 0.5, y, x) * v;
+    float z = 0.75;
+    color += vec3(y, x, z) * v;
     
     // stars
     vec2 seed = gl_FragCoord.xy;

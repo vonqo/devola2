@@ -8,8 +8,6 @@ precision mediump float;
 uniform vec2 iResolution;
 uniform int iFrame;
 uniform float iTime;
-uniform sampler2D iChannel0;
-uniform sampler2D iChannel1;
 uniform float energyBass;
 
 float dstepf = 0.0;
@@ -74,12 +72,12 @@ vec3 cam(vec2 uv, vec3 ro, vec3 cu, vec3 cv)
     return rd;
 }
 
-void main( out vec4 f, in vec2 g )
+void main()
 {
     vec2 si = iResolution.xy;
    	float t = iTime;
     Params.y = (sin(t*.5)*.5+.5)*.08;
-    f = vec4(0.);
+    gl_FragColor = vec4(0.);
     float ca = t*.2; // angle z
     float ce = 3.5; // elevation
     float cd = 0.5; // distance to origin axis
@@ -89,7 +87,7 @@ void main( out vec4 f, in vec2 g )
     float refr_a = 1.2; // refraction angle
     float refr_i = .8; // refraction intensity
     float bii = 0.8; // bright init intensity
-    vec2 uv = (g+g-si)/min(si.x, si.y);
+    vec2 uv = (gl_FragCoord+gl_FragCoord-si)/min(si.x, si.y);
     vec3 ro = vec3(sin(ca)*cd, ce+1., cos(ca)*cd); //
     vec3 rd = cam(uv, ro, cu, cv);
     float b = bii;
@@ -101,7 +99,7 @@ void main( out vec4 f, in vec2 g )
     for(int i=0;i<200;i++)
     {      
         iterUsed++;
-		    if(s<DPrec.x||s>DPrec.y) break;
+		if(s<DPrec.x||s>DPrec.y) break;
         s = map(p).x*(s>DPrec.x?RMPrec.x:RMPrec.y);
         if (sign(s) != rmd) break;
         d.y = d.x;
@@ -109,7 +107,7 @@ void main( out vec4 f, in vec2 g )
         p = ro+rd*d.x;
    	}
 
-    f += pow(b,15.);
+    gl_FragColor += pow(b,15.);
     
     if (d.x<DPrec.y)
     {
@@ -118,13 +116,13 @@ void main( out vec4 f, in vec2 g )
         vec3 ray = reflect(rd, n);
         // f += texture(i
         // , ray) * refl_i; 
-        f.rgb = mix( f.rgb, map(p).yzw,0.5);  
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, map(p).yzw,0.5);  
    	}
     else
     {
     	// f = texture(iChannel0, rd);
     }
     
-    f += dstepf;
+    gl_FragColor += dstepf;
 }
 

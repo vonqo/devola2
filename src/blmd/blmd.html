@@ -5,18 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/index.css">
-    <script language="javascript" type="text/javascript" src="/transition.js"></script>
-    <script language="javascript" type="text/javascript" src="/libs/p5js/p5.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/libs/p5js/addons/p5.sound.min.js"></script>
-    <script language="javascript" type="text/javascript" src="/libs/p5js/addons/p5.glitch.js"></script>
+    <script language="javascript" type="text/javascript" src="../../transition.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
 
     <script language="javascript" type="text/javascript" src="./scenes/exception/exception.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_pixelsort/pixelsort.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/nogoo_duug/nogoo_duug.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/balmad_gobi/gobi.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/belcheer/belcheer.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_menger/menger.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/windows/windows.js"></script>
   
   </head>
   <body>
@@ -25,15 +23,13 @@
     <div id="container"></div>
 
     <script language="javascript" type="text/javascript">
-
+      
       const SCENE = {
         EXCEPTION:            '1', // 
         CARPET_GLITCH:        '2', // DONE
         CARPET_MIRROR:        '3', // DONE
-        CARPET_PIXELSORT:     '4', // 
-        NOGOO_DUUG:           '5',
-        BALMAD_GOBI:          '5',
-        BELCHEER:             '6',
+        CARPET_MENGER:        '4', // DONE
+        WINDOWS:              '5', // 
       }
 
       // ============================================================== //
@@ -53,17 +49,11 @@
           case SCENE.CARPET_MIRROR:
             transitionEffect(mirror);
             break;
-          case SCENE.CARPET_PIXELSORT:
-            transitionEffect(pixelsort);
+          case SCENE.CARPET_MENGER:
+            transitionEffect(menger);
             break;
-          case SCENE.NOGOO_DUUG:
-            transitionEffect(nogooDuug);
-            break;
-          case SCENE.BALMAD_GOBI:
-            transitionEffect(gobi);
-            break;
-          case SCENE.BELCHEER:
-            transitionEffect(belcheer);
+          case SCENE.WINDOWS:
+            transitionEffect(windows);
             break;
         }
         event.preventDefault();

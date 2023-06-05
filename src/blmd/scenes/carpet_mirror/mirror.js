@@ -1,5 +1,7 @@
 const mirror = function(sketch) {
 
+    let pg;
+    let pg2;
     let gl;
     let fft;
     let input;
@@ -13,17 +15,22 @@ const mirror = function(sketch) {
     let carpetBase = 1;
     let carpetImg;
 
+    let nextCarpet = false;
+
     // ============================================================== //
     sketch.preload = function() {
         carpetShader = sketch.loadShader('scenes/carpet_mirror/mirror.vert', 'scenes/carpet_mirror/mirror.frag');
         carpetImg = sketch.loadImage('scenes/carpet_mirror/carpet.jpg');
+        carpetImg2 = sketch.loadImage('scenes/carpet_mirror/carpet2.png');
     }
 
     // ============================================================== //
     sketch.setup = function() {
         sketch.createCanvas(1920, 1080, sketch.WEBGL);
         pg = sketch.createGraphics(1920, 1080, sketch.WEBGL);
+        pg2 = sketch.createGraphics(1920, 1080, sketch.WEBGL);
         pg.image(carpetImg, -sketch.width/2, -sketch.height/2, sketch.width, sketch.height);
+        pg2.image(carpetImg2, -sketch.width/2, -sketch.height/2, sketch.width, sketch.height);
 
         input = new p5.AudioIn();
         input.start();
@@ -44,7 +51,7 @@ const mirror = function(sketch) {
         let bass = fft.getEnergy("mid");
         // let mapSize = 11 + (carpetBase * 1.5);
 
-        let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, 13, true);
+        let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, 24, true);
         // let energyBassFont = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, 50, true);
         
         if(sketch.keyIsDown(sketch.RIGHT_ARROW)) {
@@ -62,7 +69,11 @@ const mirror = function(sketch) {
         const my = (energyBass) + carpetBase;
         
         // Send the image to the shader
-        carpetShader.setUniform("uTexture", pg);
+        if(nextCarpet) {
+            carpetShader.setUniform("uTexture", pg);
+        } else {
+            carpetShader.setUniform("uTexture", pg2);
+        }
         carpetShader.setUniform("uScale", [mx, my]);
         
         // shader() sets the active shader with our shader
@@ -82,6 +93,8 @@ const mirror = function(sketch) {
             carpetBase += 100;
         } else if(sketch.keyCode === sketch.DOWN_ARROW) {
             carpetBase = 0;
+        } else if(sketch.keyCode === sketch.ENTER) {
+            nextCarpet = !nextCarpet;
         }
     }
     

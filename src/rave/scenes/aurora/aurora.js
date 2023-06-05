@@ -14,21 +14,26 @@ const aurora = function(sketch) {
   let img1;
   let logo;
 
+  let music
+
   // ============================================================== //
   sketch.preload = function() {
     aurora = sketch.loadShader('scenes/aurora/aurora.vert', 'scenes/aurora/aurora.frag')
     img0 = sketch.loadImage('scenes/aurora/texture.png');
     img1 = sketch.loadImage('scenes/aurora/texture.png');
     logo = sketch.loadImage('scenes/aurora/hyper.png');
+    music = sketch.loadSound('scenes/aurora/hyperworld.mp3');
   }
 
-  // ============================================================== //
+  // ==================================== ========================== //
   sketch.setup = function() {
-    sketch.createCanvas(1920, 730, sketch.WEBGL);
-    pg = sketch.createGraphics(1920, 730, sketch.WEBGL);
+    sketch.createCanvas(1920, 1080, sketch.WEBGL);
+    pg = sketch.createGraphics(1920, 1080, sketch.WEBGL);
 
-    input = new p5.AudioIn();
-    input.start();
+    // input = new p5.AudioIn();
+    // input.start();
+    // music.noLoop();
+    music.play();
 
     gl = this.canvas.getContext('webgl');
     gl.disable(gl.DEPTH_TEST);
@@ -37,15 +42,14 @@ const aurora = function(sketch) {
     sketch.imageMode(sketch.CENTER);
 
     fft = new p5.FFT(0.8, 256);
-    fft.setInput(input);
+    fft.setInput(music);
   }
 
   // ============================================================== //
   sketch.draw = function() {
     let spectrum = fft.analyze();
     let bass = fft.getEnergy("mid");
-
-    console.log(spectrum);
+    sketch.smooth();
 
     let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.2, 0.7, true);
     // let energyMid = sketch.map(mid),
@@ -61,7 +65,7 @@ const aurora = function(sketch) {
     sketch.image(pg, 0 ,0, sketch.width, sketch.height);
 
     ratio = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.2, 0.45, true);
-    sketch.image(logo, -200, -250, 750 * ratio, 686 * ratio);
+    sketch.image(logo, 0, -300, 750 * ratio, 750 * ratio);
   }
 
   // ============================================================== //

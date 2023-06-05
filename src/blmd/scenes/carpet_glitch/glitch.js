@@ -10,12 +10,15 @@ const glitch = function(sketch) {
     };
 
     let carpetImg;
+    let carpetImgInvert;
     let carpetShader;
+    let isInvert = false;
 
     // ============================================================== //
     sketch.preload = function() {
         carpetShader = sketch.loadShader('scenes/carpet_glitch/glitch.vert', 'scenes/carpet_glitch/glitch.frag');
         carpetImg = sketch.loadImage('scenes/carpet_glitch/carpet.jpg');
+        carpetImgInvert = sketch.loadImage('scenes/carpet_glitch/invert_carpet.jpg');
     }
 
     // ============================================================== //
@@ -48,15 +51,25 @@ const glitch = function(sketch) {
         carpetShader.setUniform("iTime", sketch.millis() * 0.001);
         carpetShader.setUniform("iMouse", [energyBass,energyBass]);
         carpetShader.setUniform("glitcher", glitcher)
-        carpetShader.setUniform("iChannel0", carpetImg);
+        if(isInvert) {
+            carpetShader.setUniform("iChannel0", carpetImgInvert);
+        } else {
+            carpetShader.setUniform("iChannel0", carpetImg);
+        }
+        
 
         pg.box(sketch.width, sketch.height);
         sketch.image(pg, 0 ,0, sketch.width, sketch.height);
     }
 
     // ============================================================== //
-    sketch.keyTyped = function() {
-        
+    sketch.keyPressed = function() {
+        console.log('KEY PRESSED');
+        if(sketch.keyCode === sketch.UP_ARROW) {
+            isInvert = false;
+        } else if(sketch.keyCode === sketch.DOWN_ARROW) {
+            isInvert = true;
+        }
     }
     
 }

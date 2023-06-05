@@ -3,12 +3,11 @@ precision mediump float;
 #endif
 
 uniform vec2 iResolution;
-uniform vec2 iMouse;
 uniform int iFrame;
 uniform float iTime;
 uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
-uniform float glitcher;
+uniform float speed;
 
 #define PI 3.1415926
 
@@ -33,7 +32,7 @@ void main()
     float t=iTime;
 	   
     // let's rotate ... 2D! gtr
-    // if(iMouse.z>0.)  uv = rotate( uv*2.-1.,sin(t/2.));
+    uv = rotate( uv*2.-1.,sin(t/4.));
     // if(iMouse.z>0.)  uv = rotate( uv*2.-1.,1.);
 	
 	float v = pow(3.0,it)+10.0;
@@ -46,7 +45,7 @@ void main()
             gl_FragColor *= vec4(texture2D(iChannel0,uv).xyz,1.0)*3.;
         }
 		v/=3.0;	
-		uv.x =uv.x+t/5.;// let's scrolling gtr 
+		uv.x =uv.x+t/speed;// let's scrolling gtr 
        
 	}
     gl_FragColor *= vec4(texture2D(iChannel1,q).xyz,1.0);

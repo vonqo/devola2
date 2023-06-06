@@ -8,18 +8,20 @@ debug();
 
 const createWindow = () => {
   const win = new BrowserWindow({
+    title: "Devola2",
     width: 800,
     height: 600,
+    icon: __dirname + '/assets/favicon.ico',
     fullscreen: true
   })
 
   win.loadFile('index.html');
-  // systemPreferences.askForMediaAccess("microphone");
+  systemPreferences.askForMediaAccess("microphone");
 }
 
 app.whenReady().then(() => {
-  createWindow();
-
+  createWindow(); 
+  
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   });

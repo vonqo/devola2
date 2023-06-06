@@ -8,8 +8,9 @@ function transitionEffect(newScene) {
     setTimeout(() => {
         canvas.innerHTML = '';
         if(buffer !== undefined) {
-        buffer.remove();
+            buffer.remove();
         }
+
         buffer = new p5(newScene, 'container');
     }, 200);
 
@@ -24,17 +25,17 @@ function transitionEffect(newScene) {
 }
 
 // ============================================================== //
-function filterSetOpacity(delta) {
-    let value = filterOpacity + delta;
-    console.log(value);
+// function filterSetOpacity(delta) {
+//     let value = filterOpacity + delta;
+//     console.log(value);
 
-    if(value > 1) {
-        value = 1;
-    } else if(value < 0) {
-        value = 0;
-    }
+//     if(value > 1) {
+//         value = 1;
+//     } else if(value < 0) {
+//         value = 0;
+//     }
 
-    filterOpacity = value;
-    document.getElementById("filter").style.opacity = String(value); 
-}
+//     filterOpacity = value;
+//     document.getElementById("filter").style.opacity = String(value); 
+// }
   

@@ -17,18 +17,23 @@ const mirror = function(sketch) {
 
     let nextCarpet = false;
 
+    let ww;
+    let hh;
+
     // ============================================================== //
     sketch.preload = function() {
         carpetShader = sketch.loadShader('scenes/carpet_mirror/mirror.vert', 'scenes/carpet_mirror/mirror.frag');
         carpetImg = sketch.loadImage('scenes/carpet_mirror/carpet.jpg');
         carpetImg2 = sketch.loadImage('scenes/carpet_mirror/carpet2.png');
+        ww = localStorage.getItem('width');
+        hh = localStorage.getItem('height');
     }
 
     // ============================================================== //
     sketch.setup = function() {
-        sketch.createCanvas(1920, 1080, sketch.WEBGL);
-        pg = sketch.createGraphics(1920, 1080, sketch.WEBGL);
-        pg2 = sketch.createGraphics(1920, 1080, sketch.WEBGL);
+        sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
+        pg = sketch.createGraphics(ww, hh, sketch.WEBGL);
+        pg2 = sketch.createGraphics(ww, hh, sketch.WEBGL);
         pg.image(carpetImg, -sketch.width/2, -sketch.height/2, sketch.width, sketch.height);
         pg2.image(carpetImg2, -sketch.width/2, -sketch.height/2, sketch.width, sketch.height);
 

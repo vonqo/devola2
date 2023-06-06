@@ -13,17 +13,22 @@ const menger = function(sketch) {
     let img0;
     let img1;
 
+    let ww;
+    let hh;
+
     // ============================================================== //
     sketch.preload = function() {
         menger = sketch.loadShader('scenes/carpet_menger/menger.vert', 'scenes/carpet_menger/menger.frag')
         img0 = sketch.loadImage('scenes/carpet_menger/Untitled.png');
         img1 = sketch.loadImage('scenes/carpet_menger/carpet2.png');
+        ww = localStorage.getItem('width');
+        hh = localStorage.getItem('height');
     }
 
     // ============================================================== //
     sketch.setup = function() {
-        sketch.createCanvas(1920, 1080, sketch.WEBGL);
-        pg = sketch.createGraphics(1920, 1080, sketch.WEBGL);
+        sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
+        pg = sketch.createGraphics(ww, hh, sketch.WEBGL);
         
         input = new p5.AudioIn();
         input.start();

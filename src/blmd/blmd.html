@@ -4,7 +4,7 @@
     <title>Devola22 - B.L.M.D</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="stylesheet" href="../../styles/index.css">
     <script language="javascript" type="text/javascript" src="../../transition.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/p5.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
@@ -23,6 +23,23 @@
     <div id="container"></div>
 
     <script language="javascript" type="text/javascript">
+
+      const getAudioInput = async () => {
+        const micDeviceId = localStorage.getItem("micDeviceId");
+        if(micDeviceId !== undefined || micDeviceId !== null) {
+          let constraints = {
+            audio : { 
+              deviceId: micDeviceId
+            }
+          }
+          navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+            // console.log("stream test: ", stream);
+            // this.handleSuccess(stream)
+          });
+        }
+      }
+
+      getAudioInput();
       
       const SCENE = {
         EXCEPTION:            '1', // 

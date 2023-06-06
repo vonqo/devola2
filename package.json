@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "electron ."
+    "start": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron ."
   },
   "devDependencies": {
     "electron": "^24.1.0",

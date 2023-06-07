@@ -38,4 +38,19 @@ function transitionEffect(newScene) {
 //     filterOpacity = value;
 //     document.getElementById("filter").style.opacity = String(value); 
 // }
-  
+
+// ============================================================== //
+const getAudioInput = async () => {
+    const micDeviceId = localStorage.getItem("micDeviceId");
+    if(micDeviceId !== undefined || micDeviceId !== null) {
+        let constraints = {
+        audio : { 
+            deviceId: micDeviceId
+        }
+        }
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+        // console.log("stream test: ", stream);
+        // this.handleSuccess(stream)
+        });
+    }
+}

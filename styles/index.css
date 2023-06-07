@@ -1,6 +1,19 @@
 @font-face {
   font-family: JetBrainsMono;
   src: url('../assets/font/JetBrainsMono/JetBrainsMono-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: JetBrainsMono;
+  src: url('../assets/font/JetBrainsMono/JetBrainsMono-SemiBold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: JetBrainsMono;
+  src: url('../assets/font/JetBrainsMono/JetBrainsMono-Bold.ttf');
+  font-weight: 700;
 }
 
 @font-face {
@@ -108,3 +121,8 @@ button {
 @keyframes fadeout {
   100% { opacity: 1; }
 }
+
+// 43 - 6900 dutuu tushaasan belen mongo
+// 42 - yag taarsn
+// 4 - QPay - 120.000 
+// 13 - 155.000 dutuu tushaasn

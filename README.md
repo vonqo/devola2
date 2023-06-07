@@ -1,2 +1,2 @@
-# devola2
-Devola 2 visualizer
+# Devola2
+Devola2 is a real-time audio visualizer.

@@ -6,51 +6,375 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/index.css">
     <style>
+      body {
+        overflow: visible; 
+      }
+
       .menu-body {
-        width: 100%;
-        height: 100%;
-        font-size: 14px;
-      }
-      .menu-footer {
-        position: absolute;
-        height: 20px;
-        bottom: 0px;
-      }
-      .button-wrapper {
+        padding: 30px;
         display: flex;
+        flex-wrap: wrap;
       }
-      .button-card {
-        padding: 10px 8px;
-        font-weight: 700;
-      }
+
       a {
         color: white;
         text-decoration: none
       }
+      
+    /* ====================================== */
+    .card {
+      box-shadow: none;
+      backface-visibility: visible;
+      background: transparent;
+      /* font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif; */
+      font-weight: 700;
+      transform-style: preserve-3d;
+      padding: 0;
+      height: auto;
+      margin: 0 2rem 4rem 0;
+      width: 18rem;
+      height: 25rem;
+      float: left;
+      transition: all 0.2s ease-out;
+      border: none;
+      letter-spacing: 1px;
+    }
+    .flip, .unflip {
+      background: rgba(0,0,0,0.1);
+      font-size: 1rem;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 100px;
+      line-height: 1rem;
+      cursor: pointer;
+      transition: all 0.1s ease-out;
+    }
+
+    .unflip {
+      top: auto;
+      background: #2d2d62;
+      bottom: 1rem;
+    }
+
+    .flip:hover {
+      background: rgba(0,0,0,0.3);
+    }
+
+    .inner-card-backface {
+      transform: rotateX(0) rotateY(0deg) scale(1) translateZ(-4px);
+      border-radius: 14px;
+      background: linear-gradient(45deg, #0b0b2a, #0b0b2a);
+      position: absolute;
+      top: 0;
+      color: white;
+      padding: 2rem;
+      box-sizing: border-box;
+      transition: all 0.15s ease-out;
+        will-change: transform, filter;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    .card .flip-inner-card {
+      transform: rotateY(180deg);
+      position: absolute;
+      top: 0;
+      padding: 2rem 1.5rem;
+      box-sizing: border-box;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .flip-inner-card h3 {
+      font-size: 1.25rem;
+      margin-top: 0;
+    }
+    .flip-inner-card p {
+      color: rgba(255,255,255,0.6);
+      font-weight: 400;
+      line-height: 1.5rem;
+    }
+
+    .card .inner-card {
+      font-size: 2rem;
+      color: white;
+      padding: 1rem 2rem;
+      line-height: 3rem;
+      will-change: transform, filter;
+      float: none;
+      background: black;
+      background-size: calc(100% + 6px) auto;
+      background-position: -3px -3px;
+      margin: 0;
+      transition: all 0.15s ease-out;
+      height: auto;
+      border-radius: 14px;
+      box-sizing: border-box;
+      overflow: hidden;
+      display: block;
+      margin: 0px auto;
+      transform: rotateX(0deg) rotateY(0deg) scale(1);
+      top: 0;
+      height: 100%;
+      filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
+      font-weight: 500;
+      perspective-origin: 0 0;
+      letter-spacing: 0;
+    }
+    
+    .card .glare {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: all 0.1s ease-out;
+      opacity: 0.6;
+      pointer-events: none;
+      height: 100%;
+      border-radius: 14px;
+      z-index: 9999;
+      mix-blend-mode: hard-light;
+      background: radial-gradient(circle at 50% 50%, rgb(199 198 243), transparent); 
+    }
+
+    .card .top-section {
+      background: linear-gradient(45deg, hsl(0deg 58% 51%), hsl(249deg 100% 54%));
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 14px 14px 0 0;
+      width: 100%;
+      height: 35%;
+      z-index: 99;
+    }
+
+    .card .glare {
+      opacity: 0;
+    }
+    .card.animated .glare {
+      opacity: 0.3;
+    }
+
+    .card.animated.user .glare {
+      opacity: 0.15;
+    }
+
     </style>
   </head>
   <body>
+
     <div class="menu-body">
-      <div class="button-wrapper">
-        <a href="src/blmd/blmd.html">
-          <div class="button-card">
-            B.L.M.D
-          </div>
-        </a>
-        <a href="src/rave/rave.html">
-          <div class="button-card">
-            RAVE (0422)
-          </div>
-        </a>
-        <a href="src/settings/settings.html">
-          <div class="button-card">
-            Settings
-          </div>
-        </a>
-      </div>
-      <div class="menu-footer">
-        2023 | ColorNoteCode | B.L.M.D 
-      </div>
+      <a href="src/blmd/blmd.html">
+        <div class="card">
+          <span class="inner-card-backface">
+            <span class="image">
+              <span class="unflip">Unflip</span>
+            </span>
+          </span>
+          <span class="inner-card" 
+            style="background-image: url('assets/image/blmd.png'); 
+            background-repeat: no-repeat; 
+            background-size: cover;">
+            <span class="flip">B.L.M.D</span>
+            <span class="glare"></span>
+          </span>
+        </div>
+      </a>
+
+      <a href="src/even_tide/even_tide.html">
+        <div class="card">
+          <span class="inner-card-backface">
+            <span class="image">
+              <span class="unflip">Unflip</span>
+            </span>
+          </span>
+          <span class="inner-card"
+            style="background-image: url('assets/image/eventide.png'); 
+              background-repeat: no-repeat; 
+              background-size: cover;">
+            <span class="flip">Even Tide</span>
+            <span class="glare"></span>
+          </span>
+        </div>
+      </a>
+
+      <a href="src/night_train/night_train.html">
+        <div class="card">
+          <span class="inner-card-backface">
+            <span class="image">
+              <span class="unflip">Unflip</span>
+            </span>
+          </span>
+          <span class="inner-card"
+            style="background-image: url('assets/image/nighttrain.png'); 
+              background-repeat: no-repeat; 
+              background-size: cover;">
+            <span class="flip">Night Train</span>
+            <span class="glare"></span>
+          </span>
+        </div>
+      </a>
+
+      <a href="src/rave/rave.html">
+        <div class="card">
+          <span class="inner-card-backface">
+            <span class="image">
+              <span class="unflip">Unflip</span>
+            </span>
+          </span>
+          <span class="inner-card">
+            <span class="flip">Rave</span>
+            <span class="glare"></span>
+          </span>
+        </div>
+      </a>
+
+      <a href="src/settings/settings.html">
+        <div class="card">
+          <span class="inner-card-backface">
+            <span class="image">
+              <span class="unflip">Unflip</span>
+            </span>
+          </span>
+          <span class="inner-card">
+            <span class="flip">Settings</span>
+            <span class="glare"></span>
+          </span>
+        </div>
+      </a>
+
+      <a href="src/debugger/debugger.html">
+        <div class="card">
+          <span class="inner-card-backface">
+            <span class="image">
+              <span class="unflip">Unflip</span>
+            </span>
+          </span>
+          <span class="inner-card"
+            style="background-image: url('assets/image/debug.png'); 
+                background-repeat: no-repeat; 
+                background-size: cover;">
+            <span class="flip">Debugger</span>
+            <span class="glare"></span>
+          </span>
+        </div>
+      </a>
+      
+    </div>
+
+    <div class="menu-footer">
+      2023 | ColorNoteCode | B.L.M.D 
     </div>
   </body>
+
+  <script language="javascript" type="text/javascript">
+    let calculateAngle = function(e, item, parent) {
+        let dropShadowColor = `rgba(0, 0, 0, 0.3)`
+        if(parent.getAttribute('data-filter-color') !== null) {
+            dropShadowColor = parent.getAttribute('data-filter-color');
+        }
+
+        parent.classList.add('animated');
+        // Get the x position of the users mouse, relative to the button itself
+        let x = Math.abs(item.getBoundingClientRect().x - e.clientX);
+        // Get the y position relative to the button
+        let y = Math.abs(item.getBoundingClientRect().y - e.clientY);
+
+        // Calculate half the width and height
+        let halfWidth  = item.getBoundingClientRect().width / 2;
+        let halfHeight = item.getBoundingClientRect().height / 2;
+
+        // Use this to create an angle. I have divided by 6 and 4 respectively so the effect looks good.
+        // Changing these numbers will change the depth of the effect.
+        let calcAngleX = (x - halfWidth) / 6;
+        let calcAngleY = (y - halfHeight) / 14;
+      
+        let gX = (1 - (x / (halfWidth * 2))) * 100;
+        let gY = (1 - (y / (halfHeight * 2))) * 100;
+      
+        item.querySelector('.glare').style.background = `radial-gradient(circle at ${gX}% ${gY}%, rgb(199 198 243), transparent)`;
+        // And set its container's perspective.
+        parent.style.perspective = `${halfWidth * 6}px`
+        item.style.perspective = `${halfWidth * 6}px`
+
+        // Set the items transform CSS property
+        item.style.transform = `rotateY(${calcAngleX}deg) rotateX(${-calcAngleY}deg) scale(1.04)`;
+        parent.querySelector('.inner-card-backface').style.transform = `rotateY(${calcAngleX}deg) rotateX(${-calcAngleY}deg) scale(1.04) translateZ(-4px)`;
+      
+        if(parent.getAttribute('data-custom-perspective') !== null) {
+            parent.style.perspective = `${parent.getAttribute('data-custom-perspective')}`
+        }
+
+        // Reapply this to the shadow, with different dividers
+        let calcShadowX = (x - halfWidth) / 3;
+        let calcShadowY = (y - halfHeight) / 6;
+        
+        // Add a filter shadow - this is more performant to animate than a regular box shadow.
+        item.style.filter = `drop-shadow(${-calcShadowX}px ${-calcShadowY}px 15px ${dropShadowColor})`;
+    }
+
+    document.querySelectorAll('.card').forEach(function(item) {
+        if(item.querySelector('.flip') !== null) {
+          item.querySelector('.flip').addEventListener('click', function() {
+            item.classList.add('flipped');
+          });
+        }
+        if(item.querySelector('.unflip') !== null) {
+          item.querySelector('.unflip').addEventListener('click', function() {
+            item.classList.remove('flipped');
+          });
+        }
+        item.addEventListener('mouseenter', function(e) {
+            calculateAngle(e, this.querySelector('.inner-card'), this);
+        });
+
+        item.addEventListener('mousemove', function(e) {
+            calculateAngle(e, this.querySelector('.inner-card'), this);
+        });
+
+        item.addEventListener('mouseleave', function(e) {
+            let dropShadowColor = `rgba(0, 0, 0, 0.3)`
+            if(item.getAttribute('data-filter-color') !== null) {
+                dropShadowColor = item.getAttribute('data-filter-color')
+            }
+            item.classList.remove('animated');
+            item.querySelector('.inner-card').style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+            item.querySelector('.inner-card-backface').style.transform = `rotateY(0deg) rotateX(0deg) scale(1.01) translateZ(-4px)`;
+            item.querySelector('.inner-card').style.filter = `drop-shadow(0 10px 15px ${dropShadowColor})`;
+        });
+    })
+
+    let checkSettings = async () => {
+      const w = localStorage.getItem("width");
+      const h = localStorage.getItem("height");
+      const input = localStorage.getItem("micDeviceId");
+
+      if(w === null || w == undefined) {
+        localStorage.setItem("width", 1920);
+      }
+
+      if(h === null || h == undefined) {
+        localStorage.setItem("height", 1080);
+      }
+
+      if(input === null || input == undefined) {
+        let devices = await navigator.mediaDevices.enumerateDevices();
+        devices.every((deviceInfo, index) => {
+          if(deviceInfo.kind === 'audioinput') {
+            localStorage.setItem("micDeviceId", deviceInfo.deviceId);
+            return false;
+          }
+          return true;
+        });
+      }
+    }
+
+    checkSettings();
+  </script>
 </html>

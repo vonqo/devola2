@@ -9,6 +9,10 @@
     <script language="javascript" type="text/javascript" src="../../libs/p5js/p5.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
+
+    <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/color/color.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/deever/deever.js"></script>
   </head>
   <body>
     <div id="transition"></div>
@@ -17,8 +21,42 @@
 
     <script language="javascript" type="text/javascript">
       getAudioInput();
+      
+      const SCENE = {
+        COLOR:        '1',
+        DEEVER:       '2',
+        TITLE:        '3',
+        BACK:         '0', // Back to main menu
+      }
 
-      // TODO: impl
+      // ============================================================== //
+      let buffer;
+      let filterOpacity = 0;
+
+      // ============================================================== //
+      window.addEventListener("keydown", function(event) {
+        if(event.key === 'q' || event.key === 'Q') {
+          filterOpacity = filterSetOpacity(filterOpacity, true);
+        } else if(event.key === 'w' || event.key === 'W') {
+          filterOpacity = filterSetOpacity(filterOpacity, false);
+        }
+
+        switch(event.key) {
+          case SCENE.TITLE:
+            transitionEffect(title);
+            break;
+          case SCENE.COLOR:
+            transitionEffect(color);
+            break;
+          case SCENE.DEEVER:
+            transitionEffect(deever);
+            break;
+          case SCENE.BACK:
+            window.location.href = '../../index.html';
+            break;
+        }
+        event.preventDefault();
+      }, true); 
     </script>
   </body>
 </html>

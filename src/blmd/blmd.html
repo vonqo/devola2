@@ -10,11 +10,10 @@
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
 
-    <script language="javascript" type="text/javascript" src="./scenes/exception/exception.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_menger/menger.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/windows/windows.js"></script>
   
   </head>
   <body>
@@ -26,23 +25,28 @@
       getAudioInput();
       
       const SCENE = {
-        EXCEPTION:            '1', // 
+        TITLE:                '1', // 
         CARPET_GLITCH:        '2', // DONE
         CARPET_MIRROR:        '3', // DONE
         CARPET_MENGER:        '4', // DONE
-        WINDOWS:              '5', // 
+        BACK:                 '0', // Back to main menu
       }
 
       // ============================================================== //
       let buffer;
       let filterOpacity = 0;
-      const filterDelta = 0.025;
-
+      
       // ============================================================== //
       window.addEventListener("keydown", function (event) {
+        if(event.key === 'q' || event.key === 'Q') {
+          filterOpacity = filterSetOpacity(filterOpacity, true);
+        } else if(event.key === 'w' || event.key === 'W') {
+          filterOpacity = filterSetOpacity(filterOpacity, false);
+        }
+
         switch(event.key) {
-          case SCENE.EXCEPTION:
-            transitionEffect(exception);
+          case SCENE.TITLE:
+            transitionEffect(title);
             break;
           case SCENE.CARPET_GLITCH:
             transitionEffect(glitch);
@@ -53,8 +57,8 @@
           case SCENE.CARPET_MENGER:
             transitionEffect(menger);
             break;
-          case SCENE.WINDOWS:
-            transitionEffect(windows);
+          case SCENE.BACK:
+            window.location.href = '../../index.html';
             break;
         }
         event.preventDefault();

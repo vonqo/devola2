@@ -11,7 +11,7 @@ function transitionEffect(newScene) {
             buffer.remove();
         }
 
-        buffer = new p5(newScene, 'container');
+        buffer = new p5(newScene, "container");
     }, 200);
 
     setTimeout(() => {
@@ -25,19 +25,21 @@ function transitionEffect(newScene) {
 }
 
 // ============================================================== //
-// function filterSetOpacity(delta) {
-//     let value = filterOpacity + delta;
-//     console.log(value);
+function filterSetOpacity(opacity, isNegative) {
+    const filterDelta = 0.025;
+    let value = opacity + (filterDelta * (isNegative ? -1 : 1));
 
-//     if(value > 1) {
-//         value = 1;
-//     } else if(value < 0) {
-//         value = 0;
-//     }
+    console.log(value);
 
-//     filterOpacity = value;
-//     document.getElementById("filter").style.opacity = String(value); 
-// }
+    if(value > 1) {
+        value = 1;
+    } else if(value < 0) {
+        value = 0;
+    }
+
+    document.getElementById("filter").style.opacity = String(value); 
+    return value;
+}
 
 // ============================================================== //
 const getAudioInput = async () => {

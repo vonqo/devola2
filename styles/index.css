@@ -58,7 +58,7 @@ button {
   height: 100%;
 }
 
-.filter {
+#filter {
   position: absolute;
   z-index: 2;
   width: 100%;

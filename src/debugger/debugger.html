@@ -19,21 +19,30 @@
 
     <script language="javascript" type="text/javascript">
       getAudioInput();
-
+      
       const SCENE = {
-        AUDIO:      '1'
+        AUDIO:      '1',
+        BACK:       '0',
       }
 
       // ============================================================== //
       let buffer;
       let filterOpacity = 0;
-      const filterDelta = 0.025;
 
       // ============================================================== //
       window.addEventListener("keydown", function (event) {
+        if(event.key === 'q' || event.key === 'Q') {
+          filterOpacity = filterSetOpacity(filterOpacity, true);
+        } else if(event.key === 'w' || event.key === 'W') {
+          filterOpacity = filterSetOpacity(filterOpacity, false);
+        }
+
         switch(event.key) {
           case SCENE.AUDIO:
             transitionEffect(audio);
+            break;
+          case SCENE.BACK:
+            window.location.href = '../../index.html';
             break;
         }
         event.preventDefault();

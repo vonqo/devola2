@@ -52,6 +52,7 @@ const mirror = function(sketch) {
     // ============================================================== //
     sketch.draw = function() {
         let spectrum = fft.analyze();
+        sketch.translate(-sketch.width/2,-sketch.height/2,0);
 
         let bass = fft.getEnergy("mid");
         // let mapSize = 11 + (carpetBase * 1.5);
@@ -81,13 +82,8 @@ const mirror = function(sketch) {
         }
         carpetShader.setUniform("uScale", [mx, my]);
         
-        // shader() sets the active shader with our shader
         sketch.shader(carpetShader);
-        // drawCarpetText(energyBassFont);
-        // rect gives us some geometry on the screen
         sketch.rect(sketch.width, sketch.height);
-        // box(width, height);
-        // drawCarpetText(energyBassFont);
     }
 
     // ============================================================== //

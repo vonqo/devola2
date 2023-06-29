@@ -1,15 +1,15 @@
 const mirror = function(sketch) {
 
+    const energyRange = {
+        low: 100,
+        high: 255
+    };
+
     let pg;
     let pg2;
     let gl;
     let fft;
     let input;
-    
-    let bassEnergyRange = {
-        low: 128,
-        high: 255
-    };
 
     let carpetShader;
     let carpetBase = 1;
@@ -49,16 +49,20 @@ const mirror = function(sketch) {
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
     }
 
+    // bass = [20, 140];
+    // lowMid = [140, 400];
+    // mid = [400, 2600];
+    // highMid = [2600, 5200];
+    // treble = [5200, 14000]; 
     // ============================================================== //
     sketch.draw = function() {
         let spectrum = fft.analyze();
         sketch.translate(-sketch.width/2,-sketch.height/2,0);
 
-        let bass = fft.getEnergy("mid");
+        let energy = fft.getEnergy(energyRange.low, energyRange.high);
         // let mapSize = 11 + (carpetBase * 1.5);
 
-        let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, 24, true);
-        // let energyBassFont = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, 50, true);
+        let energyBass = sketch.map(energy, energyRange.low, energyRange.high, 0, 24, true);
         
         if(sketch.keyIsDown(sketch.RIGHT_ARROW)) {
             carpetBase += 1;

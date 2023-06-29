@@ -1,6 +1,6 @@
 const menger = function(sketch) {
 
-    const bassEnergyRange = {
+    const energyRange = {
         low: 130,
         high: 255
     };
@@ -19,7 +19,7 @@ const menger = function(sketch) {
     // ============================================================== //
     sketch.preload = function() {
         menger = sketch.loadShader('scenes/carpet_menger/menger.vert', 'scenes/carpet_menger/menger.frag')
-        img0 = sketch.loadImage('scenes/carpet_menger/Untitled.png');
+        img0 = sketch.loadImage('scenes/carpet_menger/menger.png');
         img1 = sketch.loadImage('scenes/carpet_menger/carpet2.png');
         ww = localStorage.getItem('width');
         hh = localStorage.getItem('height');
@@ -45,8 +45,8 @@ const menger = function(sketch) {
     // ============================================================== //
     sketch.draw = function() {
         let spectrum = fft.analyze();
-        let bass = fft.getEnergy("bass");
-        let speed = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.1, 3.5, true);
+        let bass = fft.getEnergy(energyRange.low, energyRange.high);
+        let speed = sketch.map(bass, energyRange.low, energyRange.high, 0.1, 3.5, true);
     
         menger.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         menger.setUniform("iTime", sketch.millis() * 0.001);

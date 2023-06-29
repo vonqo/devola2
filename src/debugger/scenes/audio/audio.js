@@ -59,7 +59,7 @@ const audio = function(sketch) {
     osc = new p5.Oscillator();
     input.start();
 
-    fft = new p5.FFT();
+    fft = new p5.FFT(0.5, 1024);
     fft.setInput(input);
   }
 
@@ -87,7 +87,7 @@ const audio = function(sketch) {
   }
 
   // ============================================================== //
-  let spectrographSpeed = 2;
+  let spectrographSpeed = 5;
   // bass = [20, 140];
   // lowMid = [140, 400];
   // mid = [400, 2600];
@@ -96,13 +96,11 @@ const audio = function(sketch) {
 
   let drawFFTSpectrograph = function(panel, spectrum) {
     panel.noStroke();
-    panel.copy(panel, 0, 0, panel.width, panel.height, -spectrographSpeed, 0, panel.width, panel.height);
+    panel.copy(panel, 0, 0, pw, ph, -spectrographSpeed, 0, pw, ph);
     
     for (var i = 0; i < spectrum.length; i++) {
       var value = spectrum[i];
-      var c = value;
-
-      panel.fill(0, c, c * 0.3);
+      panel.fill(0, value, value * 0.3, 255);
 
       var percent = i / spectrum.length;
       var y = percent * ph;

@@ -1,13 +1,13 @@
 const glitch = function(sketch) {
 
+    const energyRange = {
+        low: 200,
+        high: 300
+    };
+
     let gl;
     let fft;
     let input;
-    
-    let bassEnergyRange = {
-        low: 128,
-        high: 255
-    };
 
     let carpetImg;
     let carpetImgInvert;
@@ -47,13 +47,13 @@ const glitch = function(sketch) {
     // ============================================================== //
     sketch.draw = function() {
         let spectrum = fft.analyze();
-        let bass = fft.getEnergy("bass");
+        let energy = fft.getEnergy(200, 300);
         // sketch.translate(-ww/2,-hh/2,0);
         // pg.translate(-pg.width/2,-pg.height/2,0);
         
         // sketch.shader(carpetShader);
-        let energyBass = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0, 1000, true);
-        let glitcher = sketch.map(bass, bassEnergyRange.low, bassEnergyRange.high, 0.01, 0.1);
+        let energyBass = sketch.map(energy, energyRange.low, energyRange.high, 0, 1000, true);
+        let glitcher = sketch.map(energy, energyRange.low, energyRange.high, 0.01, 0.1);
 
         carpetShader.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         carpetShader.setUniform("iTime", sketch.millis() * 0.001);

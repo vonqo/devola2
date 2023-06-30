@@ -18,7 +18,7 @@ const menger = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {
-        menger = sketch.loadShader('scenes/carpet_menger/menger.vert', 'scenes/carpet_menger/menger.frag')
+        menger = sketch.loadShader('scenes/carpet_menger/menger.vert', 'scenes/carpet_menger/menger.frag');
         img0 = sketch.loadImage('scenes/carpet_menger/menger.png');
         img1 = sketch.loadImage('scenes/carpet_menger/carpet2.png');
         ww = localStorage.getItem('width');
@@ -28,7 +28,6 @@ const menger = function(sketch) {
     // ============================================================== //
     sketch.setup = function() {
         sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
-        pg = sketch.createGraphics(ww, hh, sketch.WEBGL);
         
         input = new p5.AudioIn();
         input.start();
@@ -45,8 +44,8 @@ const menger = function(sketch) {
     // ============================================================== //
     sketch.draw = function() {
         let spectrum = fft.analyze();
-        let bass = fft.getEnergy(energyRange.low, energyRange.high);
-        let speed = sketch.map(bass, energyRange.low, energyRange.high, 0.1, 3.5, true);
+        let energy = fft.getEnergy(energyRange.low, energyRange.high);
+        let speed = sketch.map(energy, energyRange.low, energyRange.high, 0.1, 3.5, true);
     
         menger.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         menger.setUniform("iTime", sketch.millis() * 0.001);
@@ -55,7 +54,7 @@ const menger = function(sketch) {
         menger.setUniform("speed", 31 - speed);
 
         sketch.shader(menger);
-        sketch.box(sketch.width, sketch.height);
+        sketch.box(sketch.width, sketch.height, 0);
     }
 
     // ============================================================== //

@@ -11,21 +11,44 @@
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
 
     <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/color/color.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/cloud/cloud.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/deever/deever.js"></script>
+  
+    <style>
+      body {
+        background-image: url('bg.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      #logo {
+        position: absolute;
+        font-size: 72px;
+        display: flex;
+        /* justify-content: center;
+        align-items: center; */
+        width: 100%;
+        padding-left: 70px;
+        padding-top: 50px;
+      }
+    </style>
+    
   </head>
   <body>
     <div id="transition"></div>
     <div id="filter"></div>
+    <div id="logo">
+      <img src="logo.png" width="400"/>
+    </div>
     <div id="container"></div>
 
     <script language="javascript" type="text/javascript">
       getAudioInput();
       
       const SCENE = {
-        COLOR:        '1',
-        DEEVER:       '2',
-        TITLE:        '3',
+        TITLE:        '1',
+        CLOUD:        '2',
+        DEEVER:       '3',
         BACK:         '0', // Back to main menu
       }
 
@@ -45,8 +68,8 @@
           case SCENE.TITLE:
             transitionEffect(title);
             break;
-          case SCENE.COLOR:
-            transitionEffect(color);
+          case SCENE.CLOUD:
+            transitionEffect(cloud);
             break;
           case SCENE.DEEVER:
             transitionEffect(deever);

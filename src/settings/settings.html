@@ -21,6 +21,12 @@
       <div id="audioInput">
         
       </div>
+      <h3>Debug</h3>
+      <div>
+        <input type="checkbox" id="debug" name="debug" checked="false">
+        <label for="debug"> Show stats</label><br>
+      </div>
+
       <br/>
       <h3>Resolution</h3>
       <div>New Wave State (2560x1024) (1280x512)</div>
@@ -70,9 +76,19 @@
       document.getElementById('height').value = h;
     }
 
+    const getDebugState = () => {
+      const debug = localStorage.getItem("debug");
+      console.log('get debug: ' + debug);
+      document.getElementById("debug").checked = debug;
+    }
+
     const save = () => {
       const audioInputId = document.querySelector('input[name = "auInput"]:checked').value;
       localStorage.setItem("micDeviceId", audioInputId);
+
+      const debugState = document.getElementById("debug").checked;
+      console.log(debugState);
+      localStorage.setItem("debug", debugState);
 
       const resoWidth = document.querySelector('input[name = "width"]').value;
       const resoHeight = document.querySelector('input[name = "height"]').value;
@@ -94,11 +110,13 @@
 
       getAudioInput();
       getResolution();
+      getDebugState();
       alert('Settings saved!');
     }
 
     getAudioInput();
     getResolution();
+    getDebugState();
     
   </script>
 </html>

@@ -146,7 +146,7 @@ const audio = function(sketch) {
     for (var i = 0; i < spectrum.length; i++) {
       let x, y;
       x = panel.map(i, 0, spectrum.length - 1, 0, panel.width);
-      y = panel.map(spectrum[i], 0, 255, panel.height / 2, 0);
+      y = panel.map(spectrum[i], 20, 255, panel.height / 2, 0);
       panel.vertex(x, y);
     }
     panel.endShape();

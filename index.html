@@ -204,7 +204,7 @@
         </div>
       </a>
 
-      <a href="src/night_train/night_train.html">
+      <!-- <a href="src/night_train/night_train.html">
         <div class="card">
           <span class="inner-card-backface">
             <span class="image">
@@ -233,7 +233,7 @@
             <span class="glare"></span>
           </span>
         </div>
-      </a>
+      </a> -->
 
       <a href="src/settings/settings.html">
         <div class="card">
@@ -353,6 +353,7 @@
     let checkSettings = async () => {
       const w = localStorage.getItem("width");
       const h = localStorage.getItem("height");
+      const debug = localStorage.getItem("debug");
       const input = localStorage.getItem("micDeviceId");
 
       if(w === null || w == undefined) {
@@ -361,6 +362,10 @@
 
       if(h === null || h == undefined) {
         localStorage.setItem("height", 1080);
+      }
+
+      if(debug == null || h == undefined) {
+        localStorage.setItem("debug", false);
       }
 
       if(input === null || input == undefined) {

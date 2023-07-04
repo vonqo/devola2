@@ -5,7 +5,9 @@ precision mediump float;
 uniform vec2 iResolution;
 uniform int iFrame;
 uniform float iTime;
+uniform float amp;
 uniform float speed;
+uniform float rot;
 
 float random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -34,13 +36,14 @@ float noise (in vec2 st) {
 #define OCTAVES 6
 float fbm (in vec2 st) {
     float value = 0.0;
-    float amplitude = .5;
+    float amplitude = amp;
     float frequency = 0.;
-    
+    // float roation = 0.5;
+    float rotation = rot;
     
     vec2 shift = vec2(100.0);
     // Rotate to reduce axial bias
-    mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.50));
+    mat2 rot = mat2(cos(rotation), sin(rotation), -sin(rotation), cos(rotation));
     
     for (int i = 0; i < OCTAVES; i++) {
         value += amplitude * noise(st);
@@ -59,8 +62,8 @@ void main()
     vec2 st = gl_FragCoord.xy/iResolution.xy;
     st.x *= iResolution.x/iResolution.y;
     st *= 5.;
-    // float t = iTime * .8; 
-    float t = iTime * 2.0; 
+    // float t = iTime * 10.0; 
+    float t = iTime * speed; 
 
     vec2 w = vec2(0.);
     w.x = fbm(st + vec2(.3, .1) + t * .2);

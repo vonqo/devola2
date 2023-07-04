@@ -8,6 +8,7 @@ uniform float iTime;
 uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
 uniform float speed;
+uniform float iteration;
 
 #define PI 3.1415926
 
@@ -42,7 +43,7 @@ void main()
 		if(floor(mod(uv.x*v,3.0))==1.0 && floor(mod(uv.y*v,3.0))==1.0){
             // Fabrice..     
             gl_FragColor = vec4(sin(i*uv.y-t*0.5+vec4(3,4,5,0)*PI/3.)+1.);                    
-            gl_FragColor *= vec4(texture2D(iChannel0,uv).xyz,1.0)*3.;
+            gl_FragColor *= vec4(texture2D(iChannel0,uv).xyz,1.0)*1.;
         }
 		v/=3.0;	
 		uv.x =uv.x+t/speed;// let's scrolling gtr 

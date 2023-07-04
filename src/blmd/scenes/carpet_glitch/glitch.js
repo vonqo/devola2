@@ -53,7 +53,7 @@ const glitch = function(sketch) {
         
         // sketch.shader(carpetShader);
         let energyBass = sketch.map(energy, energyRange.low, energyRange.high, 0, 1000, true);
-        let glitcher = sketch.map(energy, energyRange.low, energyRange.high, 0.01, 0.1);
+        let glitcher = sketch.map(energy, energyRange.low, energyRange.high, 0.02, 0.2);
 
         carpetShader.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         carpetShader.setUniform("iTime", sketch.millis() * 0.001);

@@ -1,5 +1,7 @@
-const { app, BrowserWindow, systemPreferences } = require('electron');
+const { app, globalShortcut, BrowserWindow, systemPreferences } = require('electron');
 const debug = require('electron-debug');
+const electron = require('electron');
+
 try {
 	require('electron-reloader')(module);
 } catch {}
@@ -9,11 +11,16 @@ debug();
 const createWindow = () => {
   const win = new BrowserWindow({
     title: "Devola2",
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
     icon: __dirname + '/assets/favicon.ico',
-    fullscreen: true
-  })
+    fullscreen: false,
+    // webPreferences: {
+    //   nodeIntegration: true,
+    //   contextIsolation: false,
+    //   enableRemoteModule: true
+    // }
+  });
 
   win.loadFile('index.html');
   systemPreferences.askForMediaAccess("microphone");

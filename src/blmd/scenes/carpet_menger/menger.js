@@ -45,13 +45,15 @@ const menger = function(sketch) {
     sketch.draw = function() {
         let spectrum = fft.analyze();
         let energy = fft.getEnergy(energyRange.low, energyRange.high);
-        let speed = sketch.map(energy, energyRange.low, energyRange.high, 0.1, 3.5, true);
-    
+        let speed = sketch.map(energy, energyRange.low, energyRange.high, 1, 40, true);
+        let iteration = sketch.map(energy, energyRange.low, energyRange.high, 4, 8, true);
+        
         menger.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         menger.setUniform("iTime", sketch.millis() * 0.001);
         menger.setUniform("iChannel0", img0);
         menger.setUniform("iChannel1", img1);
-        menger.setUniform("speed", 31 - speed);
+        menger.setUniform("speed", speed);
+        menger.setUniform("iteration", iteration);
 
         sketch.shader(menger);
         sketch.box(sketch.width, sketch.height, 0);

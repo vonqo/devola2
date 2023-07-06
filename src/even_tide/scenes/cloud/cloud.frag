@@ -8,6 +8,7 @@ uniform float iTime;
 uniform float amp;
 uniform float speed;
 uniform float rot;
+uniform float zoom;
 
 float random (in vec2 st) {
     return fract(sin(dot(st.xy,
@@ -61,7 +62,7 @@ void main()
 {
     vec2 st = gl_FragCoord.xy/iResolution.xy;
     st.x *= iResolution.x/iResolution.y;
-    st *= 5.;
+    st *= zoom;
     // float t = iTime * 10.0; 
     float t = iTime * speed; 
 

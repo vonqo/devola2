@@ -12,16 +12,16 @@ function transitionEffect(newScene) {
         }
 
         buffer = new p5(newScene, "container");
-    }, 200);
+    }, 500);
 
     setTimeout(() => {
         transition.classList.remove("fadeOut");
         transition.classList.add("fadeIn");
-    }, 400);
+    }, 500);
 
     setTimeout(() => {
         transition.classList.remove("fadeIn");
-    }, 600);
+    }, 1000);
 }
 
 // ============================================================== //

@@ -60,7 +60,7 @@ const cloud = function(sketch) {
         let rotation = sketch.map(energy, energyRange.low, energyRange.high, 0.4, 0.50, true);
         
         if(sketch.keyIsDown(sketch.RIGHT_ARROW)) {
-            if(zoom < 2.5) {
+            if(zoom < 9.5) {
                 zoom += 0.01;
             }
         } if(sketch.keyIsDown(sketch.LEFT_ARROW)) {

@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Devola2 - black midi</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../styles/index.css">
+    <script language="javascript" type="text/javascript" src="../../util.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
+    <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
+
+    <script language="javascript" type="text/javascript" src="./scenes/blmd_logo/blmd_logo.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_menger/menger.js"></script>
+
+    <script language="javascript" type="text/javascript" src="./scenes/silvet/silvet_video.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/silvet_logo/silvet_logo.js"></script>
+
+    <script language="javascript" type="text/javascript" src="./scenes/blackmidi/blackmidi_visual.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/blackmidi_logo/title.js"></script>
+
+    <script language="javascript" type="text/javascript" src="./scenes/blank/blank.js"></script>
+
+    <style>
+      body {
+        background-image: url('bg.png');
+        background-repeat: no-repeat;
+        background-size: fill;
+      }
+
+      #logo {
+        position: absolute;
+        font-size: 72px;
+        display: flex;
+        /* justify-content: center;
+        align-items: center; */
+        width: 100%;
+        padding-left: 100px;
+        padding-top: 80px;
+      }
+    </style>
+  
+  </head>
+  <body>
+    <div id="transition"></div>
+    <div id="filter"></div>
+    <div id="container">
+    </div>
+    
+
+    <script language="javascript" type="text/javascript">
+      getAudioInput();
+      
+      const SCENE = {
+        BLMD_TITLE:                '1', // 
+        BLMD_CARPET_GLITCH:        '2', // DONE
+        BLMD_CARPET_MIRROR:        '3', // DONE
+        BLMD_CARPET_MENGER:        '4', // DONE
+        SILVET_TITLE:              '5', // DONE
+        SILVET_VIDEO:              '6', // DONE
+        BM_TITLE:                  '7', // DONE
+        BM_VIDEO:                  '8', // DONE
+        BLANK:                     '9', // DONE
+        BACK:                 '0', // Back to main menu
+      }
+
+      // ============================================================== //
+      let buffer;
+      let filterOpacity = 0;
+      
+      // ============================================================== //
+      window.addEventListener("keydown", function (event) {
+        if(event.key === 'q' || event.key === 'Q') {
+          filterOpacity = filterSetOpacity(filterOpacity, true);
+        } else if(event.key === 'w' || event.key === 'W') {
+          filterOpacity = filterSetOpacity(filterOpacity, false);
+        }
+
+        switch(event.key) {
+          case SCENE.BLMD_TITLE:
+            transitionEffect(blmd_logo);
+            break;
+          case SCENE.BLMD_CARPET_GLITCH:
+            transitionEffect(glitch);
+            break;
+          case SCENE.BLMD_CARPET_MIRROR:
+            transitionEffect(mirror);
+            break;
+          case SCENE.BLMD_CARPET_MENGER:
+            transitionEffect(menger);
+            break;
+
+          case SCENE.SILVET_TITLE:
+            transitionEffect(silvet_logo);
+            break;
+          case SCENE.SILVET_VIDEO:
+            transitionEffect(silvet_video);
+            break;
+
+          case SCENE.BM_TITLE:
+            transitionEffect(blackmidi_logo);
+            break;
+          case SCENE.BM_VIDEO:
+            transitionEffect(blackmidi_visual);
+            break;
+
+          case SCENE.BLANK:
+            transitionEffect(blank);
+            break;
+
+          case SCENE.BACK:
+            window.location.href = '../../index.html';
+            break;
+        }
+        event.preventDefault();
+      }, true);
+    </script>
+  </body>
+</html>

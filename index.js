@@ -6,7 +6,7 @@ try {
 	require('electron-reloader')(module);
 } catch {}
 
-debug();
+// debug();
 
 const createWindow = () => {
   const win = new BrowserWindow({

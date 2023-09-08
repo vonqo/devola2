@@ -14,6 +14,7 @@ const silvet_video = function(sketch) {
     sketch.setup = function() {
         sketch.createCanvas(Number(ww), Number(hh));
         sketch.smooth();
+        // sketch.frameRate(24);
         video = sketch.createVideo('scenes/silvet/silvet_bg.mp4');
         video.volume(0);
         video.loop();

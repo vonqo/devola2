@@ -51,7 +51,7 @@ button {
   border: none;
 }
 
-.transition {
+#transition {
   position: absolute;
   z-index: 99;
   width: 100%;

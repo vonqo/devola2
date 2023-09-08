@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Devola2 - B.L.M.D</title>
+    <title>Devola2 - Starfish</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles/index.css">
@@ -11,13 +11,10 @@
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
 
     <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_menger/menger.js"></script>
-
+  
     <style>
       body {
-        background-image: url('bg.png');
+        background-image: url('bg.jpg');
         background-repeat: no-repeat;
         background-size: fill;
       }
@@ -26,42 +23,35 @@
         position: absolute;
         font-size: 72px;
         display: flex;
-        /* justify-content: center;
-        align-items: center; */
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        padding-left: 70px;
         padding-top: 50px;
+        /* padding-left: 70px; */
       }
     </style>
-  
+    
   </head>
   <body>
     <div id="transition"></div>
     <div id="filter"></div>
-    <!-- <div id="logo">
-      <img src="logo.png" width="400"/>
-    </div> -->
-    <div id="container">
-    </div>
+    <div id="container"></div>
     
 
     <script language="javascript" type="text/javascript">
       getAudioInput();
       
       const SCENE = {
-        TITLE:                '1', // 
-        CARPET_GLITCH:        '2', // DONE
-        CARPET_MIRROR:        '3', // DONE
-        CARPET_MENGER:        '4', // DONE
-        BACK:                 '0', // Back to main menu
+        TITLE:        '1',
+        BACK:         '0', // Back to main menu
       }
 
       // ============================================================== //
       let buffer;
       let filterOpacity = 0;
-      
+
       // ============================================================== //
-      window.addEventListener("keydown", function (event) {
+      window.addEventListener("keydown", function(event) {
         if(event.key === 'q' || event.key === 'Q') {
           filterOpacity = filterSetOpacity(filterOpacity, true);
         } else if(event.key === 'w' || event.key === 'W') {
@@ -72,21 +62,12 @@
           case SCENE.TITLE:
             transitionEffect(title);
             break;
-          case SCENE.CARPET_GLITCH:
-            transitionEffect(glitch);
-            break;
-          case SCENE.CARPET_MIRROR:
-            transitionEffect(mirror);
-            break;
-          case SCENE.CARPET_MENGER:
-            transitionEffect(menger);
-            break;
           case SCENE.BACK:
             window.location.href = '../../index.html';
             break;
         }
         event.preventDefault();
-      }, true);
+      }, true); 
     </script>
   </body>
 </html>

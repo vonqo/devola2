@@ -46,7 +46,7 @@ void main()
             gl_FragColor *= vec4(texture2D(iChannel0,uv).xyz,1.0)*1.;
         }
 		v/=3.0;	
-		uv.x =uv.x+t/speed;// let's scrolling gtr 
+		uv.x =uv.x+speed;// let's scrolling gtr 
        
 	}
     gl_FragColor *= vec4(texture2D(iChannel1,q).xyz,1.0);

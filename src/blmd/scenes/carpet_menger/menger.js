@@ -1,7 +1,7 @@
 const menger = function(sketch) {
 
     const energyRange = {
-        low: 130,
+        low: 125,
         high: 255
     };
 
@@ -45,7 +45,7 @@ const menger = function(sketch) {
     sketch.draw = function() {
         let spectrum = fft.analyze();
         let energy = fft.getEnergy(energyRange.low, energyRange.high);
-        let speed = sketch.map(energy, energyRange.low, energyRange.high, 1, 40, true);
+        let speed = sketch.map(energy, energyRange.low, energyRange.high, 0.1, 0.3, true);
         let iteration = sketch.map(energy, energyRange.low, energyRange.high, 4, 8, true);
         
         menger.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader

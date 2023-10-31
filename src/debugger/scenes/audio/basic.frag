@@ -1,16 +1,14 @@
+#ifdef GL_ES
 precision mediump float;
+#endif
 
-// this is the same variable we declared in the vertex shader
-// we need to declare it here too!
-varying vec2 vTexCoord;
+uniform vec2 iResolution;
+uniform float iTime;
 
 void main() {
+	vec2 uv = gl_FragCoord.xy / iResolution.xy;
+	uv.y = 1.0 - uv.y;
 
-  // copy the vTexCoord
-  // vTexCoord is a value that goes from 0.0 - 1.0 depending on the pixels location
-  // we can use it to access every pixel on the screen
-  vec2 coord = vTexCoord;
-  
-  // x values for red, y values for green, both for blue
-  gl_FragColor = vec4(coord.x, coord.y, (coord.x+coord.y), 1.0);
+	vec3 col = 0.5 + 0.5*cos(iTime+uv.xyx+vec3(0,2,4));
+	gl_FragColor = vec4(col,1.0);
 }

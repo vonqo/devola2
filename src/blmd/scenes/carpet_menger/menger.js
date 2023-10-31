@@ -16,6 +16,8 @@ const menger = function(sketch) {
     let ww;
     let hh;
 
+    const pixelRatio = window.devicePixelRatio;
+
     // ============================================================== //
     sketch.preload = function() {
         menger = sketch.loadShader('scenes/carpet_menger/menger.vert', 'scenes/carpet_menger/menger.frag');
@@ -48,7 +50,7 @@ const menger = function(sketch) {
         let speed = sketch.map(energy, energyRange.low, energyRange.high, 0.1, 0.3, true);
         let iteration = sketch.map(energy, energyRange.low, energyRange.high, 4, 8, true);
         
-        menger.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
+        menger.setUniform("iResolution", [sketch.width * pixelRatio, sketch.height * pixelRatio]); //pass some values to the shader
         menger.setUniform("iTime", sketch.millis() * 0.001);
         menger.setUniform("iChannel0", img0);
         menger.setUniform("iChannel1", img1);

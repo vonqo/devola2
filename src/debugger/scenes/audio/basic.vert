@@ -1,26 +1,30 @@
-// vert file and comments from adam ferriss
-// https://github.com/aferriss/p5jsShaderExamples
+//standard vertex shader
+#ifdef GL_ES
+precision highp float;
+#endif
+#extension GL_OES_standard_derivatives : enable
 
-// our vertex data
+// attributes, in
 attribute vec3 aPosition;
-
-// our texcoordinates
+attribute vec3 aNormal;
 attribute vec2 aTexCoord;
+attribute vec4 aVertexColor;
 
-// this is a variable that will be shared with the fragment shader
-// we will assign the attribute texcoords to the varying texcoords to move them from the vert shader to the frag shader
-// it can be called whatever you want but often people prefix it with 'v' to indicate that it is a varying
-varying vec2 vTexCoord;
+// attributes, out
+varying vec3 var_vertPos;
+varying vec4 var_vertCol;
+varying vec3 var_vertNormal;
+varying vec2 var_vertTexCoord;
+
+// matrices
+uniform mat4 uModelViewMatrix;
+uniform mat4 uProjectionMatrix;
+uniform mat3 uNormalMatrix;
 
 void main() {
-  
-  // copy the texture coordinates
-  vTexCoord = aTexCoord;
-
-  // copy the position data into a vec4, using 1.0 as the w component
-  vec4 positionVec4 = vec4(aPosition, 1.0);
-  positionVec4.xy = positionVec4.xy * 2.0 - 1.0;
-
-  // send the vertex information on to the fragment shader
-  gl_Position = positionVec4;
+	gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1.0);
+	var_vertPos      = aPosition;
+	var_vertCol      = aVertexColor;
+	var_vertNormal   = aNormal;
+	var_vertTexCoord = aTexCoord;
 }

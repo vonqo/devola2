@@ -28,7 +28,7 @@
 
 body { 
   font-family: 'JetBrainsMono';
-  background-color: black;
+  background-color: #151617;
   color: white;
   font-size: 0px;
   padding: 0px; 
@@ -88,7 +88,8 @@ button {
   bottom: 0px;
   width: 100%;
   font-size: 12px;
-  background: linear-gradient(-45deg, #fc2c03, #00c8cf);
+  color: #000;
+  background: linear-gradient(-45deg, #0dff00, #00c8cf);
   background-size: 400% 100%;
   animation: gradient 15s ease infinite;
 }

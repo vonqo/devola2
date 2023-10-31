@@ -17,6 +17,8 @@ const glitch = function(sketch) {
     let ww;
     let hh;
 
+    const pixelRatio = window.devicePixelRatio;
+
     // ============================================================== //
     sketch.preload = function() {
         carpetShader = sketch.loadShader('scenes/carpet_glitch/glitch.vert', 'scenes/carpet_glitch/glitch.frag');
@@ -55,7 +57,7 @@ const glitch = function(sketch) {
         let energyBass = sketch.map(energy, energyRange.low, energyRange.high, 0, 1000, true);
         let glitcher = sketch.map(energy, energyRange.low, energyRange.high, 0.02, 0.2);
 
-        carpetShader.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
+        carpetShader.setUniform("iResolution", [sketch.width * pixelRatio, sketch.height * pixelRatio]); //pass some values to the shader
         carpetShader.setUniform("iTime", sketch.millis() * 0.001);
         carpetShader.setUniform("iMouse", [energyBass,energyBass]);
         carpetShader.setUniform("glitcher", glitcher);

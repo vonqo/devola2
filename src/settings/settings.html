@@ -38,6 +38,14 @@
         <label for="lname">Height:</label>
         <input type="number" id="height" name="height"><br>
       </div>
+      
+      <br/>
+      <h3>Components</h3>
+      <div>
+        <input type="checkbox" id="blmd_logo" name="blmd_logo" checked="false">
+        <label for="blmd_logo"> B.L.M.D Logo</label><br>
+      </div>
+
       <br/>
       <br/>
       <div>
@@ -46,6 +54,8 @@
           <button onclick="">Back</button>
         </a>
       </div>
+
+    </div>
     </div>
 
     <div class="menu-footer">
@@ -82,13 +92,20 @@
       document.getElementById("debug").checked = debug;
     }
 
+    const getComponent = () => {
+      const blmd_logo = localStorage.getItem("blmd_logo");
+      document.getElementById("blmd_logo").checked = blmd_logo;
+    }
+ 
     const save = () => {
       const audioInputId = document.querySelector('input[name = "auInput"]:checked').value;
       localStorage.setItem("micDeviceId", audioInputId);
 
       const debugState = document.getElementById("debug").checked;
-      console.log(debugState);
       localStorage.setItem("debug", debugState);
+
+      const blmd_logo = document.getElementById("blmd_logo").checked;
+      localStorage.setItem("blmd_logo", debugState);
 
       const resoWidth = document.querySelector('input[name = "width"]').value;
       const resoHeight = document.querySelector('input[name = "height"]').value;
@@ -111,12 +128,14 @@
       getAudioInput();
       getResolution();
       getDebugState();
+      getComponent();
       alert('Settings saved!');
     }
 
     getAudioInput();
     getResolution();
     getDebugState();
+    getComponent();
     
   </script>
 </html>

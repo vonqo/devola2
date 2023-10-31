@@ -63,7 +63,7 @@ vec2 mytrunc( vec2 x, float num_levels )
 
 void main()
 {
-  float aspect = iResolution.x / iResolution.y;
+  	float aspect = iResolution.x / iResolution.y;
 	vec2 uv = gl_FragCoord.xy / iResolution.xy;
 	uv.y = 1.0 - uv.y;
 	

@@ -19,18 +19,19 @@
       body {
         background-image: url('bg.png');
         background-repeat: no-repeat;
-        background-size: fill;
+        background-size: cover;
       }
 
       #logo {
         position: absolute;
         font-size: 72px;
         display: flex;
-        /* justify-content: center;
-        align-items: center; */
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        padding-left: 70px;
+        /* padding-left: 70px; */
         padding-top: 50px;
+        filter: invert();
       }
     </style>
   
@@ -38,9 +39,9 @@
   <body>
     <div id="transition"></div>
     <div id="filter"></div>
-    <!-- <div id="logo">
+    <div id="logo">
       <img src="logo.png" width="400"/>
-    </div> -->
+    </div>
     <div id="container">
     </div>
     

@@ -15,6 +15,9 @@ const audio = function(sketch) {
   let panel3;
   let panel4;
   let shader;
+  let gl;
+
+  const pixelRatio = window.devicePixelRatio;
 
   // ============================================================== //
   sketch.preload = function() {
@@ -29,6 +32,9 @@ const audio = function(sketch) {
     sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
     sketch.background(13, 17, 23);
     sketch.imageMode(sketch.CORNER);
+
+    gl = this.canvas.getContext('webgl');
+    gl.disable(gl.DEPTH_TEST);
     
     pw = (ww - 15) / 2;
     ph = (hh - 15) / 2;
@@ -94,6 +100,7 @@ const audio = function(sketch) {
   // highMid = [2600, 5200];
   // treble = [5200, 14000]; 
 
+  // ============================================================== //
   let drawFFTSpectrograph = function(panel, spectrum) {
     panel.noStroke();
     panel.copy(panel, 0, 0, pw, ph, -spectrographSpeed, 0, pw, ph);
@@ -154,13 +161,15 @@ const audio = function(sketch) {
 
   // ============================================================== //
   let drawShader = function(panel) {
-    panel.translate(-panel.width/2,-panel.height/2,0);
+    shader.setUniform("iResolution", [panel.width * pixelRatio, panel.height * pixelRatio]);
+	  shader.setUniform("iTime", sketch.millis() * 0.002);
     panel.shader(shader);
-    // shader.setUniform('u_resolution', [panel.width, panel.height]);
-    panel.rect(0,0,panel.width, panel.height);
+
+    // panel.translate(-panel.width/2,-panel.height/2,0);
+    panel.rect(-panel.width/2,-panel.height/2,panel.width, panel.height);
   }
 
   // ============================================================== //
-
+  
 
 }

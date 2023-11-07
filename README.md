@@ -3,7 +3,7 @@
 [![Shitcoded][ulaanbaatar-badge]][ub-wiki]
 [![made with - electron](https://img.shields.io/static/v1?label=made+with&message=electron&color=%239feaf9&logo=electron&logoColor=%239feaf9)](https://)
 
-Devola2 is an open source real-time audio visualizer app. Specifically designed for live-music performance of [B.L.M.D]([blmd-link]) and [Even Tide]([eventide-link]). 
+Devola2 is an open source real-time audio visualizer app. Specifically designed for live-music performance of [B.L.M.D](https://linktr.ee/theblmd) and [Even Tide](https://www.youtube.com/@eventide6813). 
 
 ## Showcase
 

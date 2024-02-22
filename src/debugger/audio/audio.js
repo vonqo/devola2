@@ -1,4 +1,4 @@
-const audio = function(sketch) {
+const audioDebug = function(sketch) {
 
   let font;
   let fft;
@@ -7,59 +7,52 @@ const audio = function(sketch) {
 
   let ww;
   let hh;
-  let pw;
-  let ph;
 
   let panel1;
   let panel2;
   let panel3;
-  let panel4;
-  let shader;
-  let gl;
 
-  const pixelRatio = window.devicePixelRatio;
+  const lineR = 241;
+  const lineG = 75;
+  const lineB = 0;
+
+  const bgColor = sketch.color(60, 61, 63);
 
   // ============================================================== //
   sketch.preload = function() {
-    ww = localStorage.getItem('width');
-    hh = localStorage.getItem('height');
-    font = sketch.loadFont('../../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
-    shader = sketch.loadShader('scenes/audio/basic.vert', 'scenes/audio/basic.frag');
+    ww = 400;
+    hh = 600;
+    font = sketch.loadFont('assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
   }
 
   // ============================================================== //
   sketch.setup = function() {
     sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
-    sketch.background(13, 17, 23);
+    sketch.background(bgColor);
     sketch.imageMode(sketch.CORNER);
 
     gl = this.canvas.getContext('webgl');
     gl.disable(gl.DEPTH_TEST);
-    
-    pw = (ww - 15) / 2;
-    ph = (hh - 15) / 2;
 
-    panel1 = sketch.createGraphics(pw, ph);
-    panel2 = sketch.createGraphics(pw, ph);
-    panel3 = sketch.createGraphics(pw, ph);
-    panel4 = sketch.createGraphics(pw, ph, sketch.WEBGL);
+    panel1 = sketch.createGraphics(ww, 200);
+    panel2 = sketch.createGraphics(ww, 200);
+    panel3 = sketch.createGraphics(ww, 200);
 
     sketch.textFont(font);
     sketch.textAlign(sketch.LEFT, sketch.TOP); 
-    panel1.textFont(font); panel2.textFont(font);
-    panel3.textFont(font); panel4.textFont(font);
+    panel1.textFont(font); 
+    panel2.textFont(font);
+    panel3.textFont(font); 
     panel1.textAlign(sketch.LEFT, sketch.TOP); 
     panel2.textAlign(sketch.LEFT, sketch.TOP);
     panel3.textAlign(sketch.LEFT, sketch.TOP);
-    panel4.textAlign(sketch.LEFT, sketch.TOP);
 
-    panel1.background(0);
-    panel2.background(0);
-    panel3.background(0);
-    panel4.background(0);
+    panel1.background(bgColor);
+    panel2.background(bgColor);
+    panel3.background(bgColor);
 
     panel2.noFill();
-    panel2.stroke(0,255,45);
+    panel2.stroke(lineR,lineG,lineB);
     
     input = new p5.AudioIn();
     osc = new p5.Oscillator();
@@ -76,20 +69,17 @@ const audio = function(sketch) {
     let spectrum = fft.analyze();
     let waveform = fft.waveform();
 
-    drawFFTSpectrograph(panel1, spectrum);
     drawWaveform(panel2, waveform);
     drawEnergy(panel3, spectrum);
-    drawShader(panel4);
+    drawFFTSpectrograph(panel1, spectrum);
 
-    sketch.image(panel1, 5, 5, pw, ph);
-    sketch.image(panel2, pw + 10, 5, pw, ph);
-    sketch.image(panel3, 5, ph + 10, pw, ph);
-    sketch.image(panel4, pw + 10, ph + 10, pw, ph);
+    sketch.image(panel2, 0, 0, ww, 200);
+    sketch.image(panel3, 0, 200, ww, 200);
+    sketch.image(panel1, 0, 400, ww, 200);
 
-    sketch.text('Spectograph', 15, 15);
-    sketch.text('Oscilloscope (Waveform)', pw + 20, 15);
-    sketch.text('Energy', 15, ph + 20);
-    sketch.text('Shader', pw + 20, ph + 20);
+    sketch.text('Oscilloscope (Waveform)', 15, 15);
+    sketch.text('Energy', 15, 215);
+    sketch.text('Spectograph', 15, 415);
   }
 
   // ============================================================== //
@@ -103,22 +93,22 @@ const audio = function(sketch) {
   // ============================================================== //
   let drawFFTSpectrograph = function(panel, spectrum) {
     panel.noStroke();
-    panel.copy(panel, 0, 0, pw, ph, -spectrographSpeed, 0, pw, ph);
+    panel.copy(panel, 0, 0, ww, 200, -spectrographSpeed, 0, ww, 200);
     
     for (var i = 0; i < spectrum.length; i++) {
       var value = spectrum[i];
-      panel.fill(0, value, value * 0.3, 255);
+      panel.fill(60 + ((lineR - 60) * value), 61 + ((lineG - 61) * value), 63 + ((lineB - 63) * value), 255);
 
       var percent = i / spectrum.length;
-      var y = percent * ph;
-      panel.rect(pw - spectrographSpeed, ph - y, spectrographSpeed, ph / spectrum.length);
+      var y = percent * 200;
+      panel.rect(ww - spectrographSpeed, 200 - y, spectrographSpeed, 200 / spectrum.length);
     }
   }
 
   // ============================================================== //
   let drawWaveform = function(panel, waveform) {
     var bufLen = waveform.length;
-    panel.background(0);
+    panel.background(bgColor);
     
     panel.strokeWeight(2);
     panel.beginShape();
@@ -132,7 +122,7 @@ const audio = function(sketch) {
 
   // ============================================================== //
   let drawEnergy = function(panel, spectrum) {
-    panel.background(0);
+    panel.background(bgColor);
 
     bass = fft.getEnergy("bass");
     lowMid = fft.getEnergy("lowMid");
@@ -143,33 +133,19 @@ const audio = function(sketch) {
     let bins=[bass,lowMid,mid,highMid,treble];
 
     for (var i =0;i<5;i++){
-      panel.fill(i+1*(255/5)/255,(i+1)*(255/5),0);
-      panel.rect((i*panel.width/5)+10, panel.height/2, 30, panel.map(bins[i], 0, 255, 0,-panel.height/2));
+      panel.fill(i+1*(lineR/5)/255, (i+1)*(lineG/5), lineB);
+      panel.rect((i*panel.width/5)+10, panel.height - 30, 30, panel.map(bins[i], 0, 255, 0,-panel.height - 20));
     }
 
     panel.beginShape();
-    panel.stroke(0, 255, 45);
+    panel.stroke(lineR, lineG, lineB);
     panel.noFill();
     for (var i = 0; i < spectrum.length; i++) {
       let x, y;
       x = panel.map(i, 0, spectrum.length - 1, 0, panel.width);
-      y = panel.map(spectrum[i], 20, 255, panel.height / 2, 0);
+      y = panel.map(spectrum[i], 20, 255, panel.height - 30, 0);
       panel.vertex(x, y);
     }
     panel.endShape();
   }
-
-  // ============================================================== //
-  let drawShader = function(panel) {
-    shader.setUniform("iResolution", [panel.width * pixelRatio, panel.height * pixelRatio]);
-	  shader.setUniform("iTime", sketch.millis() * 0.002);
-    panel.shader(shader);
-
-    // panel.translate(-panel.width/2,-panel.height/2,0);
-    panel.rect(-panel.width/2,-panel.height/2,panel.width, panel.height);
-  }
-
-  // ============================================================== //
-  
-
 }

@@ -44,15 +44,25 @@ function filterSetOpacity(opacity, isNegative) {
 // ============================================================== //
 const getAudioInput = async () => {
     const micDeviceId = localStorage.getItem("micDeviceId");
-    if(micDeviceId !== undefined || micDeviceId !== null) {
-        let constraints = {
-        audio : { 
-            deviceId: micDeviceId
-        }
-        }
-        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
-        // console.log("stream test: ", stream);
-        // this.handleSuccess(stream)
-        });
-    }
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    
+    // let inputs = document.getElementById("audioInput");
+    // inputs.innerHTML = '';
+
+    devices.forEach((deviceInfo, index) => {
+      if(deviceInfo.kind === 'audioinput') {
+        let isCheck = micDeviceId === deviceInfo.deviceId;
+        inputs.innerHTML += ("<div><input "+ (isCheck ? "checked" : "") +" type=\"radio\" id=\"input_"+ deviceInfo.deviceId +"\" name=\"auInput\" value=\""+ deviceInfo.deviceId +"\"><label for=\"input_"+ deviceInfo.deviceId +"\">"+ deviceInfo.label +" ("+deviceInfo.deviceId+")</label></div>");
+      }
+    });
+}
+
+// ============================================================== //
+const getActiveScenes = (visualData) => {
+    // var storedNames = JSON.parse(localStorage.getItem("names"));
+}
+
+// ============================================================== //
+const getInactiveScenes = (visualData) => {
+
 }

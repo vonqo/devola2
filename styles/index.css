@@ -133,28 +133,46 @@ button {
 
 .grid-bg {
   background-color: transparent;
-  background-image: 
-  linear-gradient(0deg, transparent 9%, 
-          rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%, 
-          rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%, 
-          rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%, 
-          rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
-          rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent),
-  linear-gradient(90deg, transparent 9%, 
-          rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%, 
-          rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%, 
-          rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%, 
-          rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
-          rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent);
-  
+  background-image: url('../assets/image/plus_pad.png');
+  background-position: center;
+  min-height:100vh;
+  background-size:150px 150px;
+  background-origin: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-overlay {
+  z-index: 10;
+  position: absolute;
   height: 100%;
-  background-size:100px 100px;
+  width: 100%;
+  background:
+        linear-gradient(-90deg, rgba(0,0,0,.07) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,.07) 1px, transparent 1px), 
+        linear-gradient(-90deg, rgba(0, 0, 0, .04) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+        linear-gradient(transparent 3px, transparent 3px, transparent 78px, transparent 78px),
+        linear-gradient(-90deg, transparent 1px, transparent 1px),
+        linear-gradient(-90deg, transparent 3px, transparent 3px, transparent 78px, transparent 78px),
+        linear-gradient(transparent 1px, transparent 1px),
+        transparent;
+    background-size:
+        5px 5px,
+        5px 5px,
+        100px 100px,
+        100px 100px,
+        100px 100px,
+        100px 100px,
+        100px 100px,
+        100px 100px;
 }
 
 .ui-panel {
   display: flex; 
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
 }
 
 .ui-card {
@@ -168,7 +186,7 @@ button {
 
 .ui-bg-stripe {
   background-image: url('../assets/image/stripe_trans.png');
-  background-size: contain
+  background-size: contain;
 }
 
 .ui-text-orange {
@@ -179,8 +197,16 @@ button {
   background-color: #3c3d3f;
 }
 
+.ui-text-dark-grey {
+  color: #3c3d3f;
+}
+
 .ui-bg-light-grey {
   background-color: #caced7;
+}
+
+.ui-text-light-grey {
+  color: #caced7
 }
 
 .ui-title {
@@ -203,11 +229,15 @@ button {
 .ui-content {
   font-size: 14px;
   padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .visuals-wrapper {
   min-width: 800px;
   gap: 10px;
+  border-left: 2px solid #3c3d3f;
 }
 
 .ui-footer {
@@ -232,10 +262,130 @@ button {
 
 .ui-vis-item {
   font-size: 15px;
+  height: 28px;
+  display: flex;
+  place-items: center;
+}
+
+.ui-time {
+  font-size: 42px;
+  font-weight: 600;
+  margin: 0px;
+}
+
+.ui-button {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: end;
+  width: 100%;
+  height: 42px;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 12px;
+  border: 4px solid;
+  border-color: #3c3d3f;
+  padding: 5px 5px;
+  color: #3c3d3f;
+  text-transform: uppercase;
+}
+
+.ui-button-active {
+  background-color: #f14b00;
+  border-color: #f14b00;
+  color: white;
+}
+
+.ui-time-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+}
+
+.ui-vertical-stripe {
+  width: 7px;
+  background-color: #f14b00;
+}
+
+.ui-author {
+  margin-bottom: -7px;
+  font-size: 16px;
+}
+
+.ui-keybind-select {
+  width: 100%;
+  margin: 0px;
+  border: 0px solid;
+  background-color: #f14b00;
+  color: white;
+  text-transform: uppercase;
+  
+  padding: 5px 5px;
+  font-weight: 700;
 }
 
 .ui-settings-container {
   display: grid;
-  grid-template-columns: auto auto;
-  gap: 10px;
+  grid-template-columns: 50% 50%;
+  gap: 20px;
+}
+
+.ui-settings-section {
+  
+}
+
+.ui-settings-title {
+  border-left: 4px solid #f14b00;
+  padding: 5px 6px;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+}
+
+.ui-settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.ui-settings-item {
+  padding: 5px 10px;
+  color: #3c3d3f;
+}
+
+.ui-settings-item-selected {
+  background-color: #f14b00;
+  background-image: url('../assets/image/stripe_trans.png');
+  background-size: 50px;
+  color: white;
+  font-weight: 700;
+}
+
+.ui-label {
+  text-transform: uppercase;
+  background-color: #3c3d3f;
+  color: white;
+  margin: 0px;
+  height: 28px;
+  width: 80px;
+  text-align: right;
+  padding-right: 7px;
+  display: flex;
+  place-items: center;
+  justify-content: end;
+}
+
+.ui-input-wrapper {
+  display: flex;
+  place-items: center;
+}
+
+.ui-input {
+  border: none;
+  background: white;
+  margin: 0px;
+  height: 28px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: 'JetBrainsMono';
+  padding-left: 7px;
 }

@@ -18,7 +18,7 @@ const createWindow = () => {
     width: 1200,
     height: 800,
     icon: __dirname + '/assets/favicon.ico',
-    fullscreen: false,
+    fullscreen: true,
     // webPreferences: {
     //   nodeIntegration: true,
     //   contextIsolation: false,

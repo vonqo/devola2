@@ -1,14 +1,9 @@
 const colorDebug = function(sketch) {
 
     let font;
-    let fft;
-    let osc;
-    let input;
   
     let ww;
     let hh;
-    let pw;
-    let ph;
   
     let panel;
     let shader;
@@ -41,13 +36,6 @@ const colorDebug = function(sketch) {
       panel.textAlign(sketch.LEFT, sketch.TOP);
   
       panel.background(0);
-      
-      input = new p5.AudioIn();
-      osc = new p5.Oscillator();
-      input.start();
-  
-      fft = new p5.FFT(0.5, 1024);
-      fft.setInput(input);
     }
   
     // ============================================================== //
@@ -55,7 +43,8 @@ const colorDebug = function(sketch) {
       sketch.translate(-sketch.width/2,-sketch.height/2,0);
       drawShader(panel);
       sketch.image(panel, 0, 0, ww, hh);
-      sketch.text('WebGL Shader', 15, 15);
+      // let fps = sketch.frameRate();
+      // sketch.text('Framerate: ' + fps, 15, 15);
     }
   
     // ============================================================== //

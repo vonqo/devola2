@@ -133,7 +133,7 @@ const audioDebug = function(sketch) {
     let bins=[bass,lowMid,mid,highMid,treble];
 
     for (var i =0;i<5;i++){
-      panel.fill(i+1*(lineR/5)/255, (i+1)*(lineG/5), lineB);
+      panel.fill(lineR, lineG, lineB);
       panel.rect((i*panel.width/5)+10, panel.height - 30, 30, panel.map(bins[i], 0, 255, 0,-panel.height - 20));
     }
 

@@ -1,117 +1,169 @@
 <!doctype html>
 <html>
-  <head>
-    <title>devola2 by vonqo</title>
-    <meta charset="UTF-8">
-    <meta name="author" content="vonqo">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles/augmented-ui.min.css">
-    <link rel="stylesheet" href="styles/index.css">
-    <script language="javascript" type="text/javascript" src="libs/p5js/p5.min.js"></script>
-    <script language="javascript" type="text/javascript" src="libs/p5js/addons/p5.sound.min.js"></script>
-    <script type="text/javascript" language="javascript" src="styles/jquery-1.8.2.min.js"></script> 
-    <script type="text/javascript" language="javascript" src="data.js"></script> 
 
-    <script language="javascript" type="text/javascript" src="src/debugger/audio/audio.js"></script>
-    <script language="javascript" type="text/javascript" src="src/debugger/color/color.js"></script>
-    <style>
-      body, button {
-        cursor:crosshair;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="grid-bg">
-      <div style="display: flex; flex-wrap: wrap; padding: 10px; gap: 30px">
+<head>
+  <title>devola2 by vonqo</title>
+  <meta charset="UTF-8">
+  <meta name="author" content="vonqo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles/augmented-ui.min.css">
+  <link rel="stylesheet" href="styles/index.css">
+  <script language="javascript" type="text/javascript" src="libs/p5js/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="libs/p5js/addons/p5.sound.min.js"></script>
+  <script type="text/javascript" language="javascript" src="styles/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" language="javascript" src="data.js"></script>
 
-        <div class="ui-panel">
+  <script language="javascript" type="text/javascript" src="src/debugger/audio/audio.js"></script>
+  <script language="javascript" type="text/javascript" src="src/debugger/color/color.js"></script>
+  <style>
+    body,
+    button {
+      cursor: crosshair;
+    }
+  </style>
+</head>
 
-          <!-- ---------- TIME ---------- -->
+<body>
+  <div class="grid-bg">
+    <div style="display: flex; flex-wrap: wrap; padding: 10px; gap: 30px">
+
+      <div class="ui-panel">
+
+        <!-- ---------- TIME ---------- -->
+        <div class="ui-time-wrapper">
+          <div class="ui-vertical-stripe"></div>
           <div>
-            <span id="time-hr"></span>
-            <span>:</span>
-            <span id="time-min"></span>
-            <span>:</span>
-            <span id="time-sec"></span>
-          </div>
-
-          <!-- ---------- VISUALS ---------- -->
-          <div data-augmented-ui-border data-augmented-ui="b-clip-x tl-clip tr-2-clip-y br-clip bl-clip" class="visuals-wrapper">
-            <div style="display: flex; align-content: stretch; gap: 10px;">
-              <div class="ui-card">
-                <div class="ui-title ui-bg-dark-grey"><span class="ui-text-orange">|</span>Visuals</div>
-                <div class="ui-content">
-                  <div class="ui-vis-item">BLMD_GLITCH</div>
-                  <div class="ui-vis-item">BLMD_MIRROR</div>
-                  <div class="ui-vis-item">BLMD_MENGER</div>
-                </div>
-              </div>
-              <div class="ui-card">
-                <div class="ui-title ui-bg-orange">Active Visuals</div>
-                <div class="ui-content">
-                  <div class="ui-vis-item">BLMD 1</div>
-                  <div class="ui-vis-item">BLMD 2</div>
-                  <div class="ui-vis-item">BLMD 3</div>
-                </div>
-              </div>
-              <div class="ui-card" style="width: 60%;">
-                <div class="ui-title ui-bg-orange ui-bg-stripe">Keybind</div>
-                <div class="ui-content">
-                  <div class="ui-vis-item">BLMD 1</div>
-                  <div class="ui-vis-item">BLMD 2</div>
-                  <div class="ui-vis-item">BLMD 3</div>
-                </div>
-              </div>
+            <div class="ui-author">
+              <b>devola2</b> by vonqo
             </div>
-            <div class="ui-footer ui-bg-light-grey">
+            <div class="ui-time ui-text-light-grey">
+              <span id="time-hr" class="ui-text-dark-grey"></span><span>:</span><span id="time-min"
+                class="ui-text-dark-grey"></span><span>:</span><span id="time-sec"></span>
             </div>
           </div>
         </div>
 
-        <div class="ui-panel">
-
-          <!-- ---------- SETTINGS ---------- -->
-          <div data-augmented-ui-border data-augmented-ui="tl-clip tr-2-clip-y br-clip bl-clip" class="settings-wrapper">
+        <!-- ---------- VISUALS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="b-clip-x tl-clip tr-2-clip-y br-clip bl-clip"
+          class="visuals-wrapper">
+          <div style="display: flex; align-content: stretch; gap: 10px;">
             <div class="ui-card">
-              <div class="ui-title ui-bg-orange">Settings</div>
-              <div data-augmented-ui-border class="ui-bg-stripe ui-content">
-                
-                <div class="ui-settings-container">
-                  <div>
-                    <div>Audio Source</div>
-                  </div>
-                  <div>
-                    <div>Resolution</div>
-                  </div>
-                  <div>
-                    <div>Overlay</div>
-                  </div>
-                  <div>
-                    <div>Transition</div>
-                  </div>
+              <div class="ui-title ui-bg-dark-grey"><span class="ui-text-orange">|</span>Visuals</div>
+              <div class="ui-content">
+                <div class="ui-vis-item">BLMD_Glitch</div>
+                <div class="ui-vis-item">EvenTide_CLOUD</div>
+                <div class="ui-vis-item">Starfish_ITALIC</div>
+                <div class="ui-vis-item">NightTrain_Tsahlai</div>
+              </div>
+            </div>
+            <div class="ui-card">
+              <div class="ui-title ui-bg-orange">Active Visuals</div>
+              <div class="ui-content">
+                <div class="ui-vis-item">BLMD_Mirror</div>
+                <div class="ui-vis-item">BLMD_Menger</div>
+                <div class="ui-vis-item">EvenTide_DEEVER</div>
+              </div>
+            </div>
+            <div class="ui-card" style="width: 40%;">
+              <div class="ui-title ui-bg-orange ui-bg-stripe">Keybind</div>
+              <div class="ui-content" style="padding: 10px 0px">
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="volvo">1</option>
+                  </select>
                 </div>
-                
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="volvo">2</option>
+                  </select>
+                </div>
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="volvo">ENTER</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-          
-          <div style="display: flex; gap: 20px;">
+          <div class="ui-footer ui-bg-light-grey">
+          </div>
+        </div>
+      </div>
 
-            <!-- ---------- AUDIO ---------- -->
-            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
-              <div class="ui-card">
-                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
-                  Audio / p5.sound
-                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
-                    RE
-                  </button>
+      <div class="ui-panel">
+
+        <!-- ---------- SETTINGS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-y bl-clip"
+          class="settings-wrapper">
+          <div class="ui-card">
+            <div class="ui-title ui-bg-dark-grey">Settings</div>
+            <div data-augmented-ui-border class="ui-content" style="padding: 10px 0px;">
+
+              <div class="ui-settings-container">
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Audio Source</div>
+                  <div class="ui-settings-content">
+                    <div class="ui-settings-item ui-settings-item-selected">1. audio source 1</div>
+                    <div class="ui-settings-item">2. audio source 2</div>
+                  </div>
                 </div>
-                <div id="p5sound">
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Resolution</div>
+                  <div class="ui-settings-content">
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="width">width</label>
+                      <input class="ui-input" type="number" id="r_width" name="width" value="1920">
+                    </div>
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="height">height</label>
+                      <input class="ui-input" type="number" id="r_height" name="height" value="1080">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Overlay</div>
+                  <div class="ui-settings-content">
+                    <div class="ui-settings-item">1. B.L.M.D logo</div>
+                    <div class="ui-settings-item">2. Even Tide logo</div>
+                    <div class="ui-settings-item ui-settings-item-selected">3. custom logo</div>
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Transition</div>
+                  <div class="ui-settings-content">
+                    <div class="ui-settings-item ui-settings-item-selected">1. fade in / fade out</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- ---------- COLOR ---------- -->
+              <div class="ui-footer ui-bg-light-grey">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+
+          <!-- ---------- AUDIO ---------- -->
+          <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                Audio / p5.sound
+                <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                  RE
+                </button>
+              </div>
+              <div id="p5sound">
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- COLOR ---------- -->
+          <div>
             <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
               <div class="ui-card">
                 <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
@@ -120,82 +172,97 @@
                     RE
                   </button>
                 </div>
+                <div class="grid-overlay"></div>
                 <div id="p5color" style="height: 200px;">
                 </div>
               </div>
             </div>
+
+            <!-- ---------- ACTIONS ---------- -->
+            <div style="display: flex; margin-top: 20px; gap: 10px;">
+              <button class="ui-button">
+                Reload
+              </button>
+
+              <button class="ui-button">
+                Save
+              </button>
+            </div>
+
+            <div style="display: flex; margin-top: 20px; gap: 10px;">
+              <button class="ui-button">
+                Debug
+              </button>
+
+              <button class="ui-button ui-button-active">
+                Start
+              </button>
+            </div>
           </div>
 
-          <!-- ---------- ACTIONS ---------- -->
-        <div>
-          <button>Debug</button>
-          <button>Start</button>
         </div>
-
-        </div>
-
-        
-
       </div>
-
     </div>
-  </body>
 
-  <script language="javascript" type="text/javascript">
+  </div>
+</body>
 
-    $(document).ready(function(e) {
-      console.log(VISUAL_DATA);
+<script language="javascript" type="text/javascript">
 
-      let sound = new p5(audioDebug, document.getElementById('p5sound'));
-      let color = new p5(colorDebug, document.getElementById('p5color'));
+  $(document).ready(function (e) {
+    console.log(VISUAL_DATA);
 
-      var time_hr = document.getElementById('time-hr');
-      var time_min = document.getElementById('time-min');
-      var time_sec = document.getElementById('time-sec');
+    let sound = new p5(audioDebug, document.getElementById('p5sound'));
+    let color = new p5(colorDebug, document.getElementById('p5color'));
 
-      function time() {
-        var d = new Date();
-        var s = d.getSeconds();
-        var m = d.getMinutes();
-        var h = d.getHours();
-        time_hr.textContent = ("0" + h).substr(-2);
-        time_min.textContent = ("0" + m).substr(-2);
-        time_sec.textContent = ("0" + s).substr(-2);
-      }
+    var time_hr = document.getElementById('time-hr');
+    var time_min = document.getElementById('time-min');
+    var time_sec = document.getElementById('time-sec');
 
-      setInterval(time, 1000);
-    });
-
-    let checkSettings = async () => {
-      const w = localStorage.getItem("width");
-      const h = localStorage.getItem("height");
-      const debug = localStorage.getItem("debug");
-      const input = localStorage.getItem("micDeviceId");
-
-      if(w === null || w == undefined) {
-        localStorage.setItem("width", 1920);
-      }
-
-      if(h === null || h == undefined) {
-        localStorage.setItem("height", 1080);
-      }
-
-      if(debug == null || h == undefined) {
-        localStorage.setItem("debug", false);
-      }
-
-      if(input === null || input == undefined) {
-        let devices = await navigator.mediaDevices.enumerateDevices();
-        devices.every((deviceInfo, index) => {
-          if(deviceInfo.kind === 'audioinput') {
-            localStorage.setItem("micDeviceId", deviceInfo.deviceId);
-            return false;
-          }
-          return true;
-        });
-      }
+    function time() {
+      var d = new Date();
+      var s = d.getSeconds();
+      var m = d.getMinutes();
+      var h = d.getHours();
+      time_hr.textContent = ("0" + h).substr(-2);
+      time_min.textContent = ("0" + m).substr(-2);
+      time_sec.textContent = ("0" + s).substr(-2);
     }
 
-    checkSettings();
-  </script>
+    setInterval(time, 1000);
+  });
+
+  let checkSettings = async () => {
+    const w = localStorage.getItem("width");
+    const h = localStorage.getItem("height");
+    const debug = localStorage.getItem("debug");
+    const input = localStorage.getItem("micDeviceId");
+
+    if (w === null || w == undefined) {
+      localStorage.setItem("width", 1920);
+    }
+
+    if (h === null || h == undefined) {
+      localStorage.setItem("height", 1080);
+    }
+
+    if (debug == null || h == undefined) {
+      localStorage.setItem("debug", false);
+    }
+
+    if (input === null || input == undefined) {
+      let devices = await navigator.mediaDevices.enumerateDevices();
+      devices.every((deviceInfo, index) => {
+        if (deviceInfo.kind === 'audioinput') {
+          localStorage.setItem("micDeviceId", deviceInfo.deviceId);
+          return false;
+        }
+        return true;
+      });
+    }
+  }
+
+  checkSettings();
+</script>
+
 </html>

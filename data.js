@@ -1,25 +1,31 @@
 const VISUAL_DATA = {
     "scenes": [
         {
-            "id": 1,
+            "id": "1",
             "name": "blmd_mirror",
-            "path": ""
+            "path": "",
         },
         {
-            "id": 2,
+            "id": "2",
             "name": "blmd_glitch",
-            "path": ""
+            "path": "",
         },
         {
-            "id": 3,
+            "id": "3",
             "name": "blmd_menger",
-            "path": ""
+            "path": "",
         }
     ],
     "transition": [
         {
-            "id": 1,
-            "name": "black"
+            "id": "1",
+            "name": "fade in / fade out"
+        }
+    ],
+    "overlay": [
+        {
+            "id": "1",
+            "name": "Custom Logo"
         }
     ]
 }

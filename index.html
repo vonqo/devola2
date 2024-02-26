@@ -12,13 +12,15 @@
   <script language="javascript" type="text/javascript" src="libs/p5js/addons/p5.sound.min.js"></script>
   <script type="text/javascript" language="javascript" src="styles/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" language="javascript" src="data.js"></script>
+  <script type="text/javascript" language="javascript" src="util.js"></script>
 
   <script language="javascript" type="text/javascript" src="src/debugger/audio/audio.js"></script>
   <script language="javascript" type="text/javascript" src="src/debugger/color/color.js"></script>
   <style>
     body,
     button {
-      cursor: crosshair;
+      cursor: default;
+      overflow: auto;
     }
   </style>
 </head>
@@ -49,24 +51,17 @@
           <div style="display: flex; align-content: stretch; gap: 10px;">
             <div class="ui-card">
               <div class="ui-title ui-bg-dark-grey"><span class="ui-text-orange">|</span>Visuals</div>
-              <div class="ui-content">
-                <div class="ui-vis-item">BLMD_Glitch</div>
-                <div class="ui-vis-item">EvenTide_CLOUD</div>
-                <div class="ui-vis-item">Starfish_ITALIC</div>
-                <div class="ui-vis-item">NightTrain_Tsahlai</div>
+              <div class="ui-content" id="visuals">
               </div>
             </div>
             <div class="ui-card">
               <div class="ui-title ui-bg-orange">Active Visuals</div>
-              <div class="ui-content">
-                <div class="ui-vis-item">BLMD_Mirror</div>
-                <div class="ui-vis-item">BLMD_Menger</div>
-                <div class="ui-vis-item">EvenTide_DEEVER</div>
+              <div class="ui-content" id="active-visuals">
               </div>
             </div>
             <div class="ui-card" style="width: 40%;">
               <div class="ui-title ui-bg-orange ui-bg-stripe">Keybind</div>
-              <div class="ui-content" style="padding: 10px 0px">
+              <div class="ui-content" style="padding: 10px 0px" id="keybind">
                 <div class="ui-vis-item">
                   <select class="ui-keybind-select" name="key">
                     <option value="volvo">1</option>
@@ -102,9 +97,7 @@
               <div class="ui-settings-container">
                 <div class="ui-settings-section">
                   <div class="ui-settings-title">Audio Source</div>
-                  <div class="ui-settings-content">
-                    <div class="ui-settings-item ui-settings-item-selected">1. audio source 1</div>
-                    <div class="ui-settings-item">2. audio source 2</div>
+                  <div class="ui-settings-content" id="audio-src-list">
                   </div>
                 </div>
 
@@ -113,28 +106,24 @@
                   <div class="ui-settings-content">
                     <div class="ui-input-wrapper">
                       <label class="ui-label" for="width">width</label>
-                      <input class="ui-input" type="number" id="r_width" name="width" value="1920">
+                      <input class="ui-input" type="number" id="res-width" name="width" value="1920">
                     </div>
                     <div class="ui-input-wrapper">
                       <label class="ui-label" for="height">height</label>
-                      <input class="ui-input" type="number" id="r_height" name="height" value="1080">
+                      <input class="ui-input" type="number" id="res-height" name="height" value="1080">
                     </div>
                   </div>
                 </div>
 
                 <div class="ui-settings-section">
                   <div class="ui-settings-title">Overlay</div>
-                  <div class="ui-settings-content">
-                    <div class="ui-settings-item">1. B.L.M.D logo</div>
-                    <div class="ui-settings-item">2. Even Tide logo</div>
-                    <div class="ui-settings-item ui-settings-item-selected">3. custom logo</div>
+                  <div class="ui-settings-content" id="overlays">
                   </div>
                 </div>
 
                 <div class="ui-settings-section">
                   <div class="ui-settings-title">Transition</div>
-                  <div class="ui-settings-content">
-                    <div class="ui-settings-item ui-settings-item-selected">1. fade in / fade out</div>
+                  <div class="ui-settings-content" id="transitions">
                   </div>
                 </div>
               </div>
@@ -180,21 +169,21 @@
 
             <!-- ---------- ACTIONS ---------- -->
             <div style="display: flex; margin-top: 20px; gap: 10px;">
-              <button class="ui-button">
-                Reload
+              <button id="fullscreenButton" class="ui-button" onclick="toggleFullscreen()">
+                Fullscreen ◢
               </button>
 
-              <button class="ui-button">
-                Save
+              <button id="windowedButton" class="ui-button" onclick="toggleWindowed()">
+                New Instance ◢
               </button>
             </div>
 
             <div style="display: flex; margin-top: 20px; gap: 10px;">
-              <button class="ui-button">
-                Debug
+              <button class="ui-button" onclick="reload()">
+                Reload
               </button>
 
-              <button class="ui-button ui-button-active">
+              <button class="ui-button ui-button-active" onclick="fireUp()">
                 Start
               </button>
             </div>
@@ -209,9 +198,10 @@
 
 <script language="javascript" type="text/javascript">
 
-  $(document).ready(function (e) {
-    console.log(VISUAL_DATA);
+  let willOpenInWindow = false;
+  let isFullscreen = false;
 
+  $(document).ready(function (e) {
     let sound = new p5(audioDebug, document.getElementById('p5sound'));
     let color = new p5(colorDebug, document.getElementById('p5color'));
 
@@ -230,39 +220,181 @@
     }
 
     setInterval(time, 1000);
+
+    $("#res-height").change(function() {
+      saveResoHeight($(this).val());
+    });
+
+    $("#res-width").change(function() {
+      saveResoWidth($(this).val());
+    });
+    
+    reload();
   });
 
-  let checkSettings = async () => {
-    const w = localStorage.getItem("width");
-    const h = localStorage.getItem("height");
-    const debug = localStorage.getItem("debug");
-    const input = localStorage.getItem("micDeviceId");
+  const reload = () => {
+    getVisuals();
+    getActiveVisuals();
+    getAudioSources();
+    getTransitions();
+    getOverlays();
+    getResolution();
+  }
 
-    if (w === null || w == undefined) {
-      localStorage.setItem("width", 1920);
-    }
+  const getVisuals = () => {
+    const items = getInactiveScene(VISUAL_DATA);
+    let visuals = $("#visuals");
+    visuals.empty();
+    items.forEach((item) => visuals.append("<div onclick=\"activateVisual('"+ item.id +"', '1')\" class=\"ui-vis-item\">"+ item.name +"</div>"));
+  }
 
-    if (h === null || h == undefined) {
-      localStorage.setItem("height", 1080);
-    }
+  const getActiveVisuals = () => {
+    const items = getActiveScenes(VISUAL_DATA);
+    let visuals = $("#active-visuals");
+    let keybind = $("#keybind");
 
-    if (debug == null || h == undefined) {
-      localStorage.setItem("debug", false);
-    }
+    visuals.empty();
+    keybind.empty();
 
-    if (input === null || input == undefined) {
-      let devices = await navigator.mediaDevices.enumerateDevices();
-      devices.every((deviceInfo, index) => {
-        if (deviceInfo.kind === 'audioinput') {
-          localStorage.setItem("micDeviceId", deviceInfo.deviceId);
-          return false;
-        }
-        return true;
+    items.forEach((item) => {
+      visuals.append("<div onclick=\"deactivateVisual('"+ item.id +"')\" class=\"ui-vis-item\">"+ item.name +"</div>");
+      keybind.append("<div class=\"ui-vis-item\">" + 
+                        "<select class=\"ui-keybind-select\" id=\"select-key-"+ item.id +"\">" + 
+                          "<option value=\"1\" "+(item.key === '1' ? 'selected' : '')+">NUM 1</option>" + 
+                          "<option value=\"2\" "+(item.key === '2' ? 'selected' : '')+">NUM 2</option>" + 
+                          "<option value=\"3\" "+(item.key === '3' ? 'selected' : '')+">NUM 3</option>" + 
+                          "<option value=\"4\" "+(item.key === '4' ? 'selected' : '')+">NUM 4</option>" + 
+                          "<option value=\"5\" "+(item.key === '5' ? 'selected' : '')+">NUM 5</option>" + 
+                          "<option value=\"6\" "+(item.key === '6' ? 'selected' : '')+">NUM 6</option>" + 
+                          "<option value=\"7\" "+(item.key === '7' ? 'selected' : '')+">NUM 7</option>" + 
+                          "<option value=\"8\" "+(item.key === '8' ? 'selected' : '')+">NUM 8</option>" + 
+                          "<option value=\"9\" "+(item.key === '9' ? 'selected' : '')+">NUM 9</option>" + 
+                        "</select>" +
+                      "</div>");
+
+      $("#select-key-"+item.id).on('change', function() {
+        addActiveScene(item.id, $(this).val());
       });
+    });
+  }
+
+  const activateVisual = (id, key) => {
+    addActiveScene(id, key);
+    getVisuals();
+    getActiveVisuals();
+  }
+
+  const deactivateVisual = (id) => {
+    removeActiveScene(id);
+    getVisuals();
+    getActiveVisuals();
+  }
+
+  const getAudioSources = async () => {
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    let audioList = $("#audio-src-list");
+    audioList.empty();
+
+    devices.forEach((deviceInfo, index) => {
+      let className = "ui-settings-item";
+      if(deviceInfo.kind === 'audioinput') {
+        if(getAudioSourceId() === deviceInfo.deviceId) {
+          className += " ui-settings-item-selected";
+        }
+        audioList.append("<div onclick=\"selectAudioSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+      }
+    });
+  }
+
+  const selectAudioSource = (id) => {
+    saveAudioSourceId(id);
+    getAudioSources();
+  }
+
+  const getTransitions = () => {
+    if(VISUAL_DATA.transition === undefined || VISUAL_DATA.transition === null || VISUAL_DATA.transition.length === 0) {
+      return;
+    }
+
+    let list = $("#transitions");
+    list.empty();
+
+    VISUAL_DATA.transition.forEach((item, index) => {
+      let className = "ui-settings-item";
+
+      if(getSelectedTransitionId() === item.id) {
+        className += " ui-settings-item-selected";
+      }
+
+      list.append("<div class=\""+className+"\" onclick=\"selectTransition('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
+    });
+  }
+
+  const selectTransition = (id) => {
+    saveTransitionId(id);
+    getTransitions();
+  }
+
+  const getOverlays = () => {
+    if(VISUAL_DATA.overlay === undefined || VISUAL_DATA.overlay === null || VISUAL_DATA.overlay.length === 0) {
+      return;
+    }
+
+    let list = $("#overlays");
+    list.empty();
+
+    VISUAL_DATA.overlay.forEach((item, index) => {
+      let className = "ui-settings-item";
+
+      if(getSelectedOverlayId() === item.id) {
+        className += " ui-settings-item-selected";
+      }
+      
+      list.append("<div class=\""+className+"\" onclick=\"selectOverlay('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
+    });
+  }
+
+  const selectOverlay = (id) => {
+    saveOverlayId(id);
+    getOverlays();
+  }
+
+  const getResolution = () => {
+    $("#res-height").val(getResoHeight());
+    $("#res-width").val(getResoWidth());
+  }
+
+  const saveResolution = () => {
+    saveResoHeight($("#res-height").val());
+    saveResoWidth($("#res-width").val());
+    getResolution();
+  }
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
     }
   }
 
-  checkSettings();
+  const toggleWindowed = () => {
+    willOpenInWindow = !willOpenInWindow;
+
+    if(willOpenInWindow) {
+      $("#windowedButton").addClass("ui-button-active");
+    } else {
+      $("#windowedButton").removeClass("ui-button-active");
+    }
+  }
+
+  const fireUp = () => {
+    if(willOpenInWindow) {
+      window.open('src/scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+    } else {
+      window.location.href = "src/scenes/scene_wrapper.html";
+    }
+  }
 </script>
 
 </html>

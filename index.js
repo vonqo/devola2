@@ -19,11 +19,11 @@ const createWindow = () => {
     height: 800,
     icon: __dirname + '/assets/favicon.ico',
     fullscreen: true,
-    // webPreferences: {
-    //   nodeIntegration: true,
-    //   contextIsolation: false,
-    //   enableRemoteModule: true
-    // }
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
+    }
   });
   
   win.loadFile('index.html');

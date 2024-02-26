@@ -96,7 +96,7 @@ const audioDebug = function(sketch) {
     panel.copy(panel, 0, 0, ww, 200, -spectrographSpeed, 0, ww, 200);
     
     for (var i = 0; i < spectrum.length; i++) {
-      var value = spectrum[i];
+      var value = spectrum[i] * 0.1;
       panel.fill(60 + ((lineR - 60) * value), 61 + ((lineG - 61) * value), 63 + ((lineB - 63) * value), 255);
 
       var percent = i / spectrum.length;

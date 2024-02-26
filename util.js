@@ -58,11 +58,105 @@ const getAudioInput = async () => {
 }
 
 // ============================================================== //
-const getActiveScenes = (visualData) => {
-    // var storedNames = JSON.parse(localStorage.getItem("names"));
+const addActiveScene = (id, key) => {
+    let storedScenes = JSON.parse(localStorage.getItem("active_scenes"));
+    if(storedScenes === undefined || storedScenes === null) {
+        localStorage.setItem("active_scenes", JSON.stringify([{"id": id, "key": key}]));
+    } else {
+        const idx = storedScenes.findIndex((item) => item.id === id);
+        console.log(idx);
+
+        if(idx === -1) {
+            storedScenes.push({"id": id, "key": key});
+        } else {
+            storedScenes[idx].key = key;
+            console.log(storedScenes);
+        }
+
+        localStorage.setItem("active_scenes", JSON.stringify(storedScenes));
+    }
 }
 
 // ============================================================== //
-const getInactiveScenes = (visualData) => {
+const removeActiveScene = (id) => {
+    var storedScenes = JSON.parse(localStorage.getItem("active_scenes"));
+    if(storedScenes === undefined || storedScenes === null || storedScenes.length === 0) return;
 
+    const removed = storedScenes.filter((item) => item.id !== id);
+    localStorage.setItem("active_scenes", JSON.stringify(removed));
+}
+
+// ============================================================== //
+const getActiveScenes = (visualData) => {
+    var storedScenes = JSON.parse(localStorage.getItem("active_scenes"));
+    if(storedScenes === undefined || storedScenes === null || storedScenes.length === 0) return [];
+    
+    let list = [];
+    visualData.scenes.forEach((item) => {
+        const visual = storedScenes.find((element) => element.id === item.id);
+        if(visual != undefined) {
+            list.push({"id": item.id, "name": item.name, "key": visual.key, "path": visual.path});
+        }
+    });
+    return list;
+}
+
+// ============================================================== //
+const getInactiveScene = (visualData) => {
+    var storedScenes = JSON.parse(localStorage.getItem("active_scenes"));
+    if(storedScenes === undefined || storedScenes === null || storedScenes.length === 0) {
+        let list = [];
+        visualData.scenes.forEach((item) => list.push({"id": item.id, "name": item.name}));
+        return list;
+    };
+
+    let list = [];
+    visualData.scenes.forEach((item) => {
+        const visual = storedScenes.find((element) => element.id === item.id);
+        if(visual == undefined) {
+            list.push({"id": item.id, "name": item.name});
+        }
+    });
+    return list;
+}
+
+// ============================================================== //
+const saveOverlayId = (id) => {
+    localStorage.setItem("selected_overlay", id);
+}
+
+const getSelectedOverlayId = () => {
+    return localStorage.getItem("selected_overlay");
+}
+
+const saveTransitionId = (id) => {
+    localStorage.setItem("selected_transition", id);
+}
+
+const getSelectedTransitionId = () => {
+    return localStorage.getItem("selected_transition");
+}
+
+const saveAudioSourceId = (id) => {
+    localStorage.setItem("audio_source", id);
+}
+
+const getAudioSourceId = () => {
+    return localStorage.getItem("audio_source");
+}
+
+const getResoWidth = () => {
+    return localStorage.getItem("reso_width");
+}
+
+const saveResoWidth = (value) => {
+    localStorage.setItem("reso_width", value);
+}
+
+const getResoHeight = () => {
+    return localStorage.getItem("reso_height");
+}
+
+const saveResoHeight = (value) => {
+    localStorage.setItem("reso_height", value);
 }

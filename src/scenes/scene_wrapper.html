@@ -5,35 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../styles/index.css">
-    <script language="javascript" type="text/javascript" src="../../util.js"></script>
+    <script language="javascript" type="text/javascript" src="../../styles/jquery-1.8.2.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/p5.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
+    <script language="javascript" type="text/javascript" src="../../util.js"></script>
+    <script language="javascript" type="text/javascript" src="../../data.js"></script>
 
-    <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
+    <!-- <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
     <script language="javascript" type="text/javascript" src="./scenes/carpet_menger/menger.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_blueprint/blueprint.js"></script>
+    <script language="javascript" type="text/javascript" src="./scenes/carpet_blueprint/blueprint.js"></script> -->
 
     <style>
       body {
-        background-image: url('bg.png');
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-
-      #logo {
-        position: absolute;
-        font-size: 72px;
-        /* display: flex; */
-        display: none;
-        justify-content: c5enter;
-        align-items: center;
-        width: 100%;
-        /* padding-left: 70px; */
-        padding-top: 100px;
-        filter: invert();
+        background: black;
+        overflow: hidden;
       }
     </style>
   
@@ -42,11 +30,33 @@
     <div id="transition"></div>
     <div id="filter"></div>
     <div id="logo"></div>
-
-    <div id="container">
-    </div>
+    <div id="container"></div>
     
     <script language="javascript" type="text/javascript">
+      let buffer;
+      let filterOpacity = 0;
+
+      $(document).ready(function (e) {
+        const visuals = getActiveScenes(VISUAL_DATA);
+
+        window.addEventListener("keydown", function(event) {
+          if(event.key === 'q' || event.key === 'Q') {
+            filterOpacity = filterSetOpacity(filterOpacity, true);
+          } else if(event.key === 'w' || event.key === 'W') {
+            filterOpacity = filterSetOpacity(filterOpacity, false);
+          } else if(event.key === '0') {
+            window.location.href = '../../index.html';
+          } else {
+            visuals.forEach((visual) => {
+              if(event.key === visual.key) {
+                console.log(visual);
+              }
+            });
+          }
+          event.preventDefault();
+        }, true);
+      });
+
 
     </script>
   </body>

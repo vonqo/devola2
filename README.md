@@ -30,7 +30,7 @@ const variable_name = function(sketch) {
     }
 
     sketch.setup = function() {
-        // localStorage stores object as string, so you have to parse it into number
+        // localStorage stores object as string, so you have to parse it to number
         sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
         ...
     }

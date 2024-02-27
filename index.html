@@ -1,422 +1,420 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Devola2</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/index.css">
-    <style>
-      body {
-        overflow: visible; 
-      }
 
-      .menu-body {
-        padding: 30px;
-        display: flex;
-        flex-wrap: wrap;
-      }
+<head>
+  <title>devola2 by vonqo</title>
+  <meta charset="UTF-8">
+  <meta name="author" content="vonqo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="styles/augmented-ui.min.css">
+  <link rel="stylesheet" href="styles/index.css">
+  <script language="javascript" type="text/javascript" src="libs/p5js/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="libs/p5js/addons/p5.sound.min.js"></script>
+  <script type="text/javascript" language="javascript" src="styles/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" language="javascript" src="data.js"></script>
+  <script type="text/javascript" language="javascript" src="util.js"></script>
+  
+  <script language="javascript" type="text/javascript" src="src/debugger/audio/audio.js"></script>
+  <script language="javascript" type="text/javascript" src="src/debugger/color/color.js"></script>
+  <style>
+    body,
+    button {
+      cursor: default;
+      overflow: auto;
+    }
+  </style>
+</head>
 
-      a {
-        color: white;
-        text-decoration: none
-      }
-      
-    /* ====================================== */
-    .card {
-      box-shadow: none;
-      backface-visibility: visible;
-      background: transparent;
-      /* font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif; */
-      font-weight: 700;
-      transform-style: preserve-3d;
-      padding: 0;
-      height: auto;
-      margin: 0 2rem 4rem 0;
-      width: 18rem;
-      height: 25rem;
-      float: left;
-      transition: all 0.2s ease-out;
-      border: none;
-      letter-spacing: 1px;
-    }
-    .flip, .unflip {
-      background: rgba(0,0,0,0.1);
-      font-size: 1rem;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      padding: 0.5rem 0.75rem;
-      border-radius: 100px;
-      line-height: 1rem;
-      cursor: pointer;
-      transition: all 0.1s ease-out;
+<body>
+  <div class="grid-bg">
+    <div style="display: flex; flex-wrap: wrap; padding: 10px; gap: 30px">
+
+      <div class="ui-panel">
+
+        <!-- ---------- TIME ---------- -->
+        <div class="ui-time-wrapper">
+          <div class="ui-vertical-stripe"></div>
+          <div>
+            <div class="ui-author">
+              <b>devola2</b> by vonqo
+            </div>
+            <div class="ui-time ui-text-light-grey">
+              <span id="time-hr" class="ui-text-dark-grey"></span><span>:</span><span id="time-min"
+                class="ui-text-dark-grey"></span><span>:</span><span id="time-sec"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- VISUALS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="b-clip-x tl-clip tr-2-clip-y br-clip bl-clip"
+          class="visuals-wrapper">
+          <div style="display: flex; align-content: stretch; gap: 10px;">
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey"><span class="ui-text-orange">|</span>Visuals</div>
+              <div class="ui-content" id="visuals">
+              </div>
+            </div>
+            <div class="ui-card">
+              <div class="ui-title ui-bg-orange">Active Visuals</div>
+              <div class="ui-content" id="active-visuals">
+              </div>
+            </div>
+            <div class="ui-card" style="width: 40%;">
+              <div class="ui-title ui-bg-orange ui-bg-stripe">Keybind</div>
+              <div class="ui-content" style="padding: 10px 0px" id="keybind">
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="volvo">1</option>
+                  </select>
+                </div>
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="volvo">2</option>
+                  </select>
+                </div>
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="volvo">ENTER</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-footer ui-bg-light-grey">
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-panel">
+
+        <!-- ---------- SETTINGS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-y bl-clip"
+          class="settings-wrapper">
+          <div class="ui-card">
+            <div class="ui-title ui-bg-dark-grey">Settings</div>
+            <div data-augmented-ui-border class="ui-content" style="padding: 10px 0px;">
+
+              <div class="ui-settings-container">
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Audio Source</div>
+                  <div class="ui-settings-content" id="audio-src-list">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Resolution</div>
+                  <div class="ui-settings-content">
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="width">width</label>
+                      <input class="ui-input" type="number" id="res-width" name="width" value="1920">
+                    </div>
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="height">height</label>
+                      <input class="ui-input" type="number" id="res-height" name="height" value="1080">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Overlay</div>
+                  <div class="ui-settings-content" id="overlays">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Transition</div>
+                  <div class="ui-settings-content" id="transitions">
+                  </div>
+                </div>
+              </div>
+
+              <div class="ui-footer ui-bg-light-grey">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px;">
+
+          <!-- ---------- AUDIO ---------- -->
+          <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                Audio / p5.sound
+                <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                  RE
+                </button>
+              </div>
+              <div id="p5sound">
+              </div>
+            </div>
+          </div>
+
+          <!-- ---------- COLOR ---------- -->
+          <div>
+            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+              <div class="ui-card">
+                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                  Color / shader
+                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                    RE
+                  </button>
+                </div>
+                <div class="grid-overlay"></div>
+                <div id="p5color" style="height: 200px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------- ACTIONS ---------- -->
+            <div style="display: flex; margin-top: 20px; gap: 10px;">
+              <button id="fullscreenButton" class="ui-button" onclick="toggleFullscreen()">
+                Fullscreen ◢
+              </button>
+
+              <button id="windowedButton" class="ui-button" onclick="toggleWindowed()">
+                New Instance ◢
+              </button>
+            </div>
+
+            <div style="display: flex; margin-top: 20px; gap: 10px;">
+              <button class="ui-button" onclick="reload()">
+                Reload
+              </button>
+
+              <button class="ui-button ui-button-active" onclick="fireUp()">
+                Start
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<script language="javascript" type="text/javascript">
+
+  let willOpenInWindow = false;
+  let isFullscreen = false;
+
+  $(document).ready(function (e) {
+    let sound = new p5(audioDebug, document.getElementById('p5sound'));
+    let color = new p5(colorDebug, document.getElementById('p5color'));
+
+    var time_hr = document.getElementById('time-hr');
+    var time_min = document.getElementById('time-min');
+    var time_sec = document.getElementById('time-sec');
+
+    function time() {
+      var d = new Date();
+      var s = d.getSeconds();
+      var m = d.getMinutes();
+      var h = d.getHours();
+      time_hr.textContent = ("0" + h).substr(-2);
+      time_min.textContent = ("0" + m).substr(-2);
+      time_sec.textContent = ("0" + s).substr(-2);
     }
 
-    .unflip {
-      top: auto;
-      background: #2d2d62;
-      bottom: 1rem;
-    }
+    setInterval(time, 1000);
 
-    .flip:hover {
-      background: rgba(0,0,0,0.3);
-    }
+    $("#res-height").change(function() {
+      saveResoHeight($(this).val());
+    });
 
-    .inner-card-backface {
-      transform: rotateX(0) rotateY(0deg) scale(1) translateZ(-4px);
-      border-radius: 14px;
-      background: linear-gradient(45deg, #0b0b2a, #0b0b2a);
-      position: absolute;
-      top: 0;
-      color: white;
-      padding: 2rem;
-      box-sizing: border-box;
-      transition: all 0.15s ease-out;
-        will-change: transform, filter;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .card.flipped {
-      transform: rotateY(180deg);
-    }
-    .card .flip-inner-card {
-      transform: rotateY(180deg);
-      position: absolute;
-      top: 0;
-      padding: 2rem 1.5rem;
-      box-sizing: border-box;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-    .flip-inner-card h3 {
-      font-size: 1.25rem;
-      margin-top: 0;
-    }
-    .flip-inner-card p {
-      color: rgba(255,255,255,0.6);
-      font-weight: 400;
-      line-height: 1.5rem;
-    }
-
-    .card .inner-card {
-      font-size: 2rem;
-      color: white;
-      padding: 1rem 2rem;
-      line-height: 3rem;
-      will-change: transform, filter;
-      float: none;
-      background: black;
-      background-size: calc(100% + 6px) auto;
-      background-position: -3px -3px;
-      margin: 0;
-      transition: all 0.15s ease-out;
-      height: auto;
-      border-radius: 14px;
-      box-sizing: border-box;
-      overflow: hidden;
-      display: block;
-      margin: 0px auto;
-      transform: rotateX(0deg) rotateY(0deg) scale(1);
-      top: 0;
-      height: 100%;
-      filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
-      font-weight: 500;
-      perspective-origin: 0 0;
-      letter-spacing: 0;
-    }
+    $("#res-width").change(function() {
+      saveResoWidth($(this).val());
+    });
     
-    .card .glare {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      transition: all 0.1s ease-out;
-      opacity: 0.6;
-      pointer-events: none;
-      height: 100%;
-      border-radius: 14px;
-      z-index: 9999;
-      mix-blend-mode: hard-light;
-      background: radial-gradient(circle at 50% 50%, rgb(199 198 243), transparent); 
-    }
+    reload();
+  });
 
-    .card .top-section {
-      background: linear-gradient(45deg, hsl(0deg 58% 51%), hsl(249deg 100% 54%));
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-radius: 14px 14px 0 0;
-      width: 100%;
-      height: 35%;
-      z-index: 99;
-    }
+  const reload = () => {
+    getVisuals();
+    getActiveVisuals();
+    getAudioSources();
+    getTransitions();
+    getOverlays();
+    getResolution();
+  }
 
-    .card .glare {
-      opacity: 0;
-    }
-    .card.animated .glare {
-      opacity: 0.3;
-    }
+  const getVisuals = () => {
+    const items = getInactiveScene(VISUAL_DATA);
+    let visuals = $("#visuals");
+    visuals.empty();
+    items.forEach((item) => visuals.append("<div onclick=\"activateVisual('"+ item.id +"', '1')\" class=\"ui-vis-item\">"+ item.name +"</div>"));
+  }
 
-    .card.animated.user .glare {
-      opacity: 0.15;
-    }
+  const getActiveVisuals = () => {
+    const items = getActiveScenes(VISUAL_DATA);
+    let visuals = $("#active-visuals");
+    let keybind = $("#keybind");
 
-    </style>
-  </head>
-  <body>
+    visuals.empty();
+    keybind.empty();
 
-    <div class="menu-body">
-      <a href="src/blmd/blmd.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card" 
-            style="background-image: url('assets/image/blmd.png'); 
-            background-repeat: no-repeat; 
-            background-size: cover;">
-            <span class="flip">B.L.M.D</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a>
+    items.forEach((item) => {
+      visuals.append("<div onclick=\"deactivateVisual('"+ item.id +"')\" class=\"ui-vis-item\">"+ item.name +"</div>");
+      keybind.append("<div class=\"ui-vis-item\">" + 
+                        "<select class=\"ui-keybind-select\" id=\"select-key-"+ item.id +"\">" + 
+                          optionsLine('NUM 1', '1', item.key) + 
+                          optionsLine('NUM 2', '2', item.key) + 
+                          optionsLine('NUM 3', '3', item.key) + 
+                          optionsLine('NUM 4', '4', item.key) + 
+                          optionsLine('NUM 5', '5', item.key) + 
+                          optionsLine('NUM 6', '6', item.key) + 
+                          optionsLine('NUM 7', '7', item.key) + 
+                          optionsLine('NUM 8', '8', item.key) + 
+                          optionsLine('NUM 9', '9', item.key) + 
+                        "</select>" +
+                      "</div>");
 
-      <a href="src/even_tide/even_tide.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card"
-            style="background-image: url('assets/image/eventide.png'); 
-              background-repeat: no-repeat; 
-              background-size: cover;">
-            <span class="flip">Even Tide</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a>
+      $("#select-key-"+item.id).on('change', function() {
+        addActiveScene(item.id, $(this).val());
+      });
+    });
+  }
 
-      <!-- <a href="src/starfish/starfish.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card"
-            style="background-image: url('assets/image/eventide.png'); 
-              background-repeat: no-repeat; 
-              background-size: cover;">
-            <span class="flip">Starfish</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a> -->
+  const optionsLine = (name, value, selectedValue) => {
+    return "<option value=\""+value+"\" "+(selectedValue === value ? 'selected' : '')+">"+name+"</option>";
+  }
 
-      <!-- <a href="src/ritual/ritual.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card"
-            style="background-image: url('assets/image/eventide.png'); 
-              background-repeat: no-repeat; 
-              background-size: cover;">
-            <span class="flip">Ritual</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a> -->
+  const activateVisual = (id, key) => {
+    addActiveScene(id, key);
+    getVisuals();
+    getActiveVisuals();
+  }
 
-      <!-- <a href="src/night_train/night_train.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card"
-            style="background-image: url('assets/image/nighttrain.png'); 
-              background-repeat: no-repeat; 
-              background-size: cover;">
-            <span class="flip">Night Train</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a>
+  const deactivateVisual = (id) => {
+    removeActiveScene(id);
+    getVisuals();
+    getActiveVisuals();
+  }
 
-      <a href="src/rave/rave.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card">
-            <span class="flip">Rave</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a> -->
+  const getAudioSources = async () => {
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    let audioList = $("#audio-src-list");
+    audioList.empty();
 
-      <a href="src/settings/settings.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card"
-            style="background-image: url('assets/image/settings.jpg'); 
-                background-repeat: no-repeat; 
-                background-size: cover;">
-            <span class="flip">Settings</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a>
-
-      <a href="src/debugger/debugger.html">
-        <div class="card">
-          <span class="inner-card-backface">
-            <span class="image">
-              <span class="unflip">Unflip</span>
-            </span>
-          </span>
-          <span class="inner-card"
-            style="background-image: url('assets/image/debug.png'); 
-                background-repeat: no-repeat; 
-                background-size: cover;">
-            <span class="flip">Debugger</span>
-            <span class="glare"></span>
-          </span>
-        </div>
-      </a>
-      
-    </div>
-
-    <div class="menu-footer" id="footer">
-      2023 | ColorNoteCode | B.L.M.D 
-    </div>
-  </body>
-
-  <script language="javascript" type="text/javascript">
-    let calculateAngle = function(e, item, parent) {
-        let dropShadowColor = `rgba(0, 0, 0, 0.3)`
-        if(parent.getAttribute('data-filter-color') !== null) {
-            dropShadowColor = parent.getAttribute('data-filter-color');
+    devices.forEach((deviceInfo, index) => {
+      let className = "ui-settings-item";
+      if(deviceInfo.kind === 'audioinput') {
+        if(getAudioSourceId() === deviceInfo.deviceId) {
+          className += " ui-settings-item-selected";
         }
+        audioList.append("<div onclick=\"selectAudioSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+      }
+    });
+  }
 
-        parent.classList.add('animated');
-        // Get the x position of the users mouse, relative to the button itself
-        let x = Math.abs(item.getBoundingClientRect().x - e.clientX);
-        // Get the y position relative to the button
-        let y = Math.abs(item.getBoundingClientRect().y - e.clientY);
+  const selectAudioSource = (id) => {
+    saveAudioSourceId(id);
+    getAudioSources();
+  }
 
-        // Calculate half the width and height
-        let halfWidth  = item.getBoundingClientRect().width / 2;
-        let halfHeight = item.getBoundingClientRect().height / 2;
-
-        // Use this to create an angle. I have divided by 6 and 4 respectively so the effect looks good.
-        // Changing these numbers will change the depth of the effect.
-        let calcAngleX = (x - halfWidth) / 6;
-        let calcAngleY = (y - halfHeight) / 14;
-      
-        let gX = (1 - (x / (halfWidth * 2))) * 100;
-        let gY = (1 - (y / (halfHeight * 2))) * 100;
-      
-        item.querySelector('.glare').style.background = `radial-gradient(circle at ${gX}% ${gY}%, rgb(199 198 243), transparent)`;
-        // And set its container's perspective.
-        parent.style.perspective = `${halfWidth * 6}px`
-        item.style.perspective = `${halfWidth * 6}px`
-
-        // Set the items transform CSS property
-        item.style.transform = `rotateY(${calcAngleX}deg) rotateX(${-calcAngleY}deg) scale(1.04)`;
-        parent.querySelector('.inner-card-backface').style.transform = `rotateY(${calcAngleX}deg) rotateX(${-calcAngleY}deg) scale(1.04) translateZ(-4px)`;
-      
-        if(parent.getAttribute('data-custom-perspective') !== null) {
-            parent.style.perspective = `${parent.getAttribute('data-custom-perspective')}`
-        }
-
-        // Reapply this to the shadow, with different dividers
-        let calcShadowX = (x - halfWidth) / 3;
-        let calcShadowY = (y - halfHeight) / 6;
-        
-        // Add a filter shadow - this is more performant to animate than a regular box shadow.
-        item.style.filter = `drop-shadow(${-calcShadowX}px ${-calcShadowY}px 15px ${dropShadowColor})`;
+  const getTransitions = () => {
+    if(VISUAL_DATA.transition === undefined || VISUAL_DATA.transition === null || VISUAL_DATA.transition.length === 0) {
+      return;
     }
 
-    document.querySelectorAll('.card').forEach(function(item) {
-        if(item.querySelector('.flip') !== null) {
-          item.querySelector('.flip').addEventListener('click', function() {
-            item.classList.add('flipped');
-          });
-        }
-        if(item.querySelector('.unflip') !== null) {
-          item.querySelector('.unflip').addEventListener('click', function() {
-            item.classList.remove('flipped');
-          });
-        }
-        item.addEventListener('mouseenter', function(e) {
-            calculateAngle(e, this.querySelector('.inner-card'), this);
-        });
+    let list = $("#transitions");
+    list.empty();
 
-        item.addEventListener('mousemove', function(e) {
-            calculateAngle(e, this.querySelector('.inner-card'), this);
-        });
+    VISUAL_DATA.transition.forEach((item, index) => {
+      let className = "ui-settings-item";
 
-        item.addEventListener('mouseleave', function(e) {
-            let dropShadowColor = `rgba(0, 0, 0, 0.3)`
-            if(item.getAttribute('data-filter-color') !== null) {
-                dropShadowColor = item.getAttribute('data-filter-color')
-            }
-            item.classList.remove('animated');
-            item.querySelector('.inner-card').style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
-            item.querySelector('.inner-card-backface').style.transform = `rotateY(0deg) rotateX(0deg) scale(1.01) translateZ(-4px)`;
-            item.querySelector('.inner-card').style.filter = `drop-shadow(0 10px 15px ${dropShadowColor})`;
-        });
-    })
-
-    let checkSettings = async () => {
-      const w = localStorage.getItem("width");
-      const h = localStorage.getItem("height");
-      const debug = localStorage.getItem("debug");
-      const input = localStorage.getItem("micDeviceId");
-
-      if(w === null || w == undefined) {
-        localStorage.setItem("width", 1920);
+      if(getSelectedTransitionId() === item.id) {
+        className += " ui-settings-item-selected";
       }
 
-      if(h === null || h == undefined) {
-        localStorage.setItem("height", 1080);
-      }
+      list.append("<div class=\""+className+"\" onclick=\"selectTransition('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
+    });
+  }
 
-      if(debug == null || h == undefined) {
-        localStorage.setItem("debug", false);
-      }
+  const selectTransition = (id) => {
+    saveTransitionId(id);
+    getTransitions();
+  }
 
-      if(input === null || input == undefined) {
-        let devices = await navigator.mediaDevices.enumerateDevices();
-        devices.every((deviceInfo, index) => {
-          if(deviceInfo.kind === 'audioinput') {
-            localStorage.setItem("micDeviceId", deviceInfo.deviceId);
-            return false;
+  const getOverlays = () => {
+    if(VISUAL_DATA.overlay === undefined || VISUAL_DATA.overlay === null || VISUAL_DATA.overlay.length === 0) {
+      return;
+    }
+
+    let list = $("#overlays");
+    list.empty();
+
+    VISUAL_DATA.overlay.forEach((item, index) => {
+      let className = "ui-settings-item";
+
+      if(getSelectedOverlayId() === item.id) {
+        className += " ui-settings-item-selected";
+      }
+      
+      list.append("<div class=\""+className+"\" onclick=\"selectOverlay('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
+    });
+  }
+
+  const selectOverlay = (id) => {
+    saveOverlayId(id);
+    getOverlays();
+  }
+
+  const getResolution = () => {
+    $("#res-height").val(getResoHeight());
+    $("#res-width").val(getResoWidth());
+  }
+
+  const saveResolution = () => {
+    saveResoHeight($("#res-height").val());
+    saveResoWidth($("#res-width").val());
+    getResolution();
+  }
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  const toggleWindowed = () => {
+    willOpenInWindow = !willOpenInWindow;
+
+    if(willOpenInWindow) {
+      $("#windowedButton").addClass("ui-button-active");
+    } else {
+      $("#windowedButton").removeClass("ui-button-active");
+    }
+  }
+
+  const fireUp = () => {
+    const visuals = getActiveScenes(VISUAL_DATA);
+    const overlayId = getSelectedOverlayId();
+    const transitionId = getSelectedTransitionId();
+    const width = getResoWidth();
+    const height = getResoHeight();
+
+    try {
+      if(visuals !== undefined && visuals.length >= 1 
+        && overlayId !== undefined && transitionId !== undefined 
+        && width !== undefined && width > 0 && height !== undefined && height > 0) {
+          if(willOpenInWindow) {
+            window.open('src/scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+          } else {
+            window.location.href = "src/scenes/scene_wrapper.html";
           }
-          return true;
-        });
+      } else {
+        alert('[check settings and visuals]');
       }
+    } catch(error) {
+      alert(error);
     }
+  }
+</script>
 
-    checkSettings();
-  </script>
 </html>

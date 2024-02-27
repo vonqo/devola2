@@ -29,8 +29,6 @@ function filterSetOpacity(opacity, isNegative) {
     const filterDelta = 0.025;
     let value = opacity + (filterDelta * (isNegative ? -1 : 1));
 
-    console.log(value);
-
     if(value > 1) {
         value = 1;
     } else if(value < 0) {
@@ -64,13 +62,11 @@ const addActiveScene = (id, key) => {
         localStorage.setItem("active_scenes", JSON.stringify([{"id": id, "key": key}]));
     } else {
         const idx = storedScenes.findIndex((item) => item.id === id);
-        console.log(idx);
 
         if(idx === -1) {
             storedScenes.push({"id": id, "key": key});
         } else {
             storedScenes[idx].key = key;
-            console.log(storedScenes);
         }
 
         localStorage.setItem("active_scenes", JSON.stringify(storedScenes));
@@ -95,7 +91,7 @@ const getActiveScenes = (visualData) => {
     visualData.scenes.forEach((item) => {
         const visual = storedScenes.find((element) => element.id === item.id);
         if(visual != undefined) {
-            list.push({"id": item.id, "name": item.name, "key": visual.key, "path": visual.path});
+            list.push({"id": item.id, "name": item.name, "key": visual.key, "path": item.path, "variable": item.variable});
         }
     });
     return list;

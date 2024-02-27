@@ -3,17 +3,20 @@ const VISUAL_DATA = {
         {
             "id": "1",
             "name": "blmd_mirror",
-            "path": "",
+            "path": "carpet_mirror/mirror.js",
+            "variable": "mirror",
         },
         {
             "id": "2",
             "name": "blmd_glitch",
             "path": "",
+            "variable": "glitch",
         },
         {
             "id": "3",
             "name": "blmd_menger",
             "path": "",
+            "variable": "menger",
         }
     ],
     "transition": [

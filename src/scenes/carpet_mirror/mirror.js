@@ -22,9 +22,9 @@ const mirror = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {
-        carpetShader = sketch.loadShader('scenes/carpet_mirror/mirror.vert', 'scenes/carpet_mirror/mirror.frag');
-        carpetImg = sketch.loadImage('scenes/carpet_mirror/carpet.jpg');
-        carpetImg2 = sketch.loadImage('scenes/carpet_mirror/carpet2.png');
+        carpetShader = sketch.loadShader('carpet_mirror/mirror.vert', 'carpet_mirror/mirror.frag');
+        carpetImg = sketch.loadImage('carpet_mirror/carpet.jpg');
+        carpetImg2 = sketch.loadImage('carpet_mirror/carpet2.png');
         ww = localStorage.getItem('width');
         hh = localStorage.getItem('height');
     }

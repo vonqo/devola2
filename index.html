@@ -260,15 +260,15 @@
       visuals.append("<div onclick=\"deactivateVisual('"+ item.id +"')\" class=\"ui-vis-item\">"+ item.name +"</div>");
       keybind.append("<div class=\"ui-vis-item\">" + 
                         "<select class=\"ui-keybind-select\" id=\"select-key-"+ item.id +"\">" + 
-                          "<option value=\"1\" "+(item.key === '1' ? 'selected' : '')+">NUM 1</option>" + 
-                          "<option value=\"2\" "+(item.key === '2' ? 'selected' : '')+">NUM 2</option>" + 
-                          "<option value=\"3\" "+(item.key === '3' ? 'selected' : '')+">NUM 3</option>" + 
-                          "<option value=\"4\" "+(item.key === '4' ? 'selected' : '')+">NUM 4</option>" + 
-                          "<option value=\"5\" "+(item.key === '5' ? 'selected' : '')+">NUM 5</option>" + 
-                          "<option value=\"6\" "+(item.key === '6' ? 'selected' : '')+">NUM 6</option>" + 
-                          "<option value=\"7\" "+(item.key === '7' ? 'selected' : '')+">NUM 7</option>" + 
-                          "<option value=\"8\" "+(item.key === '8' ? 'selected' : '')+">NUM 8</option>" + 
-                          "<option value=\"9\" "+(item.key === '9' ? 'selected' : '')+">NUM 9</option>" + 
+                          optionsLine('NUM 1', '1', item.key) + 
+                          optionsLine('NUM 2', '2', item.key) + 
+                          optionsLine('NUM 3', '3', item.key) + 
+                          optionsLine('NUM 4', '4', item.key) + 
+                          optionsLine('NUM 5', '5', item.key) + 
+                          optionsLine('NUM 6', '6', item.key) + 
+                          optionsLine('NUM 7', '7', item.key) + 
+                          optionsLine('NUM 8', '8', item.key) + 
+                          optionsLine('NUM 9', '9', item.key) + 
                         "</select>" +
                       "</div>");
 
@@ -276,6 +276,10 @@
         addActiveScene(item.id, $(this).val());
       });
     });
+  }
+
+  const optionsLine = (name, value, selectedValue) => {
+    return "<option value=\""+value+"\" "+(selectedValue === value ? 'selected' : '')+">"+name+"</option>";
   }
 
   const activateVisual = (id, key) => {
@@ -389,10 +393,26 @@
   }
 
   const fireUp = () => {
-    if(willOpenInWindow) {
-      window.open('src/scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
-    } else {
-      window.location.href = "src/scenes/scene_wrapper.html";
+    const visuals = getActiveScenes(VISUAL_DATA);
+    const overlayId = getSelectedOverlayId();
+    const transitionId = getSelectedTransitionId();
+    const width = getResoWidth();
+    const height = getResoHeight();
+
+    try {
+      if(visuals !== undefined && visuals.length >= 1 
+        && overlayId !== undefined && transitionId !== undefined
+        && width !== undefined && width > 0 && height !== undefined && height > 0) {
+          if(willOpenInWindow) {
+            window.open('src/scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+          } else {
+            window.location.href = "src/scenes/scene_wrapper.html";
+          }
+      } else {
+        alert('[check settings and visuals]');
+      }
+    } catch(error) {
+      alert(error);
     }
   }
 </script>

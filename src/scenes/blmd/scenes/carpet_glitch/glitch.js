@@ -1,4 +1,4 @@
-const glitch = function(sketch) {
+const visual = function(sketch) {
 
     const energyRange = {
         low: 200,

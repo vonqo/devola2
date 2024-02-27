@@ -12,12 +12,6 @@
     <script language="javascript" type="text/javascript" src="../../util.js"></script>
     <script language="javascript" type="text/javascript" src="../../data.js"></script>
 
-    <!-- <script language="javascript" type="text/javascript" src="./scenes/title/title.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_glitch/glitch.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_mirror/mirror.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_menger/menger.js"></script>
-    <script language="javascript" type="text/javascript" src="./scenes/carpet_blueprint/blueprint.js"></script> -->
-
     <style>
       body {
         background: black;
@@ -35,9 +29,15 @@
     <script language="javascript" type="text/javascript">
       let buffer;
       let filterOpacity = 0;
+      const visuals = getActiveScenes(VISUAL_DATA);
 
       $(document).ready(function (e) {
-        const visuals = getActiveScenes(VISUAL_DATA);
+        visuals.forEach((visual) => {
+          var s = document.createElement("script");
+          s.type = "text/javascript";
+          s.src = visual.path;
+          $("head")[0].append(s);
+        });
 
         window.addEventListener("keydown", function(event) {
           if(event.key === 'q' || event.key === 'Q') {
@@ -49,7 +49,7 @@
           } else {
             visuals.forEach((visual) => {
               if(event.key === visual.key) {
-                console.log(visual);
+                transitionEffect(eval(visual.variable));
               }
             });
           }

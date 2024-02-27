@@ -1,4 +1,4 @@
-const visual = function(sketch) {
+const glitch = function(sketch) {
 
     const energyRange = {
         low: 200,
@@ -15,17 +15,17 @@ const visual = function(sketch) {
     let isInvert = false;
 
     let ww;
-    let hh;
+    let hh;2
 
     const pixelRatio = window.devicePixelRatio;
 
     // ============================================================== //
     sketch.preload = function() {
-        carpetShader = sketch.loadShader('scenes/carpet_glitch/glitch.vert', 'scenes/carpet_glitch/glitch.frag');
-        carpetImg = sketch.loadImage('scenes/carpet_glitch/carpet.jpg');
-        carpetImgInvert = sketch.loadImage('scenes/carpet_glitch/invert_carpet.jpg');
-        ww = localStorage.getItem('width');
-        hh = localStorage.getItem('height');
+        carpetShader = sketch.loadShader('blmd_carpet_glitch/glitch.vert', 'blmd_carpet_glitch/glitch.frag');
+        carpetImg = sketch.loadImage('blmd_carpet_glitch/carpet.jpg');
+        carpetImgInvert = sketch.loadImage('blmd_carpet_glitch/invert_carpet.jpg');
+        ww = localStorage.getItem('reso_width');
+        hh = localStorage.getItem('reso_height');
     }
 
     // ============================================================== //

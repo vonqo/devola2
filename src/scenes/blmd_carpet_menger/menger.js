@@ -20,11 +20,11 @@ const menger = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {
-        menger = sketch.loadShader('scenes/carpet_menger/menger.vert', 'scenes/carpet_menger/menger.frag');
-        img0 = sketch.loadImage('scenes/carpet_menger/menger.png');
-        img1 = sketch.loadImage('scenes/carpet_menger/carpet2.png');
-        ww = localStorage.getItem('width');
-        hh = localStorage.getItem('height');
+        menger = sketch.loadShader('blmd_carpet_menger/menger.vert', 'blmd_carpet_menger/menger.frag');
+        img0 = sketch.loadImage('blmd_carpet_menger/menger.png');
+        img1 = sketch.loadImage('blmd_carpet_menger/carpet2.png');
+        ww = localStorage.getItem('reso_width');
+        hh = localStorage.getItem('reso_height');
     }
 
     // ============================================================== //

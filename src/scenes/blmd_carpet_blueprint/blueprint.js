@@ -23,10 +23,10 @@ const blueprint = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {
-        blueprintShader = sketch.loadShader('scenes/carpet_blueprint/blueprint.vert', 'scenes/carpet_blueprint/blueprint.frag');
-        carpetImg = sketch.loadImage('scenes/carpet_blueprint/carpet.jpg');
-        ww = localStorage.getItem('width');
-        hh = localStorage.getItem('height');
+        blueprintShader = sketch.loadShader('blmd_carpet_blueprint/blueprint.vert', 'blmd_carpet_blueprint/blueprint.frag');
+        carpetImg = sketch.loadImage('blmd_carpet_blueprint/carpet.jpg');
+        ww = localStorage.getItem('reso_width');
+        hh = localStorage.getItem('reso_height');
         gridSize = ww / 30;
         patternSize = 150;
     }

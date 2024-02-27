@@ -16,12 +16,12 @@ const deever = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {
-        ww = localStorage.getItem('width');
-        hh = localStorage.getItem('height');
+        ww = localStorage.getItem('reso_width');
+        hh = localStorage.getItem('reso_height');
 
-        imgBg = sketch.loadImage('scenes/deever/bg-2-pixel.png');
-        imgOrts = sketch.loadImage('scenes/deever/layer1_with_alh-pixel2.png');
-        imgOrts2 = sketch.loadImage('scenes/deever/layer2-pixel.png');
+        imgBg = sketch.loadImage('et_deever/bg-2-pixel.png');
+        imgOrts = sketch.loadImage('et_deever/layer1_with_alh-pixel2.png');
+        imgOrts2 = sketch.loadImage('et_deever/layer2-pixel.png');
     }
 
     // ============================================================== //

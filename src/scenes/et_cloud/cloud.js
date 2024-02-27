@@ -22,11 +22,11 @@ const cloud = function(sketch) {
 
     // ============================================================== //
     sketch.preload = function() {
-        cloud = sketch.loadShader('scenes/cloud/cloud.vert', 'scenes/cloud/cloud.frag');
-        font = sketch.loadFont('../../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
+        cloud = sketch.loadShader('et_cloud/cloud.vert', 'et_cloud/cloud.frag');
+        font = sketch.loadFont('../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
         
-        ww = localStorage.getItem('width');
-        hh = localStorage.getItem('height');
+        ww = localStorage.getItem('reso_width');
+        hh = localStorage.getItem('reso_height');
     }
 
     // ============================================================== //

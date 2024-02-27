@@ -6,7 +6,41 @@
 Devola2 is an open source real-time audio visualizer app. Specifically designed for live-music performance of [B.L.M.D](https://linktr.ee/theblmd) and [Even Tide](https://www.youtube.com/@eventide6813). 
 
 ## Showcase
+<img height="" src="https://github.com/vonqo/devola2/blob/main/assets/image/screen1.jpg" />
+
 <img height="" src="https://github.com/vonqo/devola2/blob/main/assets/image/carpets.png" />
+
+### Plugable visual script
+Thanks to blasphemous javascript, specially fucking **eval()** function.
+
+
+Create a new directory and script inside scenes directory. Example: ```src/scenes/new_dir/your_script.js```
+
+
+Inside your script you will create [p5js instance](https://p5js.org/reference/#/p5/p5) like this.
+```javascript
+const variable_name = function(sketch) {
+    sketch.preload = function() { ... }
+    sketch.setup = function() { ... }
+    sketch.draw = function() { ... }
+}
+```
+
+Then register your visual in ```data.js```. **id** should not be duplicated.
+```javascript
+const VISUAL_DATA = {
+    "scenes": [
+        ...
+        {
+            "id": "41",
+            "name": "hello_visual",
+            "path": "new_dir/your_script.js",
+            "variable": "variable_name",
+        },
+    ],
+    ...
+}
+```
 
 ## License
 Enkh-Amar. G (vonqo). Released under the [Mozilla Public License Version 2.0](LICENSE)

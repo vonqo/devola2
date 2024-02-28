@@ -3,11 +3,13 @@ const debug = require('electron-debug');
 const electron = require('electron');
 const { Dualsense } = require("dualsense-ts");
 
-try {
-	require('electron-reloader')(module);
-} catch {}
-
-debug();
+if(!app.isPackaged) {
+  try {
+    require('electron-reloader')(module);
+  } catch {}
+  
+  debug();
+}
 
 // Grab a controller connected via USB or Bluetooth
 const controller = new Dualsense();

@@ -10,18 +10,31 @@ Devola2 is an open source real-time audio visualizer app. Specifically designed 
 
 <img height="" src="https://github.com/vonqo/devola2/blob/main/assets/image/carpets.png" />
 
-### Plugable visual script
+## Plugable visual script
 Thanks to blasphemous javascript, specially fucking **eval()** function.
 
 
-Create a new directory and script inside scenes directory. Example: ```src/scenes/new_dir/your_script.js```
+Create a new directory and script inside the scenes directory. Example: ```src/scenes/new_dir/your_script.js```
 
 
 Inside your script you will create [p5js instance](https://p5js.org/reference/#/p5/p5) like this.
 ```javascript
 const variable_name = function(sketch) {
-    sketch.preload = function() { ... }
-    sketch.setup = function() { ... }
+    let ww;
+    let hh;
+
+    sketch.preload = function() {
+        ww = localStorage.getItem('reso_width'); // <-- Get width from conf
+        hh = localStorage.getItem('reso_height'); // <-- Get height from conf
+        ...
+    }
+
+    sketch.setup = function() {
+        // localStorage stores object as string, so you have to parse it to number
+        sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
+        ...
+    }
+
     sketch.draw = function() { ... }
 }
 ```
@@ -41,6 +54,21 @@ const VISUAL_DATA = {
     ...
 }
 ```
+
+Finally run the project. Then you'll see your script on visuals section. Rest of the process do not require changes in source code, so fire up the configuration and blast the screen!
+
+## Running & Packaging
+To Run:
+```
+yarn start / npm start
+```
+
+To package:
+```
+npx electron-packager . --icon=./d2logo.icns --overwrite
+```
+
+more about packaging [electron-packager](https://github.com/electron/packager)
 
 ## License
 Enkh-Amar. G (vonqo). Released under the [Mozilla Public License Version 2.0](LICENSE)

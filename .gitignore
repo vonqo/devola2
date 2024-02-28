@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+devola2-darwin-arm64/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

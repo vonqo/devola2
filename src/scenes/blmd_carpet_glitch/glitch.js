@@ -15,7 +15,7 @@ const glitch = function(sketch) {
     let isInvert = false;
 
     let ww;
-    let hh;2
+    let hh;
 
     const pixelRatio = window.devicePixelRatio;
 
@@ -61,7 +61,7 @@ const glitch = function(sketch) {
         carpetShader.setUniform("iTime", sketch.millis() * 0.001);
         carpetShader.setUniform("iMouse", [energyBass,energyBass]);
         carpetShader.setUniform("glitcher", glitcher);
-
+        
         if(isInvert) {
             carpetShader.setUniform("iChannel0", carpetImgInvert);
         } else {

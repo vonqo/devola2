@@ -44,6 +44,24 @@ body {
   cursor: none;
 } 
 
+/* body { 
+  font-family: 'JetBrainsMono';
+  background: rgb(253,253,253);
+  background: linear-gradient(190deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 61%, rgb(0, 0, 0) 100%); 
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-size: 11px;
+  padding: 0px; 
+  margin: 0px; 
+  overflow: hidden; 
+  cursor: none;
+  color: white !important;
+}  */
+
+video {
+  display: none;
+}
+
 hr {
   border-top: 1px solid white;
   border-bottom: 0px;
@@ -184,6 +202,10 @@ button {
   background-color: #f14b00;
 }
 
+.ui-bg-green {
+  background-color: #90d906;
+}
+
 .ui-bg-stripe {
   background-image: url('../assets/image/stripe_trans.png');
   background-size: contain;
@@ -191,6 +213,10 @@ button {
 
 .ui-text-orange {
   color: #f14b00;;
+}
+
+.ui-text-green {
+  color: #90d906;
 }
 
 .ui-bg-dark-grey {
@@ -303,12 +329,15 @@ button {
 
 .ui-vertical-stripe {
   width: 7px;
-  background-color: #f14b00;
 }
 
 .ui-author {
   margin-bottom: -7px;
   font-size: 16px;
+}
+
+.ui-version {
+  font-size: 12px;
 }
 
 .ui-keybind-select {
@@ -318,7 +347,6 @@ button {
   background-color: #f14b00;
   color: white;
   text-transform: uppercase;
-  
   padding: 5px 5px;
   font-weight: 700;
 }
@@ -353,7 +381,6 @@ button {
 }
 
 .ui-settings-item-selected {
-  background-color: #f14b00;
   background-image: url('../assets/image/stripe_trans.png');
   background-size: 50px;
   color: white;
@@ -392,4 +419,14 @@ button {
 
 .device-id-wrapper {
   width: 100px;
+}
+
+.reminder-container {
+  margin-left: 26px;
+  padding: 8px;
+  max-width: 450px;
+  width: 100%;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
 }

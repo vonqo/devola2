@@ -12,7 +12,7 @@ if(!app.isPackaged) {
 }
 
 // Grab a controller connected via USB or Bluetooth
-const controller = new Dualsense();
+// const controller = new Dualsense();
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -30,11 +30,12 @@ const createWindow = () => {
   
   win.loadFile('index.html');
   systemPreferences.askForMediaAccess("microphone");
+  systemPreferences.askForMediaAccess("camera");
 
-  const connected = controller.connection.active;
-  controller.connection.on("change", ({ active }) => {
-    console.log(`controller ${active ? '' : 'dis'}connected`)
-  });
+  // const connected = controller.connection.active;
+  // controller.connection.on("change", ({ active }) => {
+  //   console.log(`controller ${active ? '' : 'dis'}connected`)
+  // });
 }
 
 app.whenReady().then(() => {

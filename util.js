@@ -18,7 +18,7 @@ function transitionEffect(newScene) {
         transition.classList.remove("fadeOut");
         transition.classList.add("fadeIn");
     }, 500);
-
+    
     setTimeout(() => {
         transition.classList.remove("fadeIn");
     }, 1000);
@@ -139,6 +139,14 @@ const saveAudioSourceId = (id) => {
 
 const getAudioSourceId = () => {
     return localStorage.getItem("audio_source");
+}
+
+const saveCameraSourceId = (id) => {
+    localStorage.setItem("camera_source", id);
+}
+
+const getCameraSourceId = () => {
+    return localStorage.getItem("camera_source");
 }
 
 const getResoWidth = () => {

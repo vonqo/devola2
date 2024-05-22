@@ -188,6 +188,11 @@
   dependencies:
     "@types/node" "*"
 
+"@voliware/electron-udp@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@voliware/electron-udp/-/electron-udp-1.0.0.tgz#7b2917bae4bb8b52d8f40f5953f2ea47830b71c1"
+  integrity sha512-Yq011d5sai5W9WMnG16CJuowCnpbeHH8Pm3+OcxRqxBrJJSwMyzexr2mvVwOjWZJvY1frxhPfcyDW7qZWOPl+A==
+
 "@xmldom/xmldom@^0.8.8":
   version "0.8.10"
   resolved "https://registry.yarnpkg.com/@xmldom/xmldom/-/xmldom-0.8.10.tgz#a1337ca426aa61cef9fe15b5b28e340a72f6fa99"

@@ -23,7 +23,7 @@ const cloud = function(sketch) {
     // ============================================================== //
     sketch.preload = function() {
         cloud = sketch.loadShader('et_cloud/cloud.vert', 'et_cloud/cloud.frag');
-        font = sketch.loadFont('../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
+        font = sketch.loadFont('../../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
         
         ww = localStorage.getItem('reso_width');
         hh = localStorage.getItem('reso_height');
@@ -31,9 +31,13 @@ const cloud = function(sketch) {
 
     // ============================================================== //
     sketch.setup = function() {
-        sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
+        sketch.createCanvas(Number(ww), Number(hh, sketch.WEBGL));
         pg = sketch.createGraphics(ww, hh, sketch.WEBGL);
-        
+        sketch.fill(0,0,0,0); 
+
+        // p5grain.setup({instance: sketch});
+        sketch.applyMonochromaticGrain(42);
+
         sketch.textFont(font);
         sketch.textAlign(sketch.LEFT, sketch.TOP);
 
@@ -51,7 +55,7 @@ const cloud = function(sketch) {
 
     // ============================================================== //
     sketch.draw = function() {
-        sketch.translate(-sketch.width/2,-sketch.height/2,0);
+        sketch.translate(-sketch.width/2,-sketch.height/2,0);1
 
         let spectrum = fft.analyze();
         let energy = fft.getEnergy(energyRange.low, energyRange.high);
@@ -72,7 +76,7 @@ const cloud = function(sketch) {
         cloud.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         cloud.setUniform("iTime", sketch.millis() * 0.001);
         cloud.setUniform("amp", amp);
-        cloud.setUniform("speed", 12.0);
+        cloud.setUniform("speed", 5.0);
         cloud.setUniform("rot", rotation);
         cloud.setUniform("zoom", zoom);
         

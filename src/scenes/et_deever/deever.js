@@ -90,6 +90,5 @@ const deever = function(sketch) {
         //     }
         // }
         // panel.updatePixels();
-
     }
 }

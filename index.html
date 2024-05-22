@@ -33,7 +33,7 @@
 
         <!-- ---------- TIME ---------- -->
         <div class="ui-time-wrapper">
-          <div class="ui-vertical-stripe"></div>
+          <div class="ui-vertical-stripe ui-bg-orange"></div>
           <div>
             <div class="ui-author">
               <b>devola2</b> by vonqo
@@ -42,6 +42,10 @@
               <span id="time-hr" class="ui-text-dark-grey"></span><span>:</span><span id="time-min"
                 class="ui-text-dark-grey"></span><span>:</span><span id="time-sec"></span>
             </div>
+          </div>
+
+          <div class="reminder-container ui-bg-green">
+            <div id="reminder-texts"></div>
           </div>
         </div>
 
@@ -124,6 +128,12 @@
                 <div class="ui-settings-section">
                   <div class="ui-settings-title">Transition</div>
                   <div class="ui-settings-content" id="transitions">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Camera</div>
+                  <div class="ui-settings-content" id="camera-src-list">
                   </div>
                 </div>
               </div>
@@ -220,6 +230,7 @@
     }
 
     setInterval(time, 1000);
+    setInterval(changeReminder, 10000);
 
     $("#res-height").change(function() {
       saveResoHeight($(this).val());
@@ -239,6 +250,7 @@
     getTransitions();
     getOverlays();
     getResolution();
+    getCamera();
   }
 
   const getVisuals = () => {
@@ -294,6 +306,27 @@
     getActiveVisuals();
   }
 
+  const getCamera = async () => {
+    let devices = await navigator.mediaDevices.enumerateDevices();
+    let cameraList = $("#camera-src-list");
+    cameraList.empty();
+
+    devices.forEach((deviceInfo, index) => {
+      let className = "ui-settings-item";
+      if(deviceInfo.kind === 'videoinput') {
+        if(getCameraSourceId() === deviceInfo.deviceId) {
+          className += " ui-settings-item-selected ui-bg-orange";
+        }
+        cameraList.append("<div onclick=\"selectCameraSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+      }
+    });
+  }
+
+  const selectCameraSource = (id) => {
+    saveCameraSourceId(id);
+    getCamera();
+  }
+
   const getAudioSources = async () => {
     let devices = await navigator.mediaDevices.enumerateDevices();
     let audioList = $("#audio-src-list");
@@ -303,7 +336,7 @@
       let className = "ui-settings-item";
       if(deviceInfo.kind === 'audioinput') {
         if(getAudioSourceId() === deviceInfo.deviceId) {
-          className += " ui-settings-item-selected";
+          className += " ui-settings-item-selected ui-bg-orange";
         }
         audioList.append("<div onclick=\"selectAudioSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
       }
@@ -327,7 +360,7 @@
       let className = "ui-settings-item";
 
       if(getSelectedTransitionId() === item.id) {
-        className += " ui-settings-item-selected";
+        className += " ui-settings-item-selected ui-bg-orange";
       }
 
       list.append("<div class=\""+className+"\" onclick=\"selectTransition('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
@@ -351,7 +384,7 @@
       let className = "ui-settings-item";
 
       if(getSelectedOverlayId() === item.id) {
-        className += " ui-settings-item-selected";
+        className += " ui-settings-item-selected ui-bg-orange";
       }
       
       list.append("<div class=\""+className+"\" onclick=\"selectOverlay('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
@@ -396,6 +429,7 @@
     const visuals = getActiveScenes(VISUAL_DATA);
     const overlayId = getSelectedOverlayId();
     const transitionId = getSelectedTransitionId();
+    const cameraId = getCameraSourceId();
     const width = getResoWidth();
     const height = getResoHeight();
 
@@ -414,6 +448,18 @@
     } catch(error) {
       alert(error);
     }
+  }
+
+  const changeReminder = () => {
+    const reminderList = [
+      "Any tool should be useful in the expected way, but a truly great tool lends itself to uses you never expected."
+    ]
+
+    $("#reminder-texts").empty().append(reminderList[getRandomInt(reminderList.length)]);
+  }
+
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * max);
   }
 </script>
 

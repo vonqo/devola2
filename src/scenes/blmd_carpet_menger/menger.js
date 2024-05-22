@@ -42,7 +42,7 @@ const menger = function(sketch) {
         fft = new p5.FFT(0.8, 256);
         fft.setInput(input);
     }
-
+    
     // ============================================================== //
     sketch.draw = function() {
         let spectrum = fft.analyze();

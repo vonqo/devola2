@@ -76,10 +76,15 @@ void main()
     
     float q = fbm(st + e);
     
-    vec3 blue1 = col255to1(vec3(55, 125, 179));
-    vec3 blue2 = col255to1(vec3(21, 42, 99));
-    vec3 green1 = col255to1(vec3(59, 191, 187));
-    vec3 db1 = col255to1(vec3(14, 6, 41));
+    // vec3 blue1 = col255to1(vec3(55, 125, 179));
+    // vec3 blue2 = col255to1(vec3(21, 42, 99));
+    // vec3 green1 = col255to1(vec3(59, 191, 187));
+    // vec3 db1 = col255to1(vec3(14, 6, 41));
+
+    vec3 blue1 = col255to1(vec3(82, 211, 216));
+    vec3 blue2 = col255to1(vec3(56, 135, 190));
+    vec3 green1 = col255to1(vec3(56, 65, 157));
+    vec3 db1 = col255to1(vec3(32, 14, 58));
     
     vec3 color = mix(blue2, blue1, clamp((q * q * q * 4.), 0., 1.));
     color = mix(color, green1, clamp((q * q * 4.), 0., 1.));

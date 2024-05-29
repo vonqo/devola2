@@ -11,9 +11,10 @@ const datamosh = function(sketch) {
     let datamoshBuffer;
     let imageBuffer;
 
-    let thresholdScale = 0;
+    let thresholdScale = 0.5;
     let cameraId;
     let carpetImg;
+    let img;
 
     const pixelRatio = window.devicePixelRatio;
 
@@ -32,6 +33,7 @@ const datamosh = function(sketch) {
         previous = sketch.createGraphics(ww, hh, sketch.WEBGL);
         datamoshBuffer = sketch.createGraphics(ww, hh, sketch.WEBGL);
         imageBuffer = sketch.createGraphics(ww, hh, sketch.WEBGL);
+        img = sketch.createImage(buffer.width, buffer.height);
 
         let constraints = {video: {deviceId: {exact: cameraId}}};
         cam = sketch.createCapture(constraints);
@@ -53,8 +55,8 @@ const datamosh = function(sketch) {
         datamosh.setUniform("lambda", 1.0);
         datamosh.setUniform("scale", [1.5, 1.5]);
         datamosh.setUniform("intensity", 6.0);
-        datamosh.setUniform("threshold", 0.0);
-        sketch.frameRate(32);
+        datamosh.setUniform("threshold", 0.5);
+        sketch.frameRate(24);
 
         sketch.imageMode(sketch.CENTER);
         sketch.textAlign(sketch.CENTER, sketch.CENTER);
@@ -73,9 +75,8 @@ const datamosh = function(sketch) {
         datamosh.setUniform("previous", datamoshBuffer);
         datamosh.setUniform("threshold", threshold);
         datamosh.setUniform("offsetRGB", offsetRGB);
-        datamosh.setUniform("time", sketch.millis());
+       //  datamosh.setUniform("time", sketch.millis());
         datamosh.setUniform("texture", cam);
-        datamosh.setUniform("overlay", carpetImg);
         datamoshBuffer.box(sketch.width, sketch.height);
         
         sketch.rect(sketch.width, sketch.height);
@@ -86,6 +87,8 @@ const datamosh = function(sketch) {
         let img = Graphics2Image(imageBuffer);
         img.blend(carpetImg, 0, 0, sketch.width, sketch.height, 0, 0, sketch.width, sketch.height, sketch.EXCLUSION);
 
+        // reverse
+        sketch.scale(-1, 1);
         sketch.image(img, 0, 0, ww, hh);
     }
 
@@ -106,9 +109,6 @@ const datamosh = function(sketch) {
 
     // ============================================================== //
     let Graphics2Image = function(buffer) {
-        let img = sketch.createImage(buffer.width, buffer.height);
-
-        //WgbGL coordinate fix
         img.copy(buffer, -buffer.width/2, -buffer.height/2, buffer.width, buffer.height, 0, 0, buffer.width, buffer.height);
         return img;
     }

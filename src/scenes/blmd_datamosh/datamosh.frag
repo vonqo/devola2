@@ -9,7 +9,6 @@ uniform float time;
 uniform vec2 resolution;
 uniform sampler2D previous;
 uniform sampler2D texture;
-uniform sampler2D overlay;
 uniform float minVel; 
 uniform float maxVel; 
 uniform float offsetInc;
@@ -116,10 +115,6 @@ void main()
 	datamosh.rgb = vec3(r, g, b) * stepper;
 
 	vec4 color = texture2D(texture, uv); // * vec4(1,0.2,0.2,1);
-	vec4 carpet = texture2D(overlay, uv);
-
-	vec4 fragColor = color * (1.0 - stepper) + datamosh * stepper;
-	// gl_FragColor = mix(aa, carpet, step(0.4, uv.x));
-	gl_FragColor = fragColor;
+	gl_FragColor = color * (1.0 - stepper) + datamosh * stepper;
 }
  

@@ -77,6 +77,18 @@ const VISUAL_DATA = {
             "name": "Dotor_Huree",
             "path": "dotor_huree/dotor_huree.js",
             "variable": "dotorHuree",
+        },
+        {
+            "id": "12",
+            "name": "vol7intro",
+            "path": "blmd_vol7_intro/vol7intro.js",
+            "variable": "vol7intro",
+        },
+        {
+            "id": "13",
+            "name": "vol7outro",
+            "path": "blmd_vol7_outro/vol7outro.js",
+            "variable": "vol7outro",
         }
     ],
     "transition": [
@@ -99,4 +111,4 @@ const VISUAL_DATA = {
             "name": "Custom Logo"
         }
     ]
-}
+} 

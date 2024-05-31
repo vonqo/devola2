@@ -43,6 +43,7 @@ const mirror = function(sketch) {
         fft.setInput(input);
         
         gl = this.canvas.getContext('webgl');
+        console.log(gl);
         gl.disable(gl.DEPTH_TEST);
 
         sketch.imageMode(sketch.CENTER);
@@ -74,7 +75,6 @@ const mirror = function(sketch) {
         
         //const mx = map(mouseX, 0, width, 0, 100);
         //const my = map(mouseY, 0, height, 0, 100);
-        
         const mx = (energyBass * 1.5) + carpetBase;
         const my = (energyBass) + carpetBase;
         

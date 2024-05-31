@@ -159,10 +159,10 @@ const vol7intro = function(sketch) {
         sketch.fill(255);
         sketch.textSize(76);
 
-        sketch.text('MISTA BONE', 
-            sketch.width * 0.2, 
-            sketch.height * 0.35
-        );
+        // sketch.text('', 
+        //     sketch.width * 0.2, 
+        //     sketch.height * 0.35
+        // );
 
         sketch.image(cozyImg, sketch.width * 0.45, sketch.height * 0.1, cozyImg.width * 0.65, cozyImg.height * 0.65);
     }

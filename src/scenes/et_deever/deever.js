@@ -26,12 +26,12 @@ const deever = function(sketch) {
 
     // ============================================================== //
     sketch.setup = function() {
-        sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
+        sketch.createCanvas(Number(ww), Number(hh));
         sketch.background(255);
         sketch.imageMode(sketch.CORNER);
 
         pw = ww;
-        ph = hh * 0.5;
+        ph = hh * 0.5 - 250;
         fftPanel = sketch.createGraphics(pw, ph);
         fftPanel.background(0, 0);
 
@@ -45,16 +45,16 @@ const deever = function(sketch) {
 
     // ============================================================== //
     sketch.draw = function() {
-        sketch.translate(-sketch.width/2,-sketch.height/2,0);
         let spectrum = fft.analyze();
-        let waveform = fft.waveform();
 
         sketch.image(imgBg, 0, 0, ww, hh);
         drawFFTSpectrograph(fftPanel, spectrum);
         sketch.tint(255, 128);
         sketch.image(fftPanel, 0, 0, pw, ph);
         sketch.tint(255, 255);
-        sketch.image(imgOrts2, 0, 0, ww, hh);
+        sketch.image(imgOrts2, 0, -250, ww, hh);
+        sketch.image(imgOrts, 0, -250, ww, hh);
+        sketch.tint(128);
         sketch.image(imgOrts, 0, 0, ww, hh);
     }
 

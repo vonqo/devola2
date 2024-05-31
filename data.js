@@ -25,22 +25,10 @@ const VISUAL_DATA = {
             "variable": "menger",
         },
         {
-            "id": "4",
-            "name": "B.L.M.D__Blueprint [WIP]",
-            "path": "blmd_carpet_blueprint/blueprint.js",
-            "variable": "blueprint",
-        },
-        {
             "id": "5",
             "name": "B.L.M.D__Datamosh",
             "path": "blmd_datamosh/datamosh.js",
             "variable": "datamosh",
-        },
-        {
-            "id": "50",
-            "name": "B.L.M.D__DatamoshMotion",
-            "path": "blmd_datamosh_motion/datamosh_motion.js",
-            "variable": "datamoshMotion",
         },
         {
             "id": "6",
@@ -65,12 +53,6 @@ const VISUAL_DATA = {
             "name": "EvenTide__Ocean",
             "path": "et_ocean/ocean.js",
             "variable": "ocean",
-        },
-        {
-            "id": "10",
-            "name": "EvenTide__Sunrise",
-            "path": "et_sunrise/sunrise.js",
-            "variable": "sunrise",
         },
         {
             "id": "11",

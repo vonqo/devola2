@@ -1,8 +1,8 @@
 const cloud = function(sketch) {
 
     const energyRange = {
-        low: 150,
-        high: 280
+        low: 100,
+        high: 255
     };
 
     let font;
@@ -15,6 +15,8 @@ const cloud = function(sketch) {
 
     let ww;
     let hh;
+
+    let speed = 5.0;
 
     const textTop = 50;
     const textLeft = 150;
@@ -31,26 +33,21 @@ const cloud = function(sketch) {
 
     // ============================================================== //
     sketch.setup = function() {
-        sketch.createCanvas(Number(ww), Number(hh, sketch.WEBGL));
+        sketch.createCanvas(Number(ww), Number(hh), sketch.WEBGL);
         pg = sketch.createGraphics(ww, hh, sketch.WEBGL);
-        sketch.fill(0,0,0,0); 
-
-        // p5grain.setup({instance: sketch});
-        sketch.applyMonochromaticGrain(42);
 
         sketch.textFont(font);
         sketch.textAlign(sketch.LEFT, sketch.TOP);
 
         input = new p5.AudioIn();
         input.start();
+        fft = new p5.FFT(0.5, 256);
+        fft.setInput(input);
 
         gl = this.canvas.getContext('webgl');
         gl.disable(gl.DEPTH_TEST);
 
         pg.shader(cloud);
-
-        fft = new p5.FFT(0.5, 256);
-        fft.setInput(input);
     }
 
     // ============================================================== //
@@ -63,11 +60,11 @@ const cloud = function(sketch) {
         let speed = sketch.map(energy, energyRange.low, energyRange.high, 8, 8, true);
         let rotation = sketch.map(energy, energyRange.low, energyRange.high, 0.4, 0.50, true);
         
-        if(sketch.keyIsDown(sketch.RIGHT_ARROW)) {
+        if(sketch.keyIsDown(sketch.UP_ARROW)) {
             if(zoom < 2.5) {
                 zoom += 0.01;
             }
-        } if(sketch.keyIsDown(sketch.LEFT_ARROW)) {
+        } if(sketch.keyIsDown(sketch.DOWN_ARROW)) {
             if(zoom > 0.5) {
                 zoom -= 0.01;
             }
@@ -75,11 +72,11 @@ const cloud = function(sketch) {
 
         cloud.setUniform("iResolution", [sketch.width, sketch.height]); //pass some values to the shader
         cloud.setUniform("iTime", sketch.millis() * 0.001);
-        cloud.setUniform("amp", amp);
-        cloud.setUniform("speed", 5.0);
-        cloud.setUniform("rot", rotation);
+        cloud.setUniform("amp", sketch.lerp(0.4, amp, 0.05));
+        cloud.setUniform("speed", speed);
+        cloud.setUniform("rot", sketch.lerp(0.4, rotation, 0.05));
         cloud.setUniform("zoom", zoom);
-        
+
         // sketch.text('PIZDA');
 
         pg.shader(cloud);

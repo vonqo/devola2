@@ -16,6 +16,7 @@
   
   <script language="javascript" type="text/javascript" src="src/debugger/audio/audio.js"></script>
   <script language="javascript" type="text/javascript" src="src/debugger/color/color.js"></script>
+  <script language="javascript" type="text/javascript" src="src/debugger/graphics/graphics.js"></script>
   <style>
     body,
     button {
@@ -44,8 +45,121 @@
             </div>
           </div>
 
-          <div class="reminder-container ui-bg-green">
-            <div id="reminder-texts"></div>
+        </div>
+        
+        <div style="display: flex; gap: 20px;">
+
+          <!-- ---------- AUDIO ---------- -->
+          <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                Audio / p5.sound
+                <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                  RE
+                </button>
+              </div>
+              <div id="p5sound">
+              </div>
+            </div>
+          </div>
+
+          
+          <div style="display: flex; flex-direction: column; gap: 10px">
+
+            <!-- ---------- COLOR ---------- -->
+            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+              <div class="ui-card">
+                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                  Color / shader
+                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                    RE
+                  </button>
+                </div>
+                <div class="grid-overlay"></div>
+                <div id="p5color" style="height: 200px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------- P5 RENDER ---------- -->
+            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+              <div class="ui-card">
+                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                  Motion / P5.Graphics
+                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                    RE
+                  </button>
+                </div>
+                <div id="p5graphics" style="height: 400px;">
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+          
+        </div>
+      </div>
+
+      <div class="ui-panel">
+
+        <!-- ---------- SETTINGS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-y bl-clip"
+          class="settings-wrapper">
+          <div class="ui-card">
+            <div class="ui-title ui-bg-dark-grey">Settings</div>
+            <div data-augmented-ui-border class="ui-content" style="padding: 10px 0px;">
+
+              <div class="ui-settings-container">
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Audio Source</div>
+                  <div class="ui-settings-content" id="audio-src-list">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Resolution</div>
+                  <div class="ui-settings-content">
+                    <div style="display: flex; gap: 20px;">
+                      <div>Size:<b><span id="displaySize" class="ui-bg-orange ui-text-white"></span></b></div>
+                      <div>PixelRatio:<b><span id="displayPixelRatio" class="ui-bg-orange ui-text-white"></span></b></div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="width">width</label>
+                      <input class="ui-input" type="number" id="res-width" name="width" value="1920">
+                    </div>
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="height">height</label>
+                      <input class="ui-input" type="number" id="res-height" name="height" value="1080">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Overlay</div>
+                  <div class="ui-settings-content" id="overlays">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Transition</div>
+                  <div class="ui-settings-content" id="transitions">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Camera</div>
+                  <div class="ui-settings-content" id="camera-src-list">
+                  </div>
+                </div>
+              </div>
+
+              <div class="ui-footer ui-bg-light-grey">
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -87,122 +201,34 @@
           <div class="ui-footer ui-bg-light-grey">
           </div>
         </div>
-      </div>
 
-      <div class="ui-panel">
+        <!-- ---------- ACTIONS ---------- -->
+        <div class="display: flex; gap: 20px;">
+          <div style="display: flex; margin-top: 20px; gap: 10px;">
+            <button id="fullscreenButton" class="ui-button" onclick="toggleFullscreen()">
+              Fullscreen ◢
+            </button>
+  
+            <button id="windowedButton" class="ui-button" onclick="toggleWindowed()">
+              New Instance ◢
+            </button>
 
-        <!-- ---------- SETTINGS ---------- -->
-        <div data-augmented-ui-border data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-y bl-clip"
-          class="settings-wrapper">
-          <div class="ui-card">
-            <div class="ui-title ui-bg-dark-grey">Settings</div>
-            <div data-augmented-ui-border class="ui-content" style="padding: 10px 0px;">
+            <button class="ui-button" onclick="reload()">
+              Reload
+            </button>
+  
+            <button class="ui-button ui-button-active" onclick="fireUp()">
+              Start
+            </button>
 
-              <div class="ui-settings-container">
-                <div class="ui-settings-section">
-                  <div class="ui-settings-title">Audio Source</div>
-                  <div class="ui-settings-content" id="audio-src-list">
-                  </div>
-                </div>
-
-                <div class="ui-settings-section">
-                  <div class="ui-settings-title">Resolution</div>
-                  <div class="ui-settings-content">
-                    <div class="ui-input-wrapper">
-                      <label class="ui-label" for="width">width</label>
-                      <input class="ui-input" type="number" id="res-width" name="width" value="1920">
-                    </div>
-                    <div class="ui-input-wrapper">
-                      <label class="ui-label" for="height">height</label>
-                      <input class="ui-input" type="number" id="res-height" name="height" value="1080">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="ui-settings-section">
-                  <div class="ui-settings-title">Overlay</div>
-                  <div class="ui-settings-content" id="overlays">
-                  </div>
-                </div>
-
-                <div class="ui-settings-section">
-                  <div class="ui-settings-title">Transition</div>
-                  <div class="ui-settings-content" id="transitions">
-                  </div>
-                </div>
-
-                <div class="ui-settings-section">
-                  <div class="ui-settings-title">Camera</div>
-                  <div class="ui-settings-content" id="camera-src-list">
-                  </div>
-                </div>
-              </div>
-
-              <div class="ui-footer ui-bg-light-grey">
-              </div>
-
-            </div>
           </div>
-        </div>
-
-        <div style="display: flex; gap: 20px;">
-
-          <!-- ---------- AUDIO ---------- -->
-          <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
-            <div class="ui-card">
-              <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
-                Audio / p5.sound
-                <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
-                  RE
-                </button>
-              </div>
-              <div id="p5sound">
-              </div>
-            </div>
+  
+          <div style="display: flex; margin-top: 20px; gap: 10px;">
+            
           </div>
-
-          <!-- ---------- COLOR ---------- -->
-          <div>
-            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
-              <div class="ui-card">
-                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
-                  Color / shader
-                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
-                    RE
-                  </button>
-                </div>
-                <div class="grid-overlay"></div>
-                <div id="p5color" style="height: 200px;">
-                </div>
-              </div>
-            </div>
-
-            <!-- ---------- ACTIONS ---------- -->
-            <div style="display: flex; margin-top: 20px; gap: 10px;">
-              <button id="fullscreenButton" class="ui-button" onclick="toggleFullscreen()">
-                Fullscreen ◢
-              </button>
-
-              <button id="windowedButton" class="ui-button" onclick="toggleWindowed()">
-                New Instance ◢
-              </button>
-            </div>
-
-            <div style="display: flex; margin-top: 20px; gap: 10px;">
-              <button class="ui-button" onclick="reload()">
-                Reload
-              </button>
-
-              <button class="ui-button ui-button-active" onclick="fireUp()">
-                Start
-              </button>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
-
   </div>
 </body>
 
@@ -214,6 +240,7 @@
   $(document).ready(function (e) {
     let sound = new p5(audioDebug, document.getElementById('p5sound'));
     let color = new p5(colorDebug, document.getElementById('p5color'));
+    let graphics = new p5(graphicsDebug, document.getElementById('p5graphics'));
 
     var time_hr = document.getElementById('time-hr');
     var time_min = document.getElementById('time-min');
@@ -244,6 +271,7 @@
   });
 
   const reload = () => {
+    getWindowSize();
     getVisuals();
     getActiveVisuals();
     getAudioSources();
@@ -251,6 +279,11 @@
     getOverlays();
     getResolution();
     getCamera();
+  }
+
+  const getWindowSize = () => {
+    $('#displaySize').empty().append(' ' + window.innerWidth + ' x ' + window.innerHeight + ' ');
+    $('#displayPixelRatio').empty().append(' ' + window.devicePixelRatio + ' ');
   }
 
   const getVisuals = () => {

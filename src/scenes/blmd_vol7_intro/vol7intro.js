@@ -119,20 +119,20 @@ const vol7intro = function(sketch) {
 
         sketch.text('NEW GAME / Difficulty: B.L.M.D', 
             sketch.width * 0.2, 
-            sketch.height * 0.55 - 100
+            sketch.height * 0.55 - 200
         );
         
-        sketch.text(sketch.int(percent * 100) + '%', sketch.width * 0.2, sketch.height * 0.55 - 30);
+        sketch.text(sketch.int(percent * 100) + '%', sketch.width * 0.2, sketch.height * 0.55 - 130);
 
         sketch.strokeWeight(4);
         sketch.stroke(255);
         sketch.fill(255);
-        sketch.rect(sketch.width * 0.2, sketch.height * 0.55, sketch.width * 0.6, sketch.height * 0.05);
+        sketch.rect(sketch.width * 0.2, sketch.height * 0.55 - 100, sketch.width * 0.6, sketch.height * 0.05);
         
         sketch.fill(24, 40, 31);
-        sketch.rect(sketch.width * 0.2, sketch.height * 0.55, sketch.width * 0.6 * percent, sketch.height * 0.05);
+        sketch.rect(sketch.width * 0.2, sketch.height * 0.55 - 100, sketch.width * 0.6 * percent, sketch.height * 0.05);
 
-        sketch.image(group, sketch.width * 0.2, sketch.height * 0.01, group.width * 0.8, group.height * 0.8);
+        sketch.image(group, sketch.width * 0.2 + 170, sketch.height * 0.01, group.width * 0.6, group.height * 0.6);
         
         if(sketch.keyIsDown(sketch.LEFT_ARROW)) {
             if(percent > 0) percent -= 0.005;

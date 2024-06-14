@@ -219,6 +219,10 @@ button {
   color: #90d906;
 }
 
+.ui-text-white {
+  color: #ffffff;
+}
+
 .ui-bg-dark-grey {
   background-color: #3c3d3f;
 }
@@ -240,7 +244,7 @@ button {
   padding-left: 14px;
   padding-right: 7px;
   text-transform: uppercase;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: white;
   display: flex;
@@ -287,7 +291,7 @@ button {
 }
 
 .ui-vis-item {
-  font-size: 15px;
+  font-size: 14px;
   height: 28px;
   display: flex;
   place-items: center;
@@ -364,19 +368,20 @@ button {
 .ui-settings-title {
   border-left: 4px solid #f14b00;
   padding: 5px 6px;
-  font-size: 16px;
+  font-size: 14px;
   text-transform: uppercase;
   margin-bottom: 7px;
 }
 
 .ui-settings-content {
+  font-size: 13px;
   display: flex;
   flex-direction: column;
   gap: 0px;
 }
 
 .ui-settings-item {
-  padding: 5px 10px;
+  padding: 4px 8px;
   color: #3c3d3f;
 }
 
@@ -411,7 +416,7 @@ button {
   background: white;
   margin: 0px;
   height: 28px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   font-family: 'JetBrainsMono';
   padding-left: 7px;

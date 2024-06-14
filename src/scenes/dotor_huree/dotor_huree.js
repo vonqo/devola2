@@ -42,7 +42,7 @@ const dotorHuree = function(sketch) {
         sketch.background(0);
         let spectrum = fft.analyze();
         let energy = fft.getEnergy(100, 255);
-        let scale = sketch.map(energy, 100, 255, 1.1, 1.3);
+        let scale = sketch.map(energy, 100, 255, 0.8, 1.3);
 
         if(mode === 1) {
             sketch.image(bg, sketch.width/2, sketch.height/2, bg.width, bg.height);

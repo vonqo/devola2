@@ -190,7 +190,8 @@ button {
 .ui-panel {
   display: flex; 
   flex-direction: column;
-  gap: 28px;
+  gap: 20px;
+  visibility: hidden;
 }
 
 .ui-card {
@@ -200,6 +201,10 @@ button {
 
 .ui-bg-orange {
   background-color: #f14b00;
+}
+
+.ui-bg-silver {
+  background-color: #ebf0f7;
 }
 
 .ui-bg-green {
@@ -250,6 +255,10 @@ button {
   display: flex;
   align-items: center;
   justify-content: start;
+}
+
+.text-black {
+  color: #000;
 }
 
 .ui-title-center {

@@ -2,12 +2,12 @@ const graphicsDebug = function(sketch) {
 
     let scrblrs = [];
     const COLS = [
-        '#3c3d3f',
-        '#f14c00',
-        '#ffffff',
-        '#00e0bf',
-        '#f14c00',
-        '#f14c00',
+        '#ebf0f7',
+        '#636a74',
+        '#9aa2af',
+        '#9aa2af',
+        '#f14c00', 
+        '#b4bbc5', 
     ];
 
     const pixelRatio = window.devicePixelRatio;
@@ -23,7 +23,7 @@ const graphicsDebug = function(sketch) {
         sketch.createCanvas(Number(ww), Number(hh));
         sketch.background(13, 17, 23);
 
-        for(let i=0; i < 32; i++) {
+        for(let i=0; i < 24; i++) {
             scrblrs.push(new Scribbler(sketch.width/2, sketch.height /2));
         }
 

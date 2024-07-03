@@ -30,6 +30,8 @@
     <script language="javascript" type="text/javascript">
       let buffer;
       let filterOpacity = 0;
+      let selectedLayout = '';
+
       const visuals = getActiveScenes(VISUAL_DATA);
 
       $(document).ready(function (e) {
@@ -47,9 +49,11 @@
             filterOpacity = filterSetOpacity(filterOpacity, false);
           } else if(event.key === '0') {
             window.location.href = '../../index.html';
+          } else if(event.key === '7' || event.key === '8' || event.key === '9') {
+            selectedLayout = event.key;
           } else {
             visuals.forEach((visual) => {
-              if(event.key === visual.key) {
+              if(selectedLayout === visual.layout && event.key === visual.key) {
                 transitionEffect(eval(visual.variable));
               }
             });

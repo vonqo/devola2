@@ -97,8 +97,6 @@
 
 
           </div>
-
-          
         </div>
       </div>
 
@@ -122,8 +120,8 @@
                   <div class="ui-settings-title">Resolution</div>
                   <div class="ui-settings-content">
                     <div style="display: flex; gap: 20px;">
-                      <div>Size:<b><span id="displaySize" class="ui-bg-orange ui-text-white"></span></b></div>
-                      <div>PixelRatio:<b><span id="displayPixelRatio" class="ui-bg-orange ui-text-white"></span></b></div>
+                      <div>Size:<b><span id="displaySize" class="ui-bg-orange ui-text-white" style="padding: 0px 5px;"></span></b></div>
+                      <div>PixelRatio:<b><span id="displayPixelRatio" class="ui-bg-orange ui-text-white" style="padding: 0px 5px;"></span></b></div>
                     </div>
                     <div style="height: 10px;"></div>
                     <div class="ui-input-wrapper">
@@ -178,21 +176,26 @@
               </div>
             </div>
             <div class="ui-card" style="width: 40%;">
+              <div class="ui-title ui-bg-orange ui-bg-stripe">Layout</div>
+              <div class="ui-content" style="padding: 10px 0px" id="layout">
+              </div>
+            </div>
+            <div class="ui-card" style="width: 40%;">
               <div class="ui-title ui-bg-orange ui-bg-stripe">Keybind</div>
               <div class="ui-content" style="padding: 10px 0px" id="keybind">
                 <div class="ui-vis-item">
                   <select class="ui-keybind-select" name="key">
-                    <option value="volvo">1</option>
+                    <option value="1">1</option>
                   </select>
                 </div>
                 <div class="ui-vis-item">
                   <select class="ui-keybind-select" name="key">
-                    <option value="volvo">2</option>
+                    <option value="2">2</option>
                   </select>
                 </div>
                 <div class="ui-vis-item">
                   <select class="ui-keybind-select" name="key">
-                    <option value="volvo">ENTER</option>
+                    <option value="enter">ENTER</option>
                   </select>
                 </div>
               </div>
@@ -297,19 +300,30 @@
     const items = getInactiveScene(VISUAL_DATA);
     let visuals = $("#visuals");
     visuals.empty();
-    items.forEach((item) => visuals.append("<div onclick=\"activateVisual('"+ item.id +"', '1')\" class=\"ui-vis-item\">"+ item.name +"</div>"));
+    items.forEach((item) => visuals.append("<div onclick=\"activateVisual('"+ item.id +"', '1', '7')\" class=\"ui-vis-item\">"+ item.name +"</div>"));
   }
 
   const getActiveVisuals = () => {
     const items = getActiveScenes(VISUAL_DATA);
     let visuals = $("#active-visuals");
     let keybind = $("#keybind");
+    let layout = $("#layout");
 
     visuals.empty();
     keybind.empty();
+    layout.empty();
 
     items.forEach((item) => {
-      visuals.append("<div onclick=\"deactivateVisual('"+ item.id +"')\" class=\"ui-vis-item\">"+ item.name +"</div>");
+      visuals.append("<div onclick=\"deactivateVisual('"+ item.id +"')\" class=\"ui-vis-item\"><b>"+ item.name +"</b></div>");
+      
+      layout.append("<div class=\"ui-vis-item\">"+
+                      "<select class=\"ui-keybind-select\" id=\"select-layout-"+ item.id +"\">" +
+                        optionsLine('NUM 7', '7', item.layout) + 
+                        optionsLine('NUM 8', '8', item.layout) + 
+                        optionsLine('NUM 9', '9', item.layout) + 
+                      "</select>"
+                    +"</div>");
+      
       keybind.append("<div class=\"ui-vis-item\">" + 
                         "<select class=\"ui-keybind-select\" id=\"select-key-"+ item.id +"\">" + 
                           optionsLine('NUM 1', '1', item.key) + 
@@ -318,14 +332,15 @@
                           optionsLine('NUM 4', '4', item.key) + 
                           optionsLine('NUM 5', '5', item.key) + 
                           optionsLine('NUM 6', '6', item.key) + 
-                          optionsLine('NUM 7', '7', item.key) + 
-                          optionsLine('NUM 8', '8', item.key) + 
-                          optionsLine('NUM 9', '9', item.key) + 
                         "</select>" +
                       "</div>");
-
+      
       $("#select-key-"+item.id).on('change', function() {
-        addActiveScene(item.id, $(this).val());
+        addActiveScene(item.id, $(this).val(), $("#select-layout-"+item.id).val());
+      });
+
+      $("#select-layout-"+item.id).on('change', function() {
+        addActiveScene(item.id, $("#select-key-"+item.id).val(), $(this).val());
       });
     });
   }
@@ -334,8 +349,8 @@
     return "<option value=\""+value+"\" "+(selectedValue === value ? 'selected' : '')+">"+name+"</option>";
   }
 
-  const activateVisual = (id, key) => {
-    addActiveScene(id, key);
+  const activateVisual = (id, key, layout) => {
+    addActiveScene(id, key, layout);
     getVisuals();
     getActiveVisuals();
   }

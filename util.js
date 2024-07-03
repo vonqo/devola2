@@ -56,19 +56,20 @@ const getAudioInput = async () => {
 }
 
 // ============================================================== //
-const addActiveScene = (id, key) => {
+const addActiveScene = (id, key, layout) => {
     let storedScenes = JSON.parse(localStorage.getItem("active_scenes"));
     if(storedScenes === undefined || storedScenes === null) {
-        localStorage.setItem("active_scenes", JSON.stringify([{"id": id, "key": key}]));
+        localStorage.setItem("active_scenes", JSON.stringify([{"id": id, "key": key, "layout": layout}]));
     } else {
         const idx = storedScenes.findIndex((item) => item.id === id);
 
         if(idx === -1) {
-            storedScenes.push({"id": id, "key": key});
+            storedScenes.push({"id": id, "key": key, "layout": layout});
         } else {
             storedScenes[idx].key = key;
+            storedScenes[idx].layout = layout;
         }
-
+        
         localStorage.setItem("active_scenes", JSON.stringify(storedScenes));
     }
 }
@@ -91,7 +92,14 @@ const getActiveScenes = (visualData) => {
     visualData.scenes.forEach((item) => {
         const visual = storedScenes.find((element) => element.id === item.id);
         if(visual != undefined) {
-            list.push({"id": item.id, "name": item.name, "key": visual.key, "path": item.path, "variable": item.variable});
+            list.push({
+                "id": item.id,
+                "name": item.name,
+                "layout": visual.layout,
+                "key": visual.key,
+                "path": item.path,
+                "variable": item.variable
+            });
         }
     });
     return list;

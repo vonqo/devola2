@@ -1,9 +1,9 @@
 {
   "name": "devola2",
-  "version": "0.2.0",
+  "version": "1.0.1",
   "description": "Real time audio visualizer",
   "main": "index.js",
-  "repository": "https://github.com/creative41/devola2.git",
+  "repository": "https://github.com/vonqo/devola2.git",
   "author": "vonqo",
   "license": "MPL-2.0",
   "private": true,
@@ -11,7 +11,7 @@
     "start": "ELECTRON_DISABLE_SECURITY_WARNINGS=true electron ."
   },
   "devDependencies": {
-    "electron": "^24.1.0",
+    "electron": "^32.2.0",
     "electron-reloader": "^1.2.3"
   },
   "dependencies": {

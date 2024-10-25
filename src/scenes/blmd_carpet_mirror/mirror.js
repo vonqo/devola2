@@ -88,6 +88,8 @@ const mirror = function(sketch) {
         
         sketch.shader(carpetShader);
         sketch.rect(sketch.width, sketch.height);
+
+        // asciilyze();
     }
 
     // ============================================================== //
@@ -102,5 +104,4 @@ const mirror = function(sketch) {
             nextCarpet = !nextCarpet;
         }
     }
-    
 }

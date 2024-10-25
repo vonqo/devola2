@@ -16,7 +16,7 @@ if(!app.isPackaged) {
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    title: "Devola2",
+    title: "devola2",
     width: 1200,
     height: 800,
     icon: __dirname + '/assets/favicon.ico',
@@ -28,7 +28,8 @@ const createWindow = () => {
     }
   });
   
-  win.loadFile('index.html');
+  win.loadFile('home.html');
+
   systemPreferences.askForMediaAccess("microphone");
   systemPreferences.askForMediaAccess("camera");
 

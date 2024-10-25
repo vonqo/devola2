@@ -75,8 +75,9 @@ const datamosh = function(sketch) {
         datamosh.setUniform("previous", datamoshBuffer);
         datamosh.setUniform("threshold", threshold);
         datamosh.setUniform("offsetRGB", offsetRGB);
-       //  datamosh.setUniform("time", sketch.millis());
+        // datamosh.setUniform("time", sketch.millis());
         datamosh.setUniform("texture", cam);
+        // datamosh.setUniform("rug", carpetImg);
         datamoshBuffer.box(sketch.width, sketch.height);
         
         sketch.rect(sketch.width, sketch.height);
@@ -85,11 +86,13 @@ const datamosh = function(sketch) {
         imageBuffer.image(datamoshBuffer, 0, 0, ww, hh);
         
         let img = Graphics2Image(imageBuffer);
-        img.blend(carpetImg, 0, 0, sketch.width, sketch.height, 0, 0, sketch.width, sketch.height, sketch.EXCLUSION);
+        img.blend(carpetImg, 0, 0, sketch.width, sketch.height, 0, 0, sketch.width, sketch.height, sketch.DIFFERENCE);
 
         // reverse
         sketch.scale(-1, 1);
         sketch.image(img, 0, 0, ww, hh);
+
+        // sketch.image(imageBuffer, 0, 0, ww, hh);
     }
 
     // ============================================================== //

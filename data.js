@@ -71,6 +71,12 @@ const VISUAL_DATA = {
             "name": "vol7outro",
             "path": "blmd_vol7_outro/vol7outro.js",
             "variable": "vol7outro",
+        },
+        {
+            "id": "14",
+            "name": "B.L.M.D__CSINTRO",
+            "path": "blmd_cs_intro/cs_intro.js",
+            "variable": "cs_intro",
         }
     ],
     "transition": [

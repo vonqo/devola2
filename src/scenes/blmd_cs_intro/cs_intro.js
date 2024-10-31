@@ -3,7 +3,8 @@ const cs_intro = function(sketch) {
     let ww;
     let hh;
 
-    const pixelRatio = window.devicePixelRatio;
+    // const pixelRatio = window.devicePixelRatio;
+    const pixelRatio = 2.8;
 
     let bg;
     let banner;
@@ -35,7 +36,7 @@ const cs_intro = function(sketch) {
         sketch.image(bg, 0, 0, sketch.width, sketch.height);
         
         sketch.tint(255);
-        drawLoadingWindow(sketch.width / 2 - loadingWindow.width * pixelRatio / 2, sketch.height * 0.2, percent);
+        drawLoadingWindow(sketch.width / 2 - loadingWindow.width * pixelRatio / 2, sketch.height * 0.1, percent);
 
         if(sketch.keyIsDown(sketch.LEFT_ARROW)) {
             if(percent > 0) percent -= 0.005;
@@ -56,7 +57,7 @@ const cs_intro = function(sketch) {
         
         sketch.textSize(10 * pixelRatio);
         sketch.fill(165, 170, 148);
-        sketch.text('Wekenbek (dsa)', x + (20 * pixelRatio), y + (55 * pixelRatio))
+        sketch.text('Deathwish 2024 (Xtravaganza)', x + (20 * pixelRatio), y + (55 * pixelRatio))
 
         sketch.noStroke();
         sketch.fill(198, 182, 82);

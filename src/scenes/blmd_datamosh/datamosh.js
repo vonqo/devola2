@@ -35,7 +35,14 @@ const datamosh = function(sketch) {
         imageBuffer = sketch.createGraphics(ww, hh, sketch.WEBGL);
         img = sketch.createImage(buffer.width, buffer.height);
 
-        let constraints = {video: {deviceId: {exact: cameraId}}};
+        let constraints = {
+            audio: false,
+            video: {
+                deviceId: {exact: cameraId},
+                width: 1024,
+                height: 256
+            }
+        };
         cam = sketch.createCapture(constraints);
         cam.size(ww,hh);
         cam.hide();

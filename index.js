@@ -1,18 +1,13 @@
 const { app, globalShortcut, BrowserWindow, systemPreferences } = require('electron');
 const debug = require('electron-debug');
 const electron = require('electron');
-const { Dualsense } = require("dualsense-ts");
+const data = require('./data.json');
 
 if(!app.isPackaged) {
   try {
     require('electron-reloader')(module);
   } catch {}
-  
-  debug();
 }
-
-// Grab a controller connected via USB or Bluetooth
-// const controller = new Dualsense();
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -24,24 +19,20 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true
+      enableRemoteModule: true,
     }
   });
-  
-  win.loadFile('home.html');
+
+  win.webContents.executeJavaScript(`sessionStorage.setItem('data', '${JSON.stringify(data)}')`);
+  win.loadFile('src/orange-ui.html');
+  win.webContents.openDevTools();
 
   systemPreferences.askForMediaAccess("microphone");
   systemPreferences.askForMediaAccess("camera");
-
-  // const connected = controller.connection.active;
-  // controller.connection.on("change", ({ active }) => {
-  //   console.log(`controller ${active ? '' : 'dis'}connected`)
-  // });
 }
 
 app.whenReady().then(() => {
-  createWindow(); 
-  
+  createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   });

@@ -15,8 +15,8 @@ const colorDebug = function(sketch) {
     sketch.preload = function() {
       ww = 400;
       hh = 200;
-      font = sketch.loadFont('assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
-      shader = sketch.loadShader('src/debugger/color/basic.vert', 'src/debugger/color/basic.frag');
+      font = sketch.loadFont('../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
+      shader = sketch.loadShader('debugger/color/basic.vert', 'debugger/color/basic.frag');
     }
   
     // ============================================================== //

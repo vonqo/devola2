@@ -22,7 +22,7 @@ const audioDebug = function(sketch) {
   sketch.preload = function() {
     ww = 400;
     hh = 600;
-    font = sketch.loadFont('assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
+    font = sketch.loadFont('../assets/font/JetBrainsMono/JetBrainsMono-Medium.ttf');
   }
 
   // ============================================================== //

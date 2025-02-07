@@ -39,7 +39,7 @@ const variable_name = function(sketch) {
 }
 ```
 
-Then register your visual in ```data.js```. **id** should not be duplicated.
+Then register your visual in ```data.json```. **id** should not be duplicated.
 ```javascript
 const VISUAL_DATA = {
     "scenes": [

@@ -6,19 +6,18 @@
   <meta charset="UTF-8">
   <meta name="author" content="vonqo">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="styles/augmented-ui.min.css">
-  <link rel="stylesheet" href="styles/index.css">
+  <link rel="stylesheet" type="text/css" href="../styles/augmented-ui.min.css">
+  <link rel="stylesheet" href="../styles/index.css">
 
-  <script language="javascript" type="text/javascript" src="libs/p5js/p5.min.js"></script>
-  <script language="javascript" type="text/javascript" src="libs/p5js/addons/p5.sound.min.js"></script>
-  <script type="text/javascript" language="javascript" src="styles/jquery-1.8.2.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../libs/p5js/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../libs/p5js/addons/p5.sound.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../styles/jquery-1.8.2.min.js"></script>
+
+  <script type="text/javascript" language="javascript" src="utility/util.js"></script>
   
-  <script type="text/javascript" language="javascript" src="data.js"></script>
-  <script type="text/javascript" language="javascript" src="util.js"></script>
-  
-  <script language="javascript" type="text/javascript" src="src/debugger/audio/audio.js"></script>
-  <script language="javascript" type="text/javascript" src="src/debugger/color/color.js"></script>
-  <script language="javascript" type="text/javascript" src="src/debugger/graphics/graphics.js"></script>
+  <script language="javascript" type="text/javascript" src="debugger/audio/audio.js"></script>
+  <script language="javascript" type="text/javascript" src="debugger/color/color.js"></script>
+  <script language="javascript" type="text/javascript" src="debugger/graphics/graphics.js"></script>
   <style>
     body,
     button {
@@ -283,7 +282,7 @@
     getWindowSize();
     getVisuals();
     getActiveVisuals();
-    getAudioSources();
+    getAudio();
     getTransitions();
     getOverlays();
     getResolution();
@@ -296,14 +295,14 @@
   }
 
   const getVisuals = () => {
-    const items = getInactiveScene(VISUAL_DATA);
+    const items = getInactiveScene();
     let visuals = $("#visuals");
     visuals.empty();
     items.forEach((item) => visuals.append("<div onclick=\"activateVisual('"+ item.id +"', '1', '7')\" class=\"ui-vis-item\">"+ item.name +"</div>"));
   }
 
   const getActiveVisuals = () => {
-    const items = getActiveScenes(VISUAL_DATA);
+    const items = getActiveScenes();
     let visuals = $("#active-visuals");
     let keybind = $("#keybind");
     let layout = $("#layout");
@@ -361,18 +360,16 @@
   }
 
   const getCamera = async () => {
-    let devices = await navigator.mediaDevices.enumerateDevices();
     let cameraList = $("#camera-src-list");
     cameraList.empty();
+    const sources = await getVideoSources();
 
-    devices.forEach((deviceInfo, index) => {
+    sources.forEach((deviceInfo, index) => {
       let className = "ui-settings-item";
-      if(deviceInfo.kind === 'videoinput') {
-        if(getCameraSourceId() === deviceInfo.deviceId) {
-          className += " ui-settings-item-selected ui-bg-orange";
-        }
-        cameraList.append("<div onclick=\"selectCameraSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+      if(getCameraSourceId() === deviceInfo.deviceId) {
+        className += " ui-settings-item-selected ui-bg-orange";
       }
+      cameraList.append("<div onclick=\"selectCameraSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
     });
   }
 
@@ -381,72 +378,72 @@
     getCamera();
   }
 
-  const getAudioSources = async () => {
-    let devices = await navigator.mediaDevices.enumerateDevices();
+  const getAudio = async () => {
     let audioList = $("#audio-src-list");
     audioList.empty();
+    const sources = await getAudioSources();
 
-    devices.forEach((deviceInfo, index) => {
+    sources.forEach((deviceInfo, index) => {
       let className = "ui-settings-item";
-      if(deviceInfo.kind === 'audioinput') {
-        if(getAudioSourceId() === deviceInfo.deviceId) {
-          className += " ui-settings-item-selected ui-bg-orange";
-        }
-        audioList.append("<div onclick=\"selectAudioSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+      if(getAudioSourceId() === deviceInfo.deviceId) {
+        className += " ui-settings-item-selected ui-bg-orange";
       }
+      audioList.append("<div onclick=\"selectAudioSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
     });
   }
 
   const selectAudioSource = (id) => {
     saveAudioSourceId(id);
-    getAudioSources();
+    getAudio();
   }
 
   const getTransitions = () => {
-    if(VISUAL_DATA.transition === undefined || VISUAL_DATA.transition === null || VISUAL_DATA.transition.length === 0) {
+    let transition = getConfigData().transition;
+    if(transition === undefined || transition === null || transition.length === 0) {
       return;
     }
 
     let list = $("#transitions");
     list.empty();
 
-    VISUAL_DATA.transition.forEach((item, index) => {
+    transition.forEach((item, index) => {
       let className = "ui-settings-item";
 
-      if(getSelectedTransitionId() === item.id) {
+      if(getSelectedTransitionCode() === item.code) {
         className += " ui-settings-item-selected ui-bg-orange";
       }
 
-      list.append("<div class=\""+className+"\" onclick=\"selectTransition('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
+      list.append("<div class=\""+className+"\" onclick=\"selectTransition('"+item.code+"')\">"+(index+1)+". "+ item.name +"</div>");
     });
   }
 
-  const selectTransition = (id) => {
-    saveTransitionId(id);
+  const selectTransition = (code) => {
+    saveTransitionCode(code);
     getTransitions();
   }
 
   const getOverlays = () => {
-    if(VISUAL_DATA.overlay === undefined || VISUAL_DATA.overlay === null || VISUAL_DATA.overlay.length === 0) {
+    let overlay = getConfigData().overlay;
+    if(overlay === undefined || overlay === null || overlay.length === 0) {
       return;
     }
 
     let list = $("#overlays");
     list.empty();
 
-    VISUAL_DATA.overlay.forEach((item, index) => {
+    overlay.forEach((item, index) => {
       let className = "ui-settings-item";
 
-      if(getSelectedOverlayId() === item.id) {
+      if(getSelectedOverlayCode() === item.code) {
         className += " ui-settings-item-selected ui-bg-orange";
       }
       
-      list.append("<div class=\""+className+"\" onclick=\"selectOverlay('"+item.id+"')\">"+(index+1)+". "+ item.name +"</div>");
+      list.append("<div class=\""+className+"\" onclick=\"selectOverlay('"+item.code+"')\">"+(index+1)+". "+ item.name +"</div>");
     });
   }
 
-  const selectOverlay = (id) => {
-    saveOverlayId(id);
+  const selectOverlay = (code) => {
+    saveOverlayCode(code);
     getOverlays();
   }
 
@@ -480,22 +477,13 @@
   }
 
   const fireUp = () => {
-    const visuals = getActiveScenes(VISUAL_DATA);
-    const overlayId = getSelectedOverlayId();
-    const transitionId = getSelectedTransitionId();
-    const cameraId = getCameraSourceId();
-    const width = getResoWidth();
-    const height = getResoHeight();
-
     try {
-      if(visuals !== undefined && visuals.length >= 1 
-        && overlayId !== undefined && transitionId !== undefined 
-        && width !== undefined && width > 0 && height !== undefined && height > 0) {
-          if(willOpenInWindow) {
-            window.open('src/scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
-          } else {
-            window.location.href = "src/scenes/scene_wrapper.html";
-          }
+      if(validateConfig()) {
+        if(willOpenInWindow) {
+          window.open('src/scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+        } else {
+          window.location.href = "src/scenes/scene_wrapper.html";
+        }
       } else {
         alert('[check settings and visuals]');
       }

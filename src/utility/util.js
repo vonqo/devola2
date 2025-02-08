@@ -1,10 +1,17 @@
 // ============================================================== //
-function transitionEffect(newScene) {
+function transitionEffect(newSceneObj, path) {
     const canvas = document.getElementById("container");
     const transition = document.getElementById("transition");
+    const frame = document.getElementById("frm");
 
     let code = getSelectedTransitionCode();
     let duration = getSelectedTransitionDuration();
+
+    let isUrl = false;
+    if(path !== undefined && path.length > 4) {
+        let prefix = path.substring(0, 4);
+        isUrl = prefix === 'http';
+    }
 
     if(code === undefined || code === null || code.length === 0) {
         code = "fade"; // Default transition
@@ -29,17 +36,38 @@ function transitionEffect(newScene) {
     }
 
     if(duration > 0) {
-        setTimeout(() => {
+        if(isUrl) {
+            setTimeout(() => {
+                frame.src = path;
+                frame.classList.remove("not-visible");
+                canvas.classList.add("not-visible");
+                canvas.innerHTML = '';
+                if(buffer !== undefined) { buffer.remove(); }
+            }, duration/2);
+        } else {
+            setTimeout(() => {
+                frame.classList.add("not-visible");
+                canvas.classList.remove("not-visible");
+                canvas.innerHTML = '';
+                if(buffer !== undefined) { buffer.remove(); }
+                buffer = new p5(eval(newSceneObj), "container");
+            }, duration/2);
+        }
+    } else {
+        if(isUrl) {
+            frame.src = path;
+            frame.classList.remove("not-visible");
+            canvas.classList.add("not-visible");
             canvas.innerHTML = '';
             if(buffer !== undefined) { buffer.remove(); }
-            buffer = new p5(newScene, "container");
-        }, duration/2);
-    } else {
-        canvas.innerHTML = '';
-        if(buffer !== undefined) { buffer.remove(); }
-        buffer = new p5(newScene, "container");
+        } else {
+            frame.classList.add("not-visible");
+            canvas.classList.remove("not-visible");
+            canvas.innerHTML = '';
+            if(buffer !== undefined) { buffer.remove(); }
+            buffer = new p5(eval(newSceneObj), "container");
+        }
     }
-
 }
 
 // ============================================================== //
@@ -105,15 +133,15 @@ const getActiveScenes = () => {
     if(storedScenes === undefined || storedScenes === null || storedScenes.length === 0) return [];
     
     let list = [];
-    scenes.forEach((item) => {
-        const visual = storedScenes.find((element) => element.variable === item.variable);
+    storedScenes.forEach((item) => {
+        const visual = scenes.find((element) => element.variable === item.variable);
         if(visual !== undefined) {
             list.push({
-                "name": item.name,
-                "layout": visual.layout,
-                "key": visual.key,
-                "path": item.path,
-                "variable": item.variable
+                "name": visual.name,
+                "layout": item.layout,
+                "key": item.key,
+                "path": visual.path,
+                "variable": visual.variable
             });
         }
     });
@@ -127,15 +155,15 @@ const getInactiveScene = () => {
 
     if(storedScenes === undefined || storedScenes === null || storedScenes.length === 0) {
         let list = [];
-        scenes.forEach((item) => list.push({"id": item.id, "name": item.name}));
+        scenes.forEach((item) => list.push({"variable": item.variable, "name": item.name}));
         return list;
     }
 
     let list = [];
     scenes.forEach((item) => {
-        const visual = storedScenes.find((element) => element.id === item.id);
+        const visual = storedScenes.find((element) => element.variable === item.variable);
         if(visual === undefined) {
-            list.push({"id": item.id, "name": item.name});
+            list.push({"variable": item.variable, "name": item.name});
         }
     });
     return list;
@@ -156,7 +184,7 @@ const validateConfig = () => {
 }
 
 // ============================================================== //
-const getConfigData = () => JSON.parse(sessionStorage.getItem("data"));
+const getConfigData = () => { console.log("DATA"); return JSON.parse(sessionStorage.getItem("data")); }
 
 // <-- Overlay -->
 const saveOverlayCode = (code) => localStorage.setItem("selected_overlay", code);

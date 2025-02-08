@@ -9,7 +9,7 @@ if(!app.isPackaged) {
   } catch {}
 }
 
-const createWindow = () => {
+const createWindow = async () => {
   const win = new BrowserWindow({
     title: "devola2",
     width: 1200,
@@ -23,18 +23,26 @@ const createWindow = () => {
     }
   });
 
-  win.webContents.executeJavaScript(`sessionStorage.setItem('data', '${JSON.stringify(data)}')`);
-  win.loadFile('src/orange-ui.html');
-  win.webContents.openDevTools();
+  await win.loadFile('src/loading.html');
 
-  systemPreferences.askForMediaAccess("microphone");
-  systemPreferences.askForMediaAccess("camera");
+  await systemPreferences.askForMediaAccess("microphone");
+  await systemPreferences.askForMediaAccess("camera");
+
+  await win.webContents.executeJavaScript(`sessionStorage.setItem('data', '${JSON.stringify(data)}')`)
+
+  await win.loadFile('src/orange-ui.html');
+
+  // if dev
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
   createWindow();
+
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
   });
 });
 

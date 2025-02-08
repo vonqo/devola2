@@ -44,8 +44,8 @@ html, body {
   cursor: none;
 }  */
 
-body { 
-  font-family: 'JetBrainsMono';
+body {
+  font-family: 'JetBrainsMono', serif;
   background: rgb(253,253,253);
   background: linear-gradient(190deg, rgba(253,253,253,1) 0%, rgba(205,214,229,1) 61%, rgba(205,214,229,1) 100%); 
   background-repeat: no-repeat;
@@ -66,12 +66,20 @@ hr {
   border-bottom: 0px;
 }
 
+.not-visible {
+  display: none;
+}
+
 button {
-  font-family: JetBrainsMono;
+  font-family: JetBrainsMono, serif;
   font-size: 15px;
   font-weight: bold;
   background: white;
   padding: 10px 20px;
+  border: none;
+}
+
+iframe {
   border: none;
 }
 

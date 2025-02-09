@@ -23,8 +23,13 @@ const mirror = function(sketch) {
     // ============================================================== //
     sketch.preload = function() {
         carpetShader = sketch.loadShader('blmd_carpet_mirror/mirror.vert', 'blmd_carpet_mirror/mirror.frag');
-        carpetImg = sketch.loadImage('blmd_carpet_mirror/carpet.jpg');
-        carpetImg2 = sketch.loadImage('blmd_carpet_mirror/carpet2.png');
+        
+        // carpetImg = sketch.loadImage('blmd_carpet_mirror/carpet.jpg');
+        // carpetImg2 = sketch.loadImage('blmd_carpet_mirror/carpet2.png');
+
+        carpetImg = sketch.loadImage('blmd_carpet_mirror/carpet_vert.jpg');
+        carpetImg2 = sketch.loadImage('blmd_carpet_mirror/carpet2_vert.jpg');
+
         ww = localStorage.getItem('reso_width');
         hh = localStorage.getItem('reso_height');
     }
@@ -88,6 +93,8 @@ const mirror = function(sketch) {
         
         sketch.shader(carpetShader);
         sketch.rect(sketch.width, sketch.height);
+
+        // asciilyze();
     }
 
     // ============================================================== //
@@ -102,5 +109,4 @@ const mirror = function(sketch) {
             nextCarpet = !nextCarpet;
         }
     }
-    
 }

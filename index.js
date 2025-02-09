@@ -1,22 +1,17 @@
 const { app, globalShortcut, BrowserWindow, systemPreferences } = require('electron');
 const debug = require('electron-debug');
 const electron = require('electron');
-const { Dualsense } = require("dualsense-ts");
+const data = require('./data.json');
 
 if(!app.isPackaged) {
   try {
     require('electron-reloader')(module);
   } catch {}
-  
-  debug();
 }
 
-// Grab a controller connected via USB or Bluetooth
-// const controller = new Dualsense();
-
-const createWindow = () => {
+const createWindow = async () => {
   const win = new BrowserWindow({
-    title: "Devola2",
+    title: "devola2",
     width: 1200,
     height: 800,
     icon: __dirname + '/assets/favicon.ico',
@@ -24,25 +19,30 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule: true
+      enableRemoteModule: true,
     }
   });
-  
-  win.loadFile('index.html');
-  systemPreferences.askForMediaAccess("microphone");
-  systemPreferences.askForMediaAccess("camera");
 
-  // const connected = controller.connection.active;
-  // controller.connection.on("change", ({ active }) => {
-  //   console.log(`controller ${active ? '' : 'dis'}connected`)
-  // });
+  await win.loadFile('src/loading.html');
+
+  await systemPreferences.askForMediaAccess("microphone");
+  await systemPreferences.askForMediaAccess("camera");
+
+  await win.webContents.executeJavaScript(`sessionStorage.setItem('data', '${JSON.stringify(data)}')`)
+
+  await win.loadFile('src/orange-ui.html');
+
+  // if dev
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {
-  createWindow(); 
-  
+  createWindow();
+
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
   });
 });
 

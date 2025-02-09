@@ -3,7 +3,7 @@
 [![Shitcoded][ulaanbaatar-badge]][ub-wiki]
 [![made with - electron](https://img.shields.io/static/v1?label=made+with&message=electron&color=%239feaf9&logo=electron&logoColor=%239feaf9)](https://)
 
-Devola2 is an open source real-time audio visualizer app. Specifically designed for live-music performance of [B.L.M.D](https://linktr.ee/theblmd) and [Even Tide](https://www.youtube.com/@eventide6813). 
+devola2 is an open source real-time audio visualizer (video-synth) app. Purposely designed for live-music performance of [B.L.M.D](https://linktr.ee/theblmd) and [Even Tide](https://www.youtube.com/@eventide6813). 
 
 ## Showcase
 <img height="" src="https://github.com/vonqo/devola2/blob/main/assets/image/screen1.jpg" />
@@ -11,11 +11,9 @@ Devola2 is an open source real-time audio visualizer app. Specifically designed 
 <img height="" src="https://github.com/vonqo/devola2/blob/main/assets/image/carpets.png" />
 
 ## Plugable visual script
-Thanks to blasphemous javascript, specially fucking **eval()** function.
-
+Thanks to godforsaken blasphemous javascript, specially fucking **eval()** function.
 
 Create a new directory and script inside the scenes directory. Example: ```src/scenes/new_dir/your_script.js```
-
 
 Inside your script you will create [p5js instance](https://p5js.org/reference/#/p5/p5) like this.
 ```javascript
@@ -24,8 +22,8 @@ const variable_name = function(sketch) {
     let hh;
 
     sketch.preload = function() {
-        ww = localStorage.getItem('reso_width'); // <-- Get width from conf
-        hh = localStorage.getItem('reso_height'); // <-- Get height from conf
+        ww = localStorage.getItem('reso_width'); // <-- Get width from settings from home screen
+        hh = localStorage.getItem('reso_height'); // <-- Get height from settings from home screen
         ...
     }
 
@@ -39,19 +37,16 @@ const variable_name = function(sketch) {
 }
 ```
 
-Then register your visual in ```data.js```. **id** should not be duplicated.
-```javascript
-const VISUAL_DATA = {
+Then register your visual in ```data.json```. **variable** should not be duplicated.
+```json
+{
     "scenes": [
-        ...
         {
-            "id": "41",
             "name": "hello_visual",
             "path": "new_dir/your_script.js",
-            "variable": "variable_name",
-        },
-    ],
-    ...
+            "variable": "variable_name"
+        }
+    ]
 }
 ```
 

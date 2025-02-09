@@ -9,6 +9,7 @@ uniform float time;
 uniform vec2 resolution;
 uniform sampler2D previous;
 uniform sampler2D texture;
+uniform sampler2D rug;
 uniform float minVel; 
 uniform float maxVel; 
 uniform float offsetInc;
@@ -116,5 +117,8 @@ void main()
 
 	vec4 color = texture2D(texture, uv); // * vec4(1,0.2,0.2,1);
 	gl_FragColor = color * (1.0 - stepper) + datamosh * stepper;
+
+	// gl_FragColor /= vec4(texture2D(rug,uv).xyz,1.0);
+    // gl_FragColor = vec4(1,1,1,1);
 }
  

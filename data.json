@@ -1,0 +1,94 @@
+{
+    "scenes": [
+        {
+            "name": "B.L.M.D__Title",
+            "path": "blmd/blmd.js",
+            "variable": "blmd"
+        },
+        {
+            "name": "B.L.M.D__Mirror",
+            "path": "blmd_carpet_mirror/mirror.js",
+            "variable": "mirror"
+        },
+        {
+            "name": "B.L.M.D__Glitch",
+            "path": "blmd_carpet_glitch/glitch.js",
+            "variable": "glitch"
+        },
+        {
+            "name": "B.L.M.D__Menger",
+            "path": "blmd_carpet_menger/menger.js",
+            "variable": "menger"
+        },
+        {
+            "name": "B.L.M.D__Datamosh",
+            "path": "blmd_datamosh/datamosh.js",
+            "variable": "datamosh"
+        },
+        {
+            "name": "EvenTide",
+            "path": "et/et.js",
+            "variable": "et"
+        },
+        {
+            "name": "EvenTide__Deever",
+            "path": "et_deever/deever.js",
+            "variable": "deever"
+        },
+        {
+            "name": "EvenTide__Cloud",
+            "path": "et_cloud/cloud.js",
+            "variable": "cloud"
+        },
+        {
+            "name": "EvenTide__Ocean",
+            "path": "et_ocean/ocean.js",
+            "variable": "ocean"
+        },
+        {
+            "name": "Dotor_Huree",
+            "path": "dotor_huree/dotor_huree.js",
+            "variable": "dotorHuree"
+        },
+        {
+            "name": "vol7intro",
+            "path": "blmd_vol7_intro/vol7intro.js",
+            "variable": "vol7intro"
+        },
+        {
+            "name": "vol7outro",
+            "path": "blmd_vol7_outro/vol7outro.js",
+            "variable": "vol7outro"
+        },
+        {
+            "name": "B.L.M.D__CSINTRO",
+            "path": "blmd_cs_intro/cs_intro.js",
+            "variable": "cs_intro"
+        },
+        {
+            "name": "Hydra",
+            "path": "http://localhost:5147",
+            "variable": "hydra"
+        }
+    ],
+    "transition": [
+        {
+            "name": "No transition",
+            "code": "none"
+        },
+        {
+            "name": "Fade in / Fade out (Linear)",
+            "code": "fade"
+        }
+    ],
+    "overlay": [
+        {
+            "name": "No Logo",
+            "code": "none"
+        },
+        {
+            "name": "Custom Logo",
+            "custom": "custom"
+        }
+    ]
+}

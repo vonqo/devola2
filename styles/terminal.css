@@ -1,0 +1,46 @@
+@font-face {
+    font-family: JetBrainsMono;
+    src: url('../assets/font/JetBrainsMono/JetBrainsMono-Regular.ttf');
+    font-weight: 400;
+  }
+  
+  @font-face {
+    font-family: JetBrainsMono;
+    src: url('../assets/font/JetBrainsMono/JetBrainsMono-SemiBold.ttf');
+    font-weight: 600;
+  }
+  
+  @font-face {
+    font-family: JetBrainsMono;
+    src: url('../assets/font/JetBrainsMono/JetBrainsMono-Bold.ttf');
+    font-weight: 700;
+  }
+  
+  @font-face {
+    font-family: ChivoMono;
+    src: url('../assets/font/ChivoMono/ChivoMono-Regular.ttf');
+  }
+  
+  @font-face {
+    font-family: RobotoMono;
+    src: url('../assets/font/RobotoMono/RobotoMono-Regular.ttf');
+}
+  
+
+body { 
+    font-family: 'JetBrainsMono';
+    background: rgb(253,253,253);
+    background: linear-gradient(190deg, rgba(253,253,253,1) 0%, rgba(205,214,229,1) 61%, rgba(205,214,229,1) 100%); 
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-size: 11px;
+    padding: 0px; 
+    margin: 0px; 
+    overflow: hidden; 
+    cursor: none;
+  } 
+  
+  video {
+    display: none;
+  }
+  

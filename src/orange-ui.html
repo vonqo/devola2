@@ -1,0 +1,510 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>devola2 by vonqo</title>
+  <meta charset="UTF-8">
+  <meta name="author" content="vonqo">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../styles/augmented-ui.min.css">
+  <link rel="stylesheet" href="../styles/index.css">
+
+  <script language="javascript" type="text/javascript" src="../libs/p5js/p5.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../libs/p5js/addons/p5.sound.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../styles/jquery-1.8.2.min.js"></script>
+
+  <script type="text/javascript" language="javascript" src="utility/util.js"></script>
+  
+  <script language="javascript" type="text/javascript" src="debugger/audio/audio.js"></script>
+  <script language="javascript" type="text/javascript" src="debugger/color/color.js"></script>
+  <script language="javascript" type="text/javascript" src="debugger/graphics/graphics.js"></script>
+  <style>
+    body,
+    button {
+      cursor: default;
+      overflow: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid-bg">
+    <div style="display: flex; flex-wrap: wrap; padding: 10px; gap: 20px">
+
+      <div class="ui-panel">
+
+        <!-- ---------- TIME ---------- -->
+        <div class="ui-time-wrapper">
+          <div class="ui-vertical-stripe ui-bg-orange"></div>
+          <div>
+            <div class="ui-author">
+              <b>devola2</b> by vonqo
+            </div>
+            <div class="ui-time ui-text-light-grey">
+              <span id="time-hr" class="ui-text-dark-grey"></span><span>:</span><span id="time-min"
+                class="ui-text-dark-grey"></span><span>:</span><span id="time-sec"></span>
+            </div>
+          </div>
+
+        </div>
+        
+        <div style="display: flex; gap: 20px;">
+
+          <!-- ---------- AUDIO ---------- -->
+          <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                Audio / p5.sound
+                <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                  RE
+                </button>
+              </div>
+              <div id="p5sound">
+              </div>
+            </div>
+          </div>
+
+          
+          <div style="display: flex; flex-direction: column; gap: 10px">
+
+            <!-- ---------- COLOR ---------- -->
+            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+              <div class="ui-card">
+                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                  Color / shader
+                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                    RE
+                  </button>
+                </div>
+                <div class="grid-overlay"></div>
+                <div id="p5color" style="height: 200px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- ---------- THREE ---------- -->
+            <div data-augmented-ui-border data-augmented-ui="tl-clip tr-clip br-clip bl-clip" class="monitor-wrapper">
+              <div class="ui-card">
+                <div class="ui-title ui-bg-dark-grey" style="justify-content: space-between;">
+                  3D Render / three
+                  <button data-augmented-ui="tr-clip" class="ui-bg-orange ui-title-action">
+                    RE
+                  </button>
+                </div>
+                <!-- <iframe src="src/debugger/3d/wire.html" style="display: unset; width: 100%; border: none;" id="viewer" name="viwer" allow="fullscreen; xr-spatial-tracking" height="240"></iframe> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui-panel">
+
+        <!-- ---------- SETTINGS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="tl-clip tr-2-clip-x br-2-clip-y bl-clip"
+          class="settings-wrapper">
+          <div class="ui-card">
+            <div class="ui-title ui-bg-dark-grey">Settings</div>
+            <div data-augmented-ui-border class="ui-content" style="padding: 10px 0px;">
+
+              <div class="ui-settings-container">
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Audio Source</div>
+                  <div class="ui-settings-content" id="audio-src-list">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Resolution</div>
+                  <div class="ui-settings-content">
+                    <div style="display: flex; gap: 20px;">
+                      <div>Size:<b><span id="displaySize" class="ui-bg-orange ui-text-white" style="padding: 0px 5px;"></span></b></div>
+                      <div>PixelRatio:<b><span id="displayPixelRatio" class="ui-bg-orange ui-text-white" style="padding: 0px 5px;"></span></b></div>
+                    </div>
+                    <div style="height: 10px;"></div>
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="width">width</label>
+                      <input class="ui-input" type="number" id="res-width" name="width" value="1920">
+                    </div>
+                    <div class="ui-input-wrapper">
+                      <label class="ui-label" for="height">height</label>
+                      <input class="ui-input" type="number" id="res-height" name="height" value="1080">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Overlay</div>
+                  <div class="ui-settings-content" id="overlays">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Transition</div>
+                  <div class="ui-settings-content" id="transitions">
+                  </div>
+                </div>
+
+                <div class="ui-settings-section">
+                  <div class="ui-settings-title">Camera</div>
+                  <div class="ui-settings-content" id="camera-src-list">
+                  </div>
+                </div>
+              </div>
+
+              <div class="ui-footer ui-bg-light-grey">
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- VISUALS ---------- -->
+        <div data-augmented-ui-border data-augmented-ui="b-clip-x tl-clip tr-2-clip-y br-clip bl-clip"
+          class="visuals-wrapper">
+          <div style="display: flex; align-content: stretch; gap: 2px;">
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey"><span class="ui-text-orange">|</span>Visuals</div>
+              <div class="ui-content" id="visuals">
+              </div>
+            </div>
+            <div class="ui-card">
+              <div class="ui-title ui-bg-dark-grey">Active Visuals</div>
+              <div class="ui-content" id="active-visuals">
+              </div>
+            </div>
+            <div class="ui-card" style="width: 40%;">
+              <div class="ui-title ui-bg-orange ui-bg-stripe">Layout</div>
+              <div class="ui-content" style="padding: 5px 0px" id="layout">
+              </div>
+            </div>
+            <div class="ui-card" style="width: 40%;">
+              <div class="ui-title ui-bg-orange ui-bg-stripe">Keybind</div>
+              <div class="ui-content" style="padding: 5px 0px" id="keybind">
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="1">1</option>
+                  </select>
+                </div>
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="2">2</option>
+                  </select>
+                </div>
+                <div class="ui-vis-item">
+                  <select class="ui-keybind-select" name="key">
+                    <option value="enter">ENTER</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui-footer ui-bg-light-grey">
+          </div>
+        </div>
+
+        <!-- ---------- ACTIONS ---------- -->
+        <div class="display: flex; gap: 10px;">
+          <div style="display: flex; gap: 5px;">
+            <button id="fullscreenButton" class="ui-button" onclick="toggleFullscreen()">
+              Fullscreen ◢
+            </button>
+  
+            <button id="windowedButton" class="ui-button" onclick="toggleWindowed()">
+              New Instance ◢
+            </button>
+
+            <button class="ui-button" onclick="reload()">
+              Reload
+            </button>
+  
+            <button class="ui-button ui-button-active" onclick="fireUp()">
+              Start
+            </button>
+
+          </div>
+  
+          <div style="display: flex; margin-top: 20px; gap: 10px;">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script language="javascript" type="text/javascript">
+
+  let willOpenInWindow = false;
+  let isFullscreen = false;
+
+  $(document).ready(function (e) {
+    let sound = new p5(audioDebug, document.getElementById('p5sound'));
+    let color = new p5(colorDebug, document.getElementById('p5color'));
+    // let graphics = new p5(graphicsDebug, document.getElementById('p5graphics'));
+
+    var time_hr = document.getElementById('time-hr');
+    var time_min = document.getElementById('time-min');
+    var time_sec = document.getElementById('time-sec');
+
+    function time() {
+      var d = new Date();
+      var s = d.getSeconds();
+      var m = d.getMinutes();
+      var h = d.getHours();
+      time_hr.textContent = ("0" + h).substr(-2);
+      time_min.textContent = ("0" + m).substr(-2);
+      time_sec.textContent = ("0" + s).substr(-2);
+    }
+
+    setInterval(time, 1000);
+    setInterval(changeReminder, 10000);
+
+    $("#res-height").change(function() {
+      saveResoHeight($(this).val());
+    });
+
+    $("#res-width").change(function() {
+      saveResoWidth($(this).val());
+    });
+    
+    reload();
+    visible();
+  });
+
+  const visible = () => {
+    $('.ui-panel').each(function() {
+      $(this).css("visibility", "visible");
+    });
+  }
+
+  const reload = () => {
+    getWindowSize();
+    getVisuals();
+    getActiveVisuals();
+    getAudio();
+    getTransitions();
+    getOverlays();
+    getResolution();
+    getCamera();
+  }
+
+  const getWindowSize = () => {
+    $('#displaySize').empty().append(' ' + window.innerWidth + ' x ' + window.innerHeight + ' ');
+    $('#displayPixelRatio').empty().append(' ' + window.devicePixelRatio + ' ');
+  }
+
+  const getVisuals = () => {
+    const items = getInactiveScene();
+
+    let visuals = $("#visuals");
+    visuals.empty();
+    items.forEach((item) => visuals.append("<div onclick=\"activateVisual('"+ item.variable +"', '1', '7')\" class=\"ui-vis-item\">"+ item.name +"</div>"));
+  }
+
+  const getActiveVisuals = () => {
+    const items = getActiveScenes();
+
+    let visuals = $("#active-visuals");
+    let keybind = $("#keybind");
+    let layout = $("#layout");
+
+    visuals.empty();
+    keybind.empty();
+    layout.empty();
+
+    items.forEach((item) => {
+      visuals.append("<div onclick=\"deactivateVisual('"+ item.variable +"')\" class=\"ui-vis-item-active\"><b>"+ item.name +"</b></div>");
+      
+      layout.append("<div class=\"ui-vis-item\">"+
+                      "<select class=\"ui-keybind-select\" id=\"select-layout-"+ item.variable +"\">" +
+                        optionsLine('NUM 7', '7', item.layout) + 
+                        optionsLine('NUM 8', '8', item.layout) + 
+                        optionsLine('NUM 9', '9', item.layout) + 
+                      "</select>"
+                    +"</div>");
+      
+      keybind.append("<div class=\"ui-vis-item\">" + 
+                        "<select class=\"ui-keybind-select\" id=\"select-key-"+ item.variable +"\">" +
+                          optionsLine('NUM 1', '1', item.key) + 
+                          optionsLine('NUM 2', '2', item.key) + 
+                          optionsLine('NUM 3', '3', item.key) + 
+                          optionsLine('NUM 4', '4', item.key) + 
+                          optionsLine('NUM 5', '5', item.key) + 
+                          optionsLine('NUM 6', '6', item.key) + 
+                        "</select>" +
+                      "</div>");
+      
+      $("#select-key-"+item.variable).on('change', function() {
+        addActiveScene(item.variable, $(this).val(), $("#select-layout-"+item.variable).val());
+      });
+
+      $("#select-layout-"+item.variable).on('change', function() {
+        addActiveScene(item.variable, $("#select-key-"+item.variable).val(), $(this).val());
+      });
+    });
+  }
+
+  const optionsLine = (name, value, selectedValue) => {
+    return "<option value=\""+value+"\" "+(selectedValue === value ? 'selected' : '')+">"+name+"</option>";
+  }
+
+  const activateVisual = (variable, key, layout) => {
+    addActiveScene(variable, key, layout);
+    getVisuals();
+    getActiveVisuals();
+  }
+
+  const deactivateVisual = (variable) => {
+    removeActiveScene(variable);
+    getVisuals();
+    getActiveVisuals();
+  }
+
+  const getCamera = async () => {
+    let cameraList = $("#camera-src-list");
+    cameraList.empty();
+    const sources = await getVideoSources();
+
+    sources.forEach((deviceInfo, index) => {
+      let className = "ui-settings-item";
+      if(getCameraSourceId() === deviceInfo.deviceId) {
+        className += " ui-settings-item-selected ui-bg-orange";
+      }
+      cameraList.append("<div onclick=\"selectCameraSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+    });
+  }
+
+  const selectCameraSource = (id) => {
+    saveCameraSourceId(id);
+    getCamera();
+  }
+
+  const getAudio = async () => {
+    let audioList = $("#audio-src-list");
+    audioList.empty();
+    const sources = await getAudioSources();
+
+    sources.forEach((deviceInfo, index) => {
+      let className = "ui-settings-item";
+      if(getAudioSourceId() === deviceInfo.deviceId) {
+        className += " ui-settings-item-selected ui-bg-orange";
+      }
+      audioList.append("<div onclick=\"selectAudioSource('"+deviceInfo.deviceId+"')\" class=\""+ className +"\">"+(index+1)+". "+ deviceInfo.label +" <span class=\"device-id-wrapper\"></span></div>");
+    });
+  }
+
+  const selectAudioSource = (id) => {
+    saveAudioSourceId(id);
+    getAudio();
+  }
+
+  const getTransitions = () => {
+    let transition = getConfigData().transition;
+    if(transition === undefined || transition === null || transition.length === 0) {
+      return;
+    }
+
+    let list = $("#transitions");
+    list.empty();
+
+    transition.forEach((item, index) => {
+      let className = "ui-settings-item";
+
+      if(getSelectedTransitionCode() === item.code) {
+        className += " ui-settings-item-selected ui-bg-orange";
+      }
+
+      list.append("<div class=\""+className+"\" onclick=\"selectTransition('"+item.code+"')\">"+(index+1)+". "+ item.name +"</div>");
+    });
+  }
+
+  const selectTransition = (code) => {
+    saveTransitionCode(code);
+    getTransitions();
+  }
+
+  const getOverlays = () => {
+    let overlay = getConfigData().overlay;
+    if(overlay === undefined || overlay === null || overlay.length === 0) {
+      return;
+    }
+
+    let list = $("#overlays");
+    list.empty();
+
+    overlay.forEach((item, index) => {
+      let className = "ui-settings-item";
+
+      if(getSelectedOverlayCode() === item.code) {
+        className += " ui-settings-item-selected ui-bg-orange";
+      }
+      
+      list.append("<div class=\""+className+"\" onclick=\"selectOverlay('"+item.code+"')\">"+(index+1)+". "+ item.name +"</div>");
+    });
+  }
+
+  const selectOverlay = (code) => {
+    saveOverlayCode(code);
+    getOverlays();
+  }
+
+  const getResolution = () => {
+    $("#res-height").val(getResoHeight());
+    $("#res-width").val(getResoWidth());
+  }
+
+  const saveResolution = () => {
+    saveResoHeight($("#res-height").val());
+    saveResoWidth($("#res-width").val());
+    getResolution();
+  }
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  const toggleWindowed = () => {
+    willOpenInWindow = !willOpenInWindow;
+
+    if(willOpenInWindow) {
+      $("#windowedButton").addClass("ui-button-active");
+    } else {
+      $("#windowedButton").removeClass("ui-button-active");
+    }
+  }
+
+  const fireUp = () => {
+    try {
+      if(validateConfig()) {
+        if(willOpenInWindow) {
+          window.open('scenes/scene_wrapper.html', '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
+        } else {
+          window.location.href = "scenes/scene_wrapper.html";
+        }
+      } else {
+        alert('[check settings and visuals]');
+      }
+    } catch(error) {
+      alert(error);
+    }
+  }
+
+  const changeReminder = () => {
+    const reminderList = [
+      "Any tool should be useful in the expected way, but a truly great tool lends itself to uses you never expected."
+    ]
+
+    $("#reminder-texts").empty().append(reminderList[getRandomInt(reminderList.length)]);
+  }
+
+  const getRandomInt = (max) => {
+    return Math.floor(Math.random() * max);
+  }
+</script>
+
+</html>

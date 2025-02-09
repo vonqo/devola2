@@ -10,37 +10,42 @@
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.sound.min.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.glitch.js"></script>
     <script language="javascript" type="text/javascript" src="../../libs/p5js/addons/p5.grain.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../../util.js"></script>
-    <script language="javascript" type="text/javascript" src="../../data.js"></script>
+    <script language="javascript" type="text/javascript" src="../utility/util.js"></script>
     
     <style>
       body {
         background: black;
         overflow: hidden;
       }
+      /*#container{*/
+      /*  margin-top: 200px;*/
+      /*}*/
     </style>
   
   </head>
   <body>
     <div id="transition"></div>
     <div id="filter"></div>
-    <div style="position: absolute; width: 100%;">
+    <!-- <div style="position: absolute; width: 100%;">
       <div id="logo">
         <img src="../../assets/image/blmd_ig_masked.png" width="700" id="logo-img"/>
       </div>
+    </div> -->
+    <div class="scene-container">
+      <div id="container" class="not-visible"></div>
+      <iframe id="frm" class="not-visible"></iframe>
     </div>
-    <div id="container"></div>
     
     <script language="javascript" type="text/javascript">
       let buffer;
       let filterOpacity = 0;
       let selectedLayout = '';
 
-      const visuals = getActiveScenes(VISUAL_DATA);
+      const visuals = getActiveScenes();
 
       $(document).ready(function (e) {
         visuals.forEach((visual) => {
-          var s = document.createElement("script");
+          let s = document.createElement("script");
           s.type = "text/javascript";
           s.src = visual.path;
           $("head")[0].append(s);
@@ -52,21 +57,20 @@
           } else if(event.key === 'w' || event.key === 'W') {
             filterOpacity = filterSetOpacity(filterOpacity, false);
           } else if(event.key === '0') {
-            window.location.href = '../../index.html';
+            window.location.href = '../orange-ui.html';
           } else if(event.key === '7' || event.key === '8' || event.key === '9') {
             selectedLayout = event.key;
           } else {
             visuals.forEach((visual) => {
               if(selectedLayout === visual.layout && event.key === visual.key) {
-                transitionEffect(eval(visual.variable));
+                console.log(visual);
+                transitionEffect(visual.variable, visual.path);
               }
             });
           }
           event.preventDefault();
         }, true);
       });
-
-
     </script>
   </body>
 </html>

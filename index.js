@@ -1,5 +1,4 @@
 const { app, globalShortcut, BrowserWindow, systemPreferences } = require('electron');
-const debug = require('electron-debug');
 const electron = require('electron');
 const data = require('./data.json');
 
@@ -30,7 +29,8 @@ const createWindow = async () => {
 
   await win.webContents.executeJavaScript(`sessionStorage.setItem('data', '${JSON.stringify(data)}')`)
 
-  await win.loadFile('src/orange-ui.html');
+  // await win.loadFile('src/orange-ui.html');
+  await win.loadFile('src/terminal-ui.html');
 
   // if dev
   win.webContents.openDevTools();

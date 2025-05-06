@@ -5,6 +5,11 @@
 
 devola2 is an open source real-time audio visualizer (video-synth) app. Purposely designed for live-music performance of [B.L.M.D](https://linktr.ee/theblmd) and [Even Tide](https://www.youtube.com/@eventide6813). 
 
+> [!WARNING]  
+> devola2 development has been discontinued due to performance issues of WebGL and JavaScript.
+> 
+> [devola3](https://github.com/vonqo/devola3) on openFrameworks;
+
 ## Showcase
 <img height="" src="https://github.com/vonqo/devola2/blob/main/assets/image/screen1.jpg" />
 
@@ -65,8 +70,8 @@ npx electron-packager . --icon=./d2logo.icns --overwrite
 
 more about packaging [electron-packager](https://github.com/electron/packager)
 
-## License
-Enkh-Amar. G (vonqo). Released under the [Mozilla Public License Version 2.0](LICENSE)
+## Credits
+vonqo
 
 [blmd-link]: https://linktr.ee/theblmd
 [eventide-link]: https://www.youtube.com/@eventide6813
